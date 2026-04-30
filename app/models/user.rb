@@ -6,9 +6,26 @@ class User < ApplicationRecord
 
   has_one_attached :avatar
 
+  after_create :join_canario_league
+
   validates :name, presence: true
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+  private
+
+  def join_canario_league
+    league = League.find_by(name: "Liga do Canário")
+    return unless league
+
+    LeagueMembership.find_or_create_by!(
+      user: self,
+      league: league
+    ) do |membership|
+      membership.status = "approved" if membership.respond_to?(:status=)
+    end
+  end
 end
