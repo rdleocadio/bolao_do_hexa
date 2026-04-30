@@ -9,7 +9,7 @@ gem "puma", ">= 5.0"
 gem "devise"
 gem "devise-i18n"
 
-gem "image_processing"
+gem "image_processing", "~> 1.2"
 gem "jbuilder"
 gem "ostruct"
 
