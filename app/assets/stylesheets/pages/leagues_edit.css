@@ -1,0 +1,117 @@
+/* ===== LEAGUE EDIT PAGE ===== */
+
+.league-edit-card {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 32px;
+}
+
+.league-edit-header {
+  margin-bottom: 28px;
+}
+
+.league-edit-header__eyebrow {
+  margin: 0 0 6px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.league-edit-header__title {
+  margin: 0;
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+  font-weight: 900;
+  color: var(--color-primary-dark, #23235f);
+}
+
+.league-edit-header__subtitle {
+  margin: 8px 0 0;
+  color: var(--color-text-muted, #6b7280);
+  line-height: 1.5;
+}
+
+.league-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.league-edit-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.league-edit-field label {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--color-primary-dark, #23235f);
+}
+
+.league-edit-field input[type="text"],
+.league-edit-field input[type="file"] {
+  width: 100%;
+  border: 1px solid rgba(35, 35, 95, 0.18);
+  border-radius: 16px;
+  padding: 13px 14px;
+  font-size: 1rem;
+  background: #fff;
+  color: var(--color-text, #1f2937);
+}
+
+.league-edit-field input[type="text"]:focus,
+.league-edit-field input[type="file"]:focus {
+  outline: none;
+  border-color: var(--color-primary, #2d6b2a);
+  box-shadow: 0 0 0 4px rgba(45, 107, 42, 0.12);
+}
+
+.league-edit-current-image {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(35, 35, 95, 0.04);
+  border: 1px solid rgba(35, 35, 95, 0.08);
+}
+
+.league-edit-current-image img {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--color-secondary, #feee00);
+}
+
+.league-edit-current-image span {
+  font-size: 0.9rem;
+  color: var(--color-text-muted, #6b7280);
+}
+
+.league-edit-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+@media (max-width: 640px) {
+  .league-edit-card {
+    padding: 22px;
+  }
+
+  .league-edit-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .league-edit-actions .btn-primary-custom,
+  .league-edit-actions .btn-secondary-custom {
+    width: 100%;
+    text-align: center;
+  }
+}

@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   get "regras", to: "pages#rules", as: :rules
 
-  resources :leagues, only: [:index, :show, :new, :create] do
+  resources :leagues, only: [:index, :show, :new, :create, :edit, :update] do
     member do
       post :join
     end

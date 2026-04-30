@@ -33,7 +33,15 @@ end %>
 
       <div>
         <p class="dashboard-section__eyebrow">Perfil da liga</p>
-        <h1 class="dashboard-hero__title"><%= @league.name %></h1>
+
+        <!-- 🔥 HEADER COM BOTÃO DE EDITAR -->
+        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+          <h1 class="dashboard-hero__title"><%= @league.name %></h1>
+
+          <% if @is_owner %>
+            <%= link_to "Editar liga", edit_league_path(@league), class: "btn-secondary-custom" %>
+          <% end %>
+        </div>
 
         <% if @user_position.present? %>
           <p class="league-show-position">
@@ -91,14 +99,10 @@ end %>
             <% sorted_ranking.each_with_index do |entry, index| %>
               <tr>
                 <td>
-                  <% if index == 0 %>
-                    🥇
-                  <% elsif index == 1 %>
-                    🥈
-                  <% elsif index == 2 %>
-                    🥉
-                  <% else %>
-                    <%= index + 1 %>
+                  <% if index == 0 %> 🥇
+                  <% elsif index == 1 %> 🥈
+                  <% elsif index == 2 %> 🥉
+                  <% else %> <%= index + 1 %>
                   <% end %>
                 </td>
 
@@ -106,7 +110,7 @@ end %>
                   <%= link_to user_path(entry[:user]), class: "dashboard-league-link user-inline" do %>
                     <div class="user-inline__avatar">
                       <% if entry[:user].avatar.attached? %>
-                        <%= image_tag entry[:user].avatar, alt: entry[:user].name.presence || entry[:user].email %>
+                        <%= image_tag entry[:user].avatar %>
                       <% else %>
                         <div class="user-inline__placeholder">
                           <%= (entry[:user].name.presence || entry[:user].email).first.upcase %>
@@ -151,7 +155,7 @@ end %>
               <div class="league-member-row__info">
                 <div class="user-inline__avatar">
                   <% if membership.user.avatar.attached? %>
-                    <%= image_tag membership.user.avatar, alt: membership.user.name.presence || membership.user.email %>
+                    <%= image_tag membership.user.avatar %>
                   <% else %>
                     <div class="user-inline__placeholder">
                       <%= (membership.user.name.presence || membership.user.email).first.upcase %>
@@ -196,18 +200,9 @@ end %>
           <tbody>
             <% @upcoming_matches.each do |match| %>
               <tr>
-                <td>
-                  <strong><%= match.home_team %> x <%= match.away_team %></strong>
-                </td>
-
-                <td>
-                  <%= stage_labels[match.stage.to_s] || match.stage.to_s.humanize %>
-                </td>
-
-                <td>
-                  <%= l(match.kickoff_at, format: :short) %>
-                </td>
-
+                <td><strong><%= match.home_team %> x <%= match.away_team %></strong></td>
+                <td><%= stage_labels[match.stage.to_s] || match.stage.to_s.humanize %></td>
+                <td><%= l(match.kickoff_at, format: :short) %></td>
                 <td>
                   <% if match.finished? %>
                     <span class="dashboard-position-badge">

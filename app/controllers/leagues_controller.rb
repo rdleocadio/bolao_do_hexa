@@ -140,6 +140,20 @@ class LeaguesController < ApplicationController
     end
   end
 
+  def edit
+    @league = League.find(params[:id])
+  end
+
+  def update
+    @league = League.find(params[:id])
+
+    if @league.update(league_params)
+      redirect_to @league, notice: "Liga atualizada com sucesso."
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def build_league_ranking(league)
