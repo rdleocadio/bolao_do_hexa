@@ -225,16 +225,7 @@ puts "Semifinais: #{Match.semifinal.count}"
 puts "3º lugar: #{Match.third_place.count}"
 puts "Final: #{Match.final.count}"
 
-puts "Criando usuário admin..."
-
-admin = User.find_or_initialize_by(email: "admin@bolao.com")
-admin.name = "Administrador"
-admin.password = "123123" if admin.new_record?
-admin.password_confirmation = "123123" if admin.new_record?
-admin.admin = true
-admin.save!
 
 puts "Seeds finalizado 🚀"
 puts "Total de seleções: #{Team.count}"
 puts "Total de jogos da fase de grupos: #{Match.group_stage.count}"
-puts "Total de usuários: #{User.count}"
