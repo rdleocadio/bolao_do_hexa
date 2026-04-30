@@ -1,0 +1,78 @@
+<div class="brackets-page">
+
+  <div class="brackets-mobile-filter">
+    <label for="brackets-stage-filter">Filtrar fase</label>
+
+    <select id="brackets-stage-filter">
+      <option value="all">Todas as fases</option>
+      <option value="second-phase">16 avos</option>
+      <option value="round-of-16">Oitavas</option>
+      <option value="quarterfinal">Quartas</option>
+      <option value="semifinal">Semifinal</option>
+      <option value="third-place">3º lugar</option>
+      <option value="final">Final</option>
+    </select>
+  </div>
+
+  <section class="brackets-board-wrapper">
+    <div class="brackets-board">
+
+      <div class="brackets-column-wrapper" data-stage="second-phase">
+        <%= render "stage_column",
+              title: "16 avos",
+              matches: @second_phase_matches,
+              predictions_by_match_id: @predictions_by_match_id %>
+      </div>
+
+      <div class="brackets-column-wrapper" data-stage="round-of-16">
+        <%= render "stage_column",
+              title: "Oitavas",
+              matches: @round_of_16_matches,
+              predictions_by_match_id: @predictions_by_match_id %>
+      </div>
+
+      <div class="brackets-column-wrapper" data-stage="quarterfinal">
+        <%= render "stage_column",
+              title: "Quartas",
+              matches: @quarterfinal_matches,
+              predictions_by_match_id: @predictions_by_match_id %>
+      </div>
+
+      <div class="brackets-column-wrapper" data-stage="semifinal">
+        <%= render "stage_column",
+              title: "Semifinal",
+              matches: @semifinal_matches,
+              predictions_by_match_id: @predictions_by_match_id %>
+      </div>
+
+      <div class="brackets-column-wrapper" data-stage="third-place">
+        <div class="brackets-column brackets-column--finals">
+          <h2>3º lugar</h2>
+
+          <% if @third_place_match.present? %>
+            <%= render "match_card",
+                  match: @third_place_match,
+                  predictions_by_match_id: @predictions_by_match_id %>
+          <% else %>
+            <div class="bracket-empty-card">Disputa de 3º lugar ainda não cadastrada</div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="brackets-column-wrapper" data-stage="final">
+        <div class="brackets-column brackets-column--finals">
+          <h2>Final</h2>
+
+          <% if @final_match.present? %>
+            <%= render "match_card",
+                  match: @final_match,
+                  predictions_by_match_id: @predictions_by_match_id %>
+          <% else %>
+            <div class="bracket-empty-card">Final ainda não cadastrada</div>
+          <% end %>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>

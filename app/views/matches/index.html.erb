@@ -1,0 +1,202 @@
+<section class="matches-page page-section">
+
+  <div class="matches-filters app-card">
+    <button type="button" class="matches-filters__toggle" data-filters-toggle>
+      Filtros
+      <span>▾</span>
+    </button>
+
+    <div class="matches-filters__content" data-filters-content>
+      <%= form_with url: matches_path, method: :get, local: true, class: "matches-filters__form" do %>
+        <div class="matches-filters__group">
+          <label for="stage">Fase</label>
+          <%= select_tag :stage,
+                options_for_select(
+                  [
+                    ["Todas", ""],
+                    ["Fase de grupos", "group_stage"],
+                    ["Segunda fase", "second_phase"],
+                    ["Oitavas de final", "round_of_16"],
+                    ["Quartas de final", "quarterfinal"],
+                    ["Semifinal", "semifinal"],
+                    ["Disputa de 3º lugar", "third_place"],
+                    ["Final", "final"]
+                  ],
+                  params[:stage]
+                ),
+                class: "matches-filters__select" %>
+        </div>
+
+        <div class="matches-filters__group">
+          <label for="group">Grupo</label>
+          <%= select_tag :group,
+                options_for_select(
+                  [["Todos", ""]] + @available_groups.map { |group| ["Grupo #{group}", group] },
+                  params[:group]
+                ),
+                class: "matches-filters__select" %>
+        </div>
+
+        <div class="matches-filters__group">
+          <label for="status">Status</label>
+          <%= select_tag :status,
+                options_for_select(
+                  [
+                    ["Todos", ""],
+                    ["Abertos", "open"],
+                    ["Fechados", "closed"]
+                  ],
+                  params[:status]
+                ),
+                class: "matches-filters__select" %>
+        </div>
+
+        <div class="matches-filters__group">
+          <label for="without_prediction">Palpites</label>
+          <%= select_tag :without_prediction,
+                options_for_select(
+                  [
+                    ["Todos os jogos", ""],
+                    ["Sem palpite", "1"]
+                  ],
+                  params[:without_prediction]
+                ),
+                class: "matches-filters__select" %>
+        </div>
+
+        <div class="matches-filters__actions">
+          <%= submit_tag "Filtrar", class: "btn btn-primary" %>
+          <%= link_to "Limpar", matches_path, class: "btn-secondary-custom" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <% if @matches.any? %>
+    <div class="matches-grid">
+      <% @matches.each do |match| %>
+        <% prediction = @predictions_by_match_id[match.id] || current_user.predictions.build(match: match) %>
+        <% locked = match.locked? || match.finished? %>
+
+        <article class="match-card <%= 'match-card--locked' if locked %>">
+          <div class="match-card__top">
+            <div class="match-card__meta">
+              <span class="match-card__badge">
+                <%= match.phase_label %>
+                <% if match.group_code.present? %>
+                  • Grupo <%= match.group_code %>
+                <% end %>
+              </span>
+
+              <span class="match-card__status <%= locked ? 'match-card__status--closed' : 'match-card__status--open' %>">
+                <%= locked ? "Fechado" : "Aberto" %>
+              </span>
+            </div>
+
+            <div class="match-card__datetime">
+              <span><%= l(match.kickoff_at, format: :short) %></span>
+            </div>
+          </div>
+
+          <%= form_with model: prediction,
+                        url: prediction.persisted? ? prediction_path(prediction) : predictions_path,
+                        method: prediction.persisted? ? :patch : :post,
+                        local: true,
+                        class: "match-card__form" do |f| %>
+
+            <%= f.hidden_field :match_id, value: match.id %>
+            <%= hidden_field_tag :stage, params[:stage] %>
+            <%= hidden_field_tag :group, params[:group] %>
+            <%= hidden_field_tag :status, params[:status] %>
+            <%= hidden_field_tag :without_prediction, params[:without_prediction] %>
+
+            <div class="match-card__prediction-row">
+              <span class="match-card__team-name match-card__team-name--home">
+                <%= match.home_team_name %>
+              </span>
+
+              <div class="match-card__flag">
+                <%= image_tag(match.home_team_flag_url, alt: match.home_team_name) rescue image_tag("flags/default.png", alt: match.home_team_name) %>
+              </div>
+
+              <%= f.number_field :predicted_home_score,
+                    value: prediction.predicted_home_score,
+                    min: 0,
+                    class: "match-card__input match-card__input--inline",
+                    disabled: locked %>
+
+              <div class="match-card__vs">vs</div>
+
+              <%= f.number_field :predicted_away_score,
+                    value: prediction.predicted_away_score,
+                    min: 0,
+                    class: "match-card__input match-card__input--inline",
+                    disabled: locked %>
+
+              <div class="match-card__flag">
+                <%= image_tag(match.away_team_flag_url, alt: match.away_team_name) rescue image_tag("flags/default.png", alt: match.away_team_name) %>
+              </div>
+
+              <span class="match-card__team-name match-card__team-name--away">
+                <%= match.away_team_name %>
+              </span>
+            </div>
+
+            <div class="match-card__content">
+              <div class="match-card__scores">
+                <div class="match-card__score-block">
+                  <label>Placar computado</label>
+                  <div class="match-card__official-score">
+                    <% if match.home_score.present? && match.away_score.present? %>
+                      <strong><%= match.home_score %> x <%= match.away_score %></strong>
+                    <% else %>
+                      <span class="match-card__empty">Jogo não finalizado</span>
+                    <% end %>
+                  </div>
+                </div>
+
+                <div class="match-card__score-block">
+                  <label>Pontuação</label>
+                  <div class="match-card__points">
+                    <% if prediction.persisted? && match.finished? %>
+                      <strong><%= prediction.points || 0 %> pts</strong>
+                    <% else %>
+                      <span class="match-card__empty">—</span>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="match-card__footer">
+                <% unless locked %>
+                  <div class="match-card__actions">
+                    <%= f.submit prediction.persisted? ? "Atualizar palpite" : "Salvar palpite", class: "btn btn-primary" %>
+
+                    <% if prediction.persisted? %>
+                      <%= link_to "Limpar palpite",
+                            prediction_path(prediction, stage: params[:stage], group: params[:group], status: params[:status], without_prediction: params[:without_prediction]),
+                            data: {
+                              turbo_method: :delete,
+                              turbo_confirm: "Deseja limpar seu palpite?"
+                            },
+                            class: "btn btn-secondary" %>
+                    <% end %>
+                  </div>
+                <% else %>
+                  <span class="match-card__locked-message">
+                    Palpite encerrado para esta partida
+                  </span>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </article>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="matches-empty app-card">
+      <h2>Nenhum jogo encontrado</h2>
+      <p>Tente ajustar os filtros para visualizar outras partidas.</p>
+    </div>
+  <% end %>
+</section>

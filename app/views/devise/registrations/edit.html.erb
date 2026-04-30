@@ -1,0 +1,137 @@
+<section class="landing-hero">
+  <div class="landing-hero__overlay"></div>
+
+  <div class="landing-hero__content container">
+    <div class="landing-hero__text">
+      <p class="landing-hero__eyebrow">Sua conta</p>
+
+      <h1 class="landing-hero__title">
+        Edite seu perfil e mantenha seus dados atualizados.
+      </h1>
+
+      <p class="landing-hero__description">
+        Altere sua foto, nome, e-mail e senha para manter sua conta pronta
+        para acompanhar o bolão com a sua identidade.
+      </p>
+
+      <div class="landing-hero__highlights">
+        <span>🖼️ Foto de perfil</span>
+        <span>🔐 Segurança da conta</span>
+        <span>⚙️ Dados atualizados</span>
+      </div>
+    </div>
+
+    <div class="landing-login-card">
+      <div class="landing-login-card__header">
+        <div class="landing-login-card__header-row">
+          <%= image_tag "logo-podcast.png", alt: "Bolão do Hexa", class: "landing-login-card__logo-img" %>
+
+          <div class="landing-login-card__title-group">
+            <p class="landing-login-card__eyebrow">Editar perfil</p>
+            <h2>Minha conta</h2>
+          </div>
+        </div>
+      </div>
+
+      <%= form_for(resource,
+            as: resource_name,
+            url: registration_path(resource_name),
+            html: { method: :put, multipart: true, class: "landing-login-form" }) do |f| %>
+
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+        <div class="landing-form-group">
+          <%= f.label :name, "Nome" %>
+          <%= f.text_field :name,
+                autofocus: true,
+                autocomplete: "name",
+                class: "landing-form-input",
+                placeholder: "Seu nome completo" %>
+        </div>
+
+        <div class="landing-form-group">
+          <%= f.label :email, "E-mail" %>
+          <%= f.email_field :email,
+                autocomplete: "email",
+                class: "landing-form-input",
+                placeholder: "voce@email.com" %>
+        </div>
+
+        <% if current_user.avatar.attached? %>
+          <div class="landing-form-group">
+            <label>Foto atual</label>
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <%= image_tag current_user.avatar,
+                alt: "Foto de perfil",
+                style: "width: 72px; height: 72px; object-fit: cover; border-radius: 50%; border: 3px solid #FEEE00;" %>
+            </div>
+          </div>
+        <% end %>
+
+        <div class="landing-form-group">
+          <%= f.label :avatar, "Alterar foto de perfil" %>
+          <%= f.file_field :avatar, class: "landing-form-input" %>
+        </div>
+
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <div class="alert alert-success">
+            Aguardando confirmação para: <%= resource.unconfirmed_email %>
+          </div>
+        <% end %>
+
+        <div class="landing-form-group">
+          <%= f.label :password, "Nova senha" %>
+          <%= f.password_field :password,
+                autocomplete: "new-password",
+                class: "landing-form-input",
+                placeholder: "Deixe em branco se não quiser alterar" %>
+
+          <% if @minimum_password_length %>
+            <small style="color: var(--color-text-soft); font-weight: 600;">
+              Mínimo de <%= @minimum_password_length %> caracteres
+            </small>
+          <% end %>
+        </div>
+
+        <div class="landing-form-group">
+          <%= f.label :password_confirmation, "Confirmar nova senha" %>
+          <%= f.password_field :password_confirmation,
+                autocomplete: "new-password",
+                class: "landing-form-input",
+                placeholder: "Repita a nova senha" %>
+        </div>
+
+        <div class="landing-form-group">
+          <%= f.label :current_password, "Senha atual" %>
+          <%= f.password_field :current_password,
+                autocomplete: "current-password",
+                class: "landing-form-input",
+                placeholder: "Digite sua senha atual para confirmar" %>
+        </div>
+
+        <%= f.submit "Salvar alterações", class: "landing-submit-button" %>
+      <% end %>
+
+      <div class="landing-login-card__footer">
+        <p>Quer voltar?</p>
+        <%= link_to "Ir para o início", root_path, class: "landing-secondary-link" %>
+      </div>
+
+      <hr style="margin: 22px 0; border: 0; border-top: 1px solid rgba(58, 58, 139, 0.12);">
+
+      <div>
+        <p style="margin: 0 0 12px; font-weight: 800; color: #a72828;">Cancelar conta</p>
+        <p style="margin: 0 0 14px; color: var(--color-text-soft);">
+          Se desejar, você pode excluir sua conta permanentemente.
+        </p>
+
+        <%= button_to "Cancelar minha conta",
+              registration_path(resource_name),
+              method: :delete,
+              data: { confirm: "Tem certeza?", turbo_confirm: "Tem certeza?" },
+              class: "btn-primary-custom",
+              form: { style: "display: inline-block;" } %>
+      </div>
+    </div>
+  </div>
+</section>

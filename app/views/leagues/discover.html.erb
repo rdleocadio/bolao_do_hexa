@@ -1,0 +1,135 @@
+<section class="page-section leagues-discover-page">
+  <div class="app-card discover-page-card">
+
+    <div class="leagues-discover-page__cards">
+      <div class="app-card discover-block">
+        <h2 class="discover-block__title">Entrar com código</h2>
+        <p class="discover-block__text">
+          Digite o código da liga para entrar ou solicitar participação.
+        </p>
+
+        <%= form_with url: join_by_code_leagues_path, method: :post, local: true, class: "discover-form" do %>
+          <div class="discover-form__row">
+            <%= text_field_tag :code, nil, class: "landing-form-input", placeholder: "Digite o código da liga" %>
+            <%= submit_tag "Entrar", class: "btn-primary-custom" %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="app-card discover-block">
+        <h2 class="discover-block__title">Pesquisar ligas</h2>
+        <p class="discover-block__text">
+          Busque por nome ou código para filtrar a lista de ligas abaixo.
+        </p>
+
+        <%= form_with url: discover_leagues_path, method: :get, local: true, class: "discover-form" do %>
+          <div class="discover-form__row">
+            <%= text_field_tag :query, @query, class: "landing-form-input", placeholder: "Buscar por nome ou código" %>
+            <%= submit_tag "Buscar", class: "btn-primary-custom" %>
+            <%= link_to "Limpar", discover_leagues_path, class: "btn-secondary-custom" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-card discover-list-card">
+    <div class="discover-list-card__header">
+      <p class="dashboard-section__eyebrow">Lista de ligas</p>
+    </div>
+
+    <% if @leagues.any? %>
+      <div class="table-responsive">
+        <table class="dashboard-leagues-table discover-leagues-table">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Tipo</th>
+              <th>Participantes</th>
+              <th>Criador</th>
+              <th>Ação</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @leagues.each do |league| %>
+              <% membership = league.league_memberships.find { |m| m.user_id == current_user.id } %>
+              <% approved_count = league.league_memberships.count(&:approved?) %>
+
+              <tr>
+                <td>
+                  <%= link_to league_path(league), class: "dashboard-league-link" do %>
+                    <span class="dashboard-league-avatar">
+                      <% if league.image.attached? %>
+                        <%= image_tag league.image, alt: league.name %>
+                      <% else %>
+                        <span class="dashboard-league-avatar-placeholder">
+                          <%= league.name.first.upcase %>
+                        </span>
+                      <% end %>
+                    </span>
+
+                    <span><%= league.name %></span>
+                  <% end %>
+                </td>
+
+                <td>
+                  <% if league.private? %>
+                    <span class="badge bg-warning">Privada</span>
+                  <% else %>
+                    <span class="badge bg-success">Aberta</span>
+                  <% end %>
+                </td>
+
+                <td>
+                  <span class="dashboard-position-badge">
+                    <%= approved_count %>
+                  </span>
+                </td>
+
+                <td>
+                  <%= league.owner.name.presence || league.owner.email %>
+                </td>
+
+                <td>
+                  <div class="discover-action-cell">
+                    <% if membership.present? %>
+
+                      <% if membership.approved? %>
+                        <span class="discover-status discover-status--approved">Você já participa</span>
+
+                      <% elsif membership.pending? %>
+                        <span class="discover-status discover-status--pending">Solicitação pendente</span>
+
+                      <% elsif membership.rejected? %>
+                        <%= button_to(
+                              league.private? ? "Solicitar novamente" : "Entrar",
+                              join_league_path(league),
+                              method: :post,
+                              class: "btn-secondary-custom"
+                            ) %>
+                      <% end %>
+
+                    <% else %>
+
+                      <%= button_to(
+                            league.private? ? "Solicitar entrada" : "Participar",
+                            join_league_path(league),
+                            method: :post,
+                            class: "btn-primary-custom"
+                          ) %>
+
+                    <% end %>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <div class="dashboard-empty-state">
+        <p>Nenhuma liga encontrada com os filtros informados.</p>
+      </div>
+    <% end %>
+  </div>
+</section>

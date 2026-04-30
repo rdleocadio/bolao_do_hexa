@@ -1,0 +1,225 @@
+/* ===== USER PROFILE SHOW ===== */
+
+.user-profile-page {
+  gap: 16px;
+}
+
+.user-profile-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-profile-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.user-profile-card__main {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-width: 0;
+}
+
+.user-profile-stats {
+  display: flex;
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
+.user-profile-stat {
+  min-width: 160px;
+  padding: 14px 18px;
+  border-radius: 16px;
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  text-align: center;
+}
+
+.user-profile-stat span {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+}
+
+.user-profile-stat strong {
+  display: block;
+  font-size: 1.35rem;
+  color: var(--color-accent-dark);
+}
+
+.prediction-match-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 7px;
+  flex-wrap: nowrap;
+  font-weight: 800;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.prediction-flag {
+  width: 24px;
+  height: 18px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.12);
+}
+
+.dashboard-league-row {
+  color: var(--color-accent);
+}
+
+.dashboard-league-row:hover {
+  color: var(--color-primary);
+}
+
+/* ===== RESPONSIVE USER SHOW ===== */
+
+@media (max-width: 768px) {
+  .user-profile-card__header {
+    align-items: flex-start;
+  }
+
+  .user-profile-stats {
+    width: 100%;
+    justify-content: flex-start;
+    margin-left: 0;
+  }
+
+  .user-profile-stat {
+    width: 100%;
+    padding: 12px;
+    text-align: center;
+  }
+
+  .user-profile-stat strong {
+    font-size: 1.15rem;
+  }
+
+  .user-profile-page .app-card {
+    padding: 14px;
+  }
+
+  .user-profile-page .table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .user-profile-page .dashboard-leagues-table {
+    width: 100%;
+    min-width: 100%;
+    table-layout: auto;
+  }
+
+  .user-profile-page .dashboard-leagues-table th,
+  .user-profile-page .dashboard-leagues-table td {
+    padding: 9px 5px;
+    font-size: 0.78rem;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+
+  .user-profile-page .dashboard-leagues-table thead th {
+    font-size: 0.68rem;
+    letter-spacing: 0.03em;
+  }
+
+  .user-profile-page .dashboard-leagues-table th:first-child,
+  .user-profile-page .dashboard-leagues-table td:first-child {
+    width: auto;
+    white-space: normal;
+  }
+
+  .user-profile-page .dashboard-leagues-table th:not(:first-child),
+  .user-profile-page .dashboard-leagues-table td:not(:first-child) {
+    width: 1%;
+    text-align: center;
+  }
+
+  .dashboard-league-row {
+    gap: 7px;
+    max-width: 100%;
+  }
+
+  .dashboard-league-avatar {
+    width: 30px;
+    height: 30px;
+  }
+
+  .dashboard-league-link {
+    font-size: 0.78rem;
+    line-height: 1.15;
+    word-break: break-word;
+  }
+
+  .prediction-match-row {
+    justify-content: flex-start;
+    gap: 5px;
+  }
+
+  .prediction-flag {
+    width: 21px;
+    height: 15px;
+  }
+
+  .dashboard-position-badge {
+    min-width: 32px;
+    padding: 5px 7px;
+    font-size: 0.74rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .user-profile-card__main {
+    width: 100%;
+  }
+
+  .user-profile-page .app-card {
+    padding: 12px;
+  }
+
+  .user-profile-page .dashboard-section__title {
+    font-size: 1.1rem;
+  }
+
+  .user-profile-page .dashboard-leagues-card__header {
+    margin-bottom: 10px;
+  }
+
+  .user-profile-page .dashboard-leagues-table th,
+  .user-profile-page .dashboard-leagues-table td {
+    padding: 8px 4px;
+    font-size: 0.72rem;
+  }
+
+  .dashboard-league-avatar {
+    width: 26px;
+    height: 26px;
+  }
+
+  .dashboard-league-link {
+    font-size: 0.72rem;
+  }
+
+  .prediction-flag {
+    width: 19px;
+    height: 13px;
+  }
+
+  .dashboard-position-badge {
+    min-width: 28px;
+    padding: 4px 6px;
+    font-size: 0.7rem;
+  }
+}

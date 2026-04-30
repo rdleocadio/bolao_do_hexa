@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BolaoDoHexa</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+  </head>
+
+  <body class="app-layout">
+    <nav class="site-navbar">
+      <div class="site-navbar__inner">
+        <div class="site-navbar__brand">
+          <%= image_tag "logo-bolao.png", alt: "Bolão do Hexa", class: "site-navbar__logo" %>
+        </div>
+
+        <div class="site-navbar__socials">
+          <%= link_to "https://www.youtube.com/@CanarinhoCast", target: "_blank", rel: "noopener", class: "site-navbar__social-link" do %>
+            <i class="fa-brands fa-youtube"></i>
+          <% end %>
+
+          <%= link_to "https://www.instagram.com/canarinhocast/", target: "_blank", rel: "noopener", class: "site-navbar__social-link" do %>
+            <i class="fa-brands fa-instagram"></i>
+          <% end %>
+
+          <%= link_to "https://www.tiktok.com/@canarinhocast1", target: "_blank", rel: "noopener", class: "site-navbar__social-link" do %>
+            <i class="fa-brands fa-tiktok"></i>
+          <% end %>
+
+          <%= link_to "https://x.com/canarinhocast", target: "_blank", rel: "noopener", class: "site-navbar__social-link" do %>
+            <i class="fa-brands fa-x-twitter"></i>
+          <% end %>
+        </div>
+
+        <input type="checkbox" id="site-navbar-toggle" class="site-navbar__toggle-checkbox">
+
+        <label for="site-navbar-toggle" class="site-navbar__toggle" aria-label="Abrir menu">
+          <i class="fa-solid fa-bars"></i>
+        </label>
+
+        <div class="site-navbar__menu">
+          <% if user_signed_in? %>
+            <div class="site-navbar__links">
+              <%= link_to "Menu", leagues_path, class: "site-navbar__link" %>
+              <%= link_to "Explorar Ligas", discover_leagues_path, class: "site-navbar__link" %>
+              <%= link_to "Meus Palpites", matches_path, class: "site-navbar__link" %>
+              <%= link_to "Classificação Copa", standings_path, class: "site-navbar__link" %>
+              <%= link_to "Mata-mata", brackets_path, class: "site-navbar__link" %>
+              <%= link_to "Regras", rules_path, class: "site-navbar__link" %>
+
+              <% if current_user.admin? %>
+                <%= link_to "Admin", admin_matches_path, class: "site-navbar__link" %>
+              <% end %>
+            </div>
+
+            <div class="site-navbar__actions">
+              <%= link_to "Sair", destroy_user_session_path, data: { turbo_method: :delete }, class: "site-navbar__button site-navbar__button--highlight" %>
+            </div>
+          <% else %>
+            <div class="site-navbar__actions">
+              <%= link_to "Entrar", "#login", class: "site-navbar__button site-navbar__button--ghost" %>
+              <%= link_to "Criar conta", new_user_registration_path, class: "site-navbar__button site-navbar__button--highlight" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </nav>
+
+    <main class="app-main">
+      <%= yield %>
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <h2 class="site-footer__brand">
+          <a href="https://www.linkedin.com/in/rdleocadio/" target="_blank" rel="noopener">
+            Desenvolvido por Rodrigo Leocádio
+          </a>
+        </h2>
+      </div>
+    </footer>
+  </body>
+</html>

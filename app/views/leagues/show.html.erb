@@ -1,0 +1,231 @@
+<% stage_labels = {
+  "group_stage" => "Fase de grupos",
+  "second_phase" => "Segunda fase",
+  "round_of_16" => "Oitavas de final",
+  "quarterfinal" => "Quartas de final",
+  "semifinal" => "Semifinal",
+  "third_place" => "Disputa de 3º lugar",
+  "final" => "Final"
+} %>
+
+<% sorted_ranking = @ranking.sort_by do |entry|
+  [
+    -entry[:points].to_i,
+    -entry[:exact_scores].to_i,
+    -entry[:partial_scores].to_i,
+    -entry[:winners].to_i,
+    entry[:errors].to_i
+  ]
+end %>
+
+<section class="page-section">
+  <div class="app-card league-show-hero">
+    <div class="league-show-hero__main">
+      <div class="league-show-avatar">
+        <% if @league.image.attached? %>
+          <%= image_tag @league.image, alt: @league.name %>
+        <% else %>
+          <div class="league-show-avatar__placeholder">
+            <%= @league.name.first.upcase %>
+          </div>
+        <% end %>
+      </div>
+
+      <div>
+        <p class="dashboard-section__eyebrow">Perfil da liga</p>
+        <h1 class="dashboard-hero__title"><%= @league.name %></h1>
+
+        <% if @user_position.present? %>
+          <p class="league-show-position">
+            Sua posição: <strong><%= @user_position %>º</strong>
+          </p>
+        <% end %>
+
+        <p class="league-show-meta">Código Liga: <strong><%= @league.code %></strong></p>
+        <p class="league-show-meta">Criada por: <strong><%= @league.owner.name.presence || @league.owner.email %></strong></p>
+        <p class="league-show-meta">Link Convite: <%= league_url(@league) %></p>
+      </div>
+    </div>
+
+    <% if @current_membership.present? %>
+      <% if @current_membership.pending? %>
+        <div class="alert league-show-alert" style="background: #fff6dd; color: #7a5a00; border-color: #f1dda0;">
+          Sua solicitação está pendente de aprovação.
+        </div>
+      <% elsif @current_membership.rejected? %>
+        <div class="alert league-show-alert">
+          Sua solicitação foi recusada.
+        </div>
+      <% end %>
+    <% end %>
+
+    <div class="league-show-actions">
+      <% unless @current_membership.present? %>
+        <%= button_to "Solicitar entrada", join_league_path(@league), method: :post, class: "btn-primary-custom" %>
+      <% end %>
+
+      <%= link_to "Minhas ligas", leagues_path, class: "btn-secondary-custom" %>
+      <%= link_to "Explorar ligas", discover_leagues_path, class: "btn-secondary-custom" %>
+    </div>
+  </div>
+
+  <div class="app-card dashboard-leagues-card">
+    <h3 class="dashboard-section__title">Ranking</h3>
+
+    <% if sorted_ranking.any? %>
+      <div class="table-responsive">
+        <table class="dashboard-leagues-table ranking-table">
+          <thead>
+            <tr>
+              <th>Pos</th>
+              <th>Participante</th>
+              <th>Pontos</th>
+              <th>Resultado exato</th>
+              <th>Resultado parcial</th>
+              <th>Vencedor/empate</th>
+              <th>Erros</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% sorted_ranking.each_with_index do |entry, index| %>
+              <tr>
+                <td>
+                  <% if index == 0 %>
+                    🥇
+                  <% elsif index == 1 %>
+                    🥈
+                  <% elsif index == 2 %>
+                    🥉
+                  <% else %>
+                    <%= index + 1 %>
+                  <% end %>
+                </td>
+
+                <td>
+                  <%= link_to user_path(entry[:user]), class: "dashboard-league-link user-inline" do %>
+                    <div class="user-inline__avatar">
+                      <% if entry[:user].avatar.attached? %>
+                        <%= image_tag entry[:user].avatar, alt: entry[:user].name.presence || entry[:user].email %>
+                      <% else %>
+                        <div class="user-inline__placeholder">
+                          <%= (entry[:user].name.presence || entry[:user].email).first.upcase %>
+                        </div>
+                      <% end %>
+                    </div>
+
+                    <span class="user-inline__name">
+                      <%= entry[:user].name.presence || entry[:user].email %>
+                    </span>
+                  <% end %>
+                </td>
+
+                <td><strong><%= entry[:points].to_i %></strong></td>
+                <td><%= entry[:exact_scores].to_i %></td>
+                <td><%= entry[:partial_scores].to_i %></td>
+                <td><%= entry[:winners].to_i %></td>
+                <td><%= entry[:errors].to_i %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="league-show-meta" style="margin-top: 12px;">
+        Critérios de desempate: mais resultados exatos, mais resultados parciais,
+        mais vencedores/empates e menos erros totais.
+      </p>
+    <% else %>
+      <p>Ainda não há participantes aprovados no ranking.</p>
+    <% end %>
+  </div>
+
+  <% if @is_owner %>
+    <div class="app-card dashboard-leagues-card">
+      <h3 class="dashboard-section__title">Solicitações pendentes</h3>
+
+      <% if @pending_memberships.any? %>
+        <ul class="list-group list-group-flush">
+          <% @pending_memberships.each do |membership| %>
+            <li class="league-member-row">
+              <div class="league-member-row__info">
+                <div class="user-inline__avatar">
+                  <% if membership.user.avatar.attached? %>
+                    <%= image_tag membership.user.avatar, alt: membership.user.name.presence || membership.user.email %>
+                  <% else %>
+                    <div class="user-inline__placeholder">
+                      <%= (membership.user.name.presence || membership.user.email).first.upcase %>
+                    </div>
+                  <% end %>
+                </div>
+
+                <div>
+                  <strong><%= membership.user.name.presence || membership.user.email %></strong>
+                  <div class="text-muted small"><%= membership.user.email %></div>
+                </div>
+              </div>
+
+              <div class="league-member-row__actions">
+                <%= button_to "Aprovar", approve_league_membership_path(membership), method: :patch, class: "btn-primary-custom" %>
+                <%= button_to "Rejeitar", reject_league_membership_path(membership), method: :patch, class: "btn-secondary-custom" %>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p>Nenhuma solicitação pendente no momento.</p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="app-card dashboard-leagues-card">
+    <h3 class="dashboard-section__title">Próximos jogos:</h3>
+
+    <% if @upcoming_matches.any? %>
+      <div class="table-responsive">
+        <table class="dashboard-leagues-table matches-table">
+          <thead>
+            <tr>
+              <th>Jogo</th>
+              <th>Fase</th>
+              <th>Data</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @upcoming_matches.each do |match| %>
+              <tr>
+                <td>
+                  <strong><%= match.home_team %> x <%= match.away_team %></strong>
+                </td>
+
+                <td>
+                  <%= stage_labels[match.stage.to_s] || match.stage.to_s.humanize %>
+                </td>
+
+                <td>
+                  <%= l(match.kickoff_at, format: :short) %>
+                </td>
+
+                <td>
+                  <% if match.finished? %>
+                    <span class="dashboard-position-badge">
+                      <%= match.home_score %> x <%= match.away_score %>
+                    </span>
+                  <% elsif match.locked? %>
+                    <span class="discover-status discover-status--pending">Travado</span>
+                  <% else %>
+                    <span class="discover-status discover-status--approved">Aberto</span>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <p>Não há jogos pendentes no momento.</p>
+    <% end %>
+  </div>
+</section>

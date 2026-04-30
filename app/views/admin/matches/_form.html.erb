@@ -1,0 +1,65 @@
+<%= form_with model: [:admin, match], local: true do |form| %>
+
+  <% if match.errors.any? %>
+    <div class="form-errors">
+      <ul>
+        <% match.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :stage, "Fase" %>
+    <%= form.select :stage,
+      Match.stages.keys.map { |s| [Match.new(stage: s).phase_label, s] },
+      {},
+      class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :group_code, "Grupo (se fase de grupos)" %>
+    <%= form.text_field :group_code, class: "form-control", placeholder: "Ex: A" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :home_team_id, "Time mandante" %>
+    <%= form.collection_select :home_team_id,
+      Team.order(:name),
+      :id,
+      :name,
+      { include_blank: "A definir" },
+      class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :away_team_id, "Time visitante" %>
+    <%= form.collection_select :away_team_id,
+      Team.order(:name),
+      :id,
+      :name,
+      { include_blank: "A definir" },
+      class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :kickoff_at, "Data e horário" %>
+    <%= form.datetime_local_field :kickoff_at, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :home_score, "Placar mandante" %>
+    <%= form.number_field :home_score, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :away_score, "Placar visitante" %>
+    <%= form.number_field :away_score, class: "form-control" %>
+  </div>
+
+  <div class="form-actions">
+    <%= form.submit "Salvar jogo", class: "btn btn-primary" %>
+  </div>
+
+<% end %>

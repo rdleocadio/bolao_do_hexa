@@ -1,0 +1,121 @@
+<% flag_codes = {
+  "Canadá" => "ca",
+  "Estados Unidos" => "us",
+  "México" => "mx",
+  "Arábia Saudita" => "sa",
+  "Austrália" => "au",
+  "Catar" => "qa",
+  "Coreia do Sul" => "kr",
+  "Irã" => "ir",
+  "Iraque" => "iq",
+  "Japão" => "jp",
+  "Jordânia" => "jo",
+  "Uzbequistão" => "uz",
+  "África do Sul" => "za",
+  "Argélia" => "dz",
+  "Cabo Verde" => "cv",
+  "Costa do Marfim" => "ci",
+  "Egito" => "eg",
+  "Gana" => "gh",
+  "Marrocos" => "ma",
+  "RD do Congo" => "cd",
+  "Senegal" => "sn",
+  "Tunísia" => "tn",
+  "Argentina" => "ar",
+  "Brasil" => "br",
+  "Colômbia" => "co",
+  "Equador" => "ec",
+  "Paraguai" => "py",
+  "Uruguai" => "uy",
+  "Nova Zelândia" => "nz",
+  "Alemanha" => "de",
+  "Áustria" => "at",
+  "Bélgica" => "be",
+  "Bósnia e Herzegovina" => "ba",
+  "Croácia" => "hr",
+  "Escócia" => "gb-sct",
+  "Espanha" => "es",
+  "França" => "fr",
+  "Holanda" => "nl",
+  "Inglaterra" => "gb-eng",
+  "Noruega" => "no",
+  "Portugal" => "pt",
+  "República Tcheca" => "cz",
+  "Suécia" => "se",
+  "Suíça" => "ch",
+  "Turquia" => "tr",
+  "Curaçau" => "cw",
+  "Haiti" => "ht",
+  "Panamá" => "pa"
+} %>
+
+<div class="container py-4 standings-page">
+
+  <% if @standings_by_group.any? %>
+    <% @standings_by_group.each do |group_code, standings| %>
+      <div class="card shadow-sm mb-4 border-0 standings-card">
+        <div class="card-body">
+
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="mb-0">Grupo <%= group_code %></h3>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table align-middle mb-0 standings-table">
+              <thead>
+                <tr>
+                  <th>Pos</th>
+                  <th>Seleção</th>
+                  <th>PTS</th>
+                  <th>J</th>
+                  <th>V</th>
+                  <th>E</th>
+                  <th>D</th>
+                  <th>GP</th>
+                  <th>GC</th>
+                  <th>SG</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% standings.each_with_index do |team, index| %>
+                  <% code = flag_codes[team.team] %>
+                  <% flag_url = code.present? ? "https://flagcdn.com/w40/#{code}.png" : "https://flagcdn.com/w40/un.png" %>
+
+                  <tr>
+                    <td>
+                      <span class="standings-position"><%= index + 1 %></span>
+                    </td>
+
+                    <td>
+                      <div class="standings-team">
+                        <%= image_tag flag_url, alt: team.team, class: "standings-flag" %>
+                        <strong><%= team.team %></strong>
+                      </div>
+                    </td>
+
+                    <td><strong><%= team.points %></strong></td>
+                    <td><%= team.played %></td>
+                    <td><%= team.wins %></td>
+                    <td><%= team.draws %></td>
+                    <td><%= team.losses %></td>
+                    <td><%= team.goals_for %></td>
+                    <td><%= team.goals_against %></td>
+                    <td><%= team.goal_difference %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+
+            </table>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="card shadow-sm border-0">
+      <div class="card-body">
+        <p class="mb-0">Ainda não há grupos com jogos cadastrados.</p>
+      </div>
+    </div>
+  <% end %>
+</div>

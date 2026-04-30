@@ -1,0 +1,167 @@
+/* ===== PAGE SPACING ===== */
+
+.standings-page {
+  padding-top: 24px;
+}
+
+.standings-card {
+  border-radius: 20px;
+}
+
+.standings-table thead th {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #6b7280;
+  background: #f8fafc;
+}
+
+.standings-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.standings-position {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: #eef2ff;
+  color: #3A3A8B;
+  font-weight: 800;
+}
+
+.standings-team {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.standings-team strong {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.standings-flag {
+  width: 32px;
+  height: 22px;
+  min-width: 32px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.standings-table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.standings-table th:nth-child(1),
+.standings-table td:nth-child(1) {
+  width: 50px;
+  text-align: center;
+}
+
+.standings-table th:nth-child(2),
+.standings-table td:nth-child(2) {
+  width: 220px;
+}
+
+.standings-table th:not(:nth-child(2)),
+.standings-table td:not(:nth-child(2)) {
+  text-align: center;
+  width: 60px;
+}
+
+/* HEADER */
+.standings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.standings-eyebrow {
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+
+.standings-title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+  .standings-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .standings-header .btn-primary-custom {
+    width: 100%;
+  }
+
+  .standings-card {
+    border-radius: 16px;
+    overflow-x: auto;
+  }
+
+  .standings-table {
+    min-width: 520px;
+    table-layout: fixed;
+  }
+
+  .standings-table th,
+  .standings-table td {
+    padding: 0.45rem 0.35rem;
+    font-size: 0.72rem;
+  }
+
+  /* Remove coluna POS no mobile */
+  .standings-table th:nth-child(1),
+  .standings-table td:nth-child(1) {
+    display: none;
+  }
+
+  /* Coluna seleção vira só bandeira */
+  .standings-table th:nth-child(2),
+  .standings-table td:nth-child(2) {
+    width: 44px;
+    text-align: center;
+  }
+
+  .standings-team {
+    justify-content: center;
+    gap: 0;
+  }
+
+  .standings-team strong {
+    display: none;
+  }
+
+  .standings-flag {
+    width: 26px;
+    height: 18px;
+    min-width: 26px;
+    border-radius: 3px;
+  }
+
+  /* Dados: pts, j, v, e, d, gp, gc, sg */
+  .standings-table th:not(:nth-child(2)),
+  .standings-table td:not(:nth-child(2)) {
+    width: 44px;
+    text-align: center;
+  }
+
+  .standings-title {
+    font-size: 22px;
+  }
+}

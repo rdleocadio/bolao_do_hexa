@@ -1,0 +1,123 @@
+<div class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+    <h1>Admin • Edição em massa</h1>
+    <%= link_to "Voltar para jogos", admin_matches_path, class: "btn btn-outline-secondary" %>
+  </div>
+
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <%= form_with url: bulk_edit_admin_matches_path, method: :get, local: true, class: "row g-2" do %>
+        <div class="col-md-4">
+          <%= select_tag :stage,
+            options_for_select(
+              [["Todas as fases", ""]] + Match.stages.keys.map { |key| [Match.new(stage: key).phase_label, key] },
+              @stage
+            ),
+            class: "form-select" %>
+        </div>
+
+        <div class="col-md-3">
+          <%= text_field_tag :group_code, @group_code, class: "form-control", placeholder: "Grupo (ex: A)" %>
+        </div>
+
+        <div class="col-md-2">
+          <%= submit_tag "Carregar jogos", class: "btn btn-primary w-100" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <% if @matches.any? %>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <%= form_with url: bulk_update_admin_matches_path, method: :patch, local: true do %>
+          <%= hidden_field_tag :stage, @stage %>
+          <%= hidden_field_tag :group_code, @group_code %>
+
+          <div class="table-responsive">
+            <table class="table align-middle">
+              <thead>
+                <tr>
+                  <th>Data</th>
+                  <th>Mandante</th>
+                  <th>Visitante</th>
+                  <th>Placar Casa</th>
+                  <th>Placar Fora</th>
+                  <th>Travar em</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @matches.each do |match| %>
+                  <tr>
+                    <!-- DATA -->
+                    <td>
+                      <%= datetime_local_field_tag "matches[#{match.id}][kickoff_at]",
+                            match.kickoff_at&.strftime("%Y-%m-%dT%H:%M"),
+                            class: "form-control form-control-sm" %>
+                    </td>
+
+                    <!-- MANDANTE -->
+                    <td>
+                      <%= select_tag "matches[#{match.id}][home_team_id]",
+                            options_from_collection_for_select(
+                              Team.order(:name),
+                              :id,
+                              :name,
+                              match.home_team_id
+                            ),
+                            include_blank: "A definir",
+                            class: "form-select form-select-sm" %>
+                    </td>
+
+                    <!-- VISITANTE -->
+                    <td>
+                      <%= select_tag "matches[#{match.id}][away_team_id]",
+                            options_from_collection_for_select(
+                              Team.order(:name),
+                              :id,
+                              :name,
+                              match.away_team_id
+                            ),
+                            include_blank: "A definir",
+                            class: "form-select form-select-sm" %>
+                    </td>
+
+                    <!-- PLACAR CASA -->
+                    <td>
+                      <%= number_field_tag "matches[#{match.id}][home_score]",
+                            match.home_score,
+                            class: "form-control form-control-sm",
+                            min: 0 %>
+                    </td>
+
+                    <!-- PLACAR FORA -->
+                    <td>
+                      <%= number_field_tag "matches[#{match.id}][away_score]",
+                            match.away_score,
+                            class: "form-control form-control-sm",
+                            min: 0 %>
+                    </td>
+
+                    <!-- TRAVAMENTO -->
+                    <td>
+                      <%= datetime_local_field_tag "matches[#{match.id}][locked_at]",
+                            match.locked_at&.strftime("%Y-%m-%dT%H:%M"),
+                            class: "form-control form-control-sm" %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="d-flex gap-2 mt-3">
+            <%= submit_tag "Salvar todos", class: "btn btn-primary" %>
+            <%= link_to "Cancelar", admin_matches_path, class: "btn btn-outline-secondary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% else %>
+    <p>Nenhum jogo encontrado para os filtros informados.</p>
+  <% end %>
+</div>

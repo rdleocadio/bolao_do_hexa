@@ -1,0 +1,91 @@
+<section class="signup-page">
+  <div class="signup-hero">
+    <div class="signup-hero__overlay"></div>
+
+    <div class="signup-hero__content container">
+      <div class="landing-hero__text">
+        <p class="landing-hero__eyebrow">Bolão oficial da sua galera</p>
+
+        <h1 class="landing-hero__title">
+          Viva a Copa com ranking, ligas e chaveamento em tempo real.
+        </h1>
+
+        <p class="landing-hero__description">
+          Crie ligas com amigos, preencha seus palpites, acompanhe a classificação
+          dos grupos e siga o mata-mata em uma experiência com cara de torneio de verdade.
+        </p>
+
+        <div class="landing-hero__highlights">
+          <span>🏆 Ranking por liga</span>
+          <span>⚽ Palpites por jogo</span>
+          <span>🧩 Chaveamento estilo Copa</span>
+        </div>
+      </div>
+
+      <div class="signup-card">
+        <div class="signup-card__header">
+          <div class="signup-card__header-row">
+            <%= image_tag "logo-podcast.png", alt: "Bolão do Hexa", class: "signup-card__logo-img" %>
+
+            <div class="signup-card__title-group">
+              <p class="signup-card__eyebrow">Crie sua conta</p>
+              <h2>Entrar no bolão</h2>
+            </div>
+          </div>
+        </div>
+
+        <%= form_for(resource,
+              as: resource_name,
+              url: registration_path(resource_name),
+              html: { class: "signup-form" }) do |f| %>
+
+          <%= render "devise/shared/error_messages", resource: resource %>
+
+          <div class="signup-form__group">
+            <%= f.label :name, "Nome" %>
+            <%= f.text_field :name,
+                  autofocus: true,
+                  class: "signup-form__input",
+                  placeholder: "Seu nome completo" %>
+          </div>
+
+          <div class="signup-form__group">
+            <%= f.label :email, "E-mail" %>
+            <%= f.email_field :email,
+                  autocomplete: "email",
+                  class: "signup-form__input",
+                  placeholder: "voce@email.com" %>
+          </div>
+
+          <div class="signup-form__group">
+            <%= f.label :password, "Senha" %>
+            <% if @minimum_password_length %>
+              <p class="signup-form__hint">
+                Mínimo de <%= @minimum_password_length %> caracteres
+              </p>
+            <% end %>
+            <%= f.password_field :password,
+                  autocomplete: "new-password",
+                  class: "signup-form__input",
+                  placeholder: "Crie uma senha" %>
+          </div>
+
+          <div class="signup-form__group">
+            <%= f.label :password_confirmation, "Confirmar senha" %>
+            <%= f.password_field :password_confirmation,
+                  autocomplete: "new-password",
+                  class: "signup-form__input",
+                  placeholder: "Repita sua senha" %>
+          </div>
+
+          <%= f.submit "Criar conta", class: "signup-submit-button" %>
+        <% end %>
+
+        <div class="signup-card__footer">
+          <p>Já tem conta?</p>
+          <%= link_to "Acessar agora", new_user_session_path, class: "signup-secondary-link" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

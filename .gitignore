@@ -1,0 +1,62 @@
+# ===== BUNDLER =====
+/.bundle
+
+# ===== ENV (SENSÍVEL) =====
+.env
+.env.*
+!/.env*.erb
+
+# ===== LOGS & TEMP =====
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+# ===== PID FILES =====
+/tmp/pids/*
+!/tmp/pids/
+!/tmp/pids/.keep
+
+# ===== STORAGE =====
+/storage/*
+!/storage/.keep
+/tmp/storage/*
+!/tmp/storage/
+!/tmp/storage/.keep
+
+# ===== ASSETS =====
+/public/assets
+/public/packs
+/public/packs-test
+
+# ===== CACHE =====
+/tmp/cache
+
+# ===== CREDENTIALS =====
+/config/master.key
+/config/credentials/*.key
+
+# ===== EDITOR / OS =====
+.DS_Store
+Thumbs.db
+
+# ===== RUBY =====
+*.gem
+*.rbc
+/.ruby-version
+.byebug_history
+
+# ===== NODE =====
+node_modules/
+yarn-error.log
+npm-debug.log*
+
+# ===== DATABASE =====
+db/*.sqlite3
+db/*.sqlite3-journal
+
+# ===== TEST / COVERAGE =====
+/coverage
+
+# ===== LETTER OPENER =====
+/tmp/letter_opener

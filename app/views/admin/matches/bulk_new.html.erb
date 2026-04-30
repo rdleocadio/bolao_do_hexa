@@ -1,0 +1,41 @@
+<div class="container py-4">
+  <div class="mb-4">
+    <h1>Criar jogos em massa</h1>
+    <p class="text-muted">Crie vários jogos de uma mesma fase com times “A definir”.</p>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <%= form_with url: bulk_create_admin_matches_path, method: :post, local: true do %>
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <%= label_tag :stage, "Fase", class: "form-label" %>
+            <%= select_tag :stage,
+              options_for_select(Match.stages.keys.map { |s| [Match.new(stage: s).phase_label, s] }),
+              class: "form-select" %>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <%= label_tag :quantity, "Quantidade de jogos", class: "form-label" %>
+            <%= number_field_tag :quantity, nil, min: 1, max: 64, class: "form-control", placeholder: "Ex: 16" %>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <%= label_tag :kickoff_at, "Data inicial", class: "form-label" %>
+            <%= datetime_local_field_tag :kickoff_at, nil, class: "form-control" %>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <%= label_tag :interval_minutes, "Intervalo entre jogos em minutos", class: "form-label" %>
+            <%= number_field_tag :interval_minutes, 180, min: 0, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <%= submit_tag "Criar jogos", class: "btn btn-primary" %>
+          <%= link_to "Voltar", admin_matches_path, class: "btn btn-outline-secondary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

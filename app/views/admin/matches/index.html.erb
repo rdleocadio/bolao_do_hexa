@@ -1,0 +1,136 @@
+<div class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+    <h1>Admin • Jogos</h1>
+
+    <div class="d-flex gap-2">
+      <%= link_to "Novo jogo", new_admin_match_path, class: "btn btn-success" %>
+      <%= link_to "Criar em massa", bulk_new_admin_matches_path, class: "btn btn-outline-primary" %>
+      <%= link_to "Edição em massa", bulk_edit_admin_matches_path(
+        stage: params[:stage],
+        group_code: params[:group_code],
+      ), class: "btn btn-primary" %>
+
+      <%= link_to "Voltar ao app", root_path, class: "btn btn-outline-secondary" %>
+    </div>
+  </div>
+
+  <%= form_with url: admin_matches_path, method: :get, local: true, class: "row g-2 mb-4" do %>
+    <div class="col-md-4">
+      <%= select_tag :stage,
+        options_for_select(
+          [["Todas as fases", ""]] + Match.stages.keys.map { |key| [key.humanize, key] },
+          params[:stage]
+        ),
+        class: "form-select" %>
+    </div>
+
+    <div class="col-md-3">
+      <%= text_field_tag :group_code, params[:group_code], class: "form-control", placeholder: "Grupo (ex: A)" %>
+    </div>
+
+    <div class="col-md-1">
+      <%= submit_tag "Filtrar", class: "btn btn-primary w-100" %>
+    </div>
+
+    <div class="col-md-1">
+      <%= link_to "Limpar", admin_matches_path, class: "btn btn-outline-secondary w-100" %>
+    </div>
+  <% end %>
+
+  <% if @matches.any? %>
+    <div class="card shadow-sm">
+      <div class="card-body">
+
+        <%= form_with url: bulk_destroy_admin_matches_path, method: :delete, local: true do %>
+          <%= hidden_field_tag :stage, params[:stage] %>
+          <%= hidden_field_tag :group_code, params[:group_code] %>
+
+          <div class="mb-3">
+            <%= submit_tag "Excluir selecionados",
+                  class: "btn btn-outline-danger",
+                  data: { turbo_confirm: "Tem certeza que deseja excluir os jogos selecionados?" } %>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table align-middle mb-0">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Data</th>
+                  <th>Fase</th>
+                  <th>Grupo</th>
+                  <th>Jogo</th>
+                  <th>Resultado</th>
+                  <th>Status</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @matches.each do |match| %>
+                  <tr>
+                    <td>
+                      <%= check_box_tag "match_ids[]", match.id %>
+                    </td>
+
+                    <td><%= l(match.kickoff_at, format: :short) %></td>
+                    <td><%= match.stage.humanize %></td>
+                    <td><%= match.group_code.presence || "-" %></td>
+                    <td><strong><%= match.home_team %> x <%= match.away_team %></strong></td>
+
+                    <td>
+                      <% if match.finished? %>
+                        <%= match.home_score %> x <%= match.away_score %>
+                      <% else %>
+                        -
+                      <% end %>
+                    </td>
+
+                    <td>
+                      <% if match.locked? %>
+                        <span class="badge bg-danger">Travado</span>
+                      <% else %>
+                        <span class="badge bg-success">Aberto</span>
+                      <% end %>
+                    </td>
+
+                    <td>
+                      <div class="d-flex gap-2 flex-wrap">
+                        <%= link_to "Editar",
+                              edit_admin_match_path(match),
+                              class: "btn btn-outline-primary btn-sm" %>
+
+                        <% unless match.locked? %>
+                          <%= button_to "Travar agora",
+                                lock_now_admin_match_path(match, stage: params[:stage], group_code: params[:group_code]),
+                                method: :patch,
+                                form: { data: { turbo: false } },
+                                class: "btn btn-outline-danger btn-sm" %>
+                        <% else %>
+                          <%= button_to "Reabrir",
+                                reopen_admin_match_path(match, stage: params[:stage], group_code: params[:group_code]),
+                                method: :patch,
+                                form: { data: { turbo: false } },
+                                class: "btn btn-outline-success btn-sm" %>
+                        <% end %>
+
+                        <%= button_to "Excluir",
+                              admin_match_path(match, stage: params[:stage], group_code: params[:group_code]),
+                              method: :delete,
+                              form: { data: { turbo_confirm: "Tem certeza que deseja excluir este jogo?" } },
+                              class: "btn btn-outline-danger btn-sm" %>
+                      </div>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+
+        <% end %>
+
+      </div>
+    </div>
+  <% else %>
+    <p>Nenhum jogo encontrado.</p>
+  <% end %>
+</div>

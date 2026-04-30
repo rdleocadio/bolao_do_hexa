@@ -1,0 +1,169 @@
+<section class="dashboard-page user-profile-page page-section">
+  <div class="app-card user-profile-card">
+    <div class="user-profile-card__header">
+      <div class="user-profile-card__main">
+        <div class="dashboard-avatar">
+          <% if @user.avatar.attached? %>
+            <%= image_tag @user.avatar, alt: @user.name.presence || @user.email %>
+          <% else %>
+            <div class="dashboard-avatar__placeholder">
+              <%= (@user.name.presence || @user.email).first.upcase %>
+            </div>
+          <% end %>
+        </div>
+
+        <div>
+          <p class="dashboard-hero__eyebrow">Perfil do participante</p>
+          <h1 class="dashboard-hero__title">
+            <%= @user.name.presence || @user.email %>
+          </h1>
+        </div>
+      </div>
+
+      <div class="user-profile-stats">
+        <div class="user-profile-stat">
+          <span>Pontuação total</span>
+          <strong><%= @total_points %> pts</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-card dashboard-leagues-card">
+    <div class="dashboard-leagues-card__header">
+      <div>
+        <p class="dashboard-section__eyebrow">Ligas do participante</p>
+        <h2 class="dashboard-section__title">Ligas e posição atual</h2>
+      </div>
+    </div>
+
+    <% if @leagues.any? %>
+      <div class="table-responsive">
+        <table class="dashboard-leagues-table">
+          <thead>
+            <tr>
+              <th>Liga</th>
+              <th>Posição</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @leagues.each do |league| %>
+              <% league_image =
+                if league.respond_to?(:photo) && league.photo.attached?
+                  league.photo
+                elsif league.respond_to?(:avatar) && league.avatar.attached?
+                  league.avatar
+                elsif league.respond_to?(:image) && league.image.attached?
+                  league.image
+                elsif league.respond_to?(:logo) && league.logo.attached?
+                  league.logo
+                elsif league.respond_to?(:cover) && league.cover.attached?
+                  league.cover
+                end
+              %>
+
+              <tr>
+                <td>
+                  <%= link_to league_path(league), class: "dashboard-league-row" do %>
+                    <span class="dashboard-league-avatar">
+                      <% if league_image.present? %>
+                        <%= image_tag league_image, alt: league.name %>
+                      <% else %>
+                        <span class="dashboard-league-avatar__placeholder">
+                          <%= league.name.first.upcase %>
+                        </span>
+                      <% end %>
+                    </span>
+
+                    <span class="dashboard-league-link"><%= league.name %></span>
+                  <% end %>
+                </td>
+
+                <td>
+                  <span class="dashboard-position-badge">
+                    <% if @league_positions[league.id].present? %>
+                      <%= @league_positions[league.id] %>º
+                    <% else %>
+                      -
+                    <% end %>
+                  </span>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <div class="dashboard-empty-state">
+        <p>Este participante ainda não está em nenhuma liga aprovada.</p>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="app-card dashboard-leagues-card">
+    <div class="dashboard-leagues-card__header">
+      <div>
+        <p class="dashboard-section__eyebrow">Palpites</p>
+        <h2 class="dashboard-section__title">Histórico de palpites</h2>
+      </div>
+    </div>
+
+    <% if @predictions.any? %>
+      <div class="table-responsive">
+        <table class="dashboard-leagues-table">
+          <thead>
+            <tr>
+              <th>Jogo</th>
+              <th>Palpite</th>
+              <th>Resultado</th>
+              <th>Pontos</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @predictions.each do |prediction| %>
+              <% match = prediction.match %>
+              <% home_team = match.home_team_name %>
+              <% away_team = match.away_team_name %>
+
+              <tr>
+                <td>
+                  <div class="prediction-match-row">
+                    <%= image_tag(match.home_team_flag_url, class: "prediction-flag", alt: home_team) rescue image_tag("flags/default.png", class: "prediction-flag", alt: home_team) %>
+
+                    <strong>x</strong>
+
+                    <%= image_tag(match.away_team_flag_url, class: "prediction-flag", alt: away_team) rescue image_tag("flags/default.png", class: "prediction-flag", alt: away_team) %>
+                  </div>
+                </td>
+
+                <td>
+                  <%= prediction.predicted_home_score %> x <%= prediction.predicted_away_score %>
+                </td>
+
+                <td>
+                  <% if match.finished? %>
+                    <%= match.home_score %> x <%= match.away_score %>
+                  <% else %>
+                    -
+                  <% end %>
+                </td>
+
+                <td>
+                  <span class="dashboard-position-badge">
+                    <%= prediction.points %>
+                  </span>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <div class="dashboard-empty-state">
+        <p>Este participante ainda não fez palpites.</p>
+      </div>
+    <% end %>
+  </div>
+</section>

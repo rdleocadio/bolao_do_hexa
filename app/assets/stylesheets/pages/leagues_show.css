@@ -1,0 +1,302 @@
+/* ===== LEAGUE SHOW PAGE ===== */
+
+.league-show-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 24px;
+}
+
+.league-show-hero__main {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.league-show-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex: 0 0 auto;
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-primary) 100%);
+  border: 3px solid var(--color-secondary);
+  box-shadow: 0 12px 28px rgba(58, 58, 139, 0.18);
+}
+
+.league-show-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.league-show-meta {
+  margin: 6px 0 0;
+  color: var(--color-text-soft);
+  font-size: 0.95rem;
+}
+
+.league-show-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ===== TABLES ===== */
+
+.dashboard-leagues-table {
+  min-width: 720px;
+}
+
+.dashboard-leagues-table th {
+  white-space: nowrap;
+}
+
+.dashboard-leagues-table td {
+  vertical-align: middle;
+}
+
+.dashboard-leagues-table tbody tr:hover {
+  background: rgba(58, 58, 139, 0.03);
+}
+
+/* ===== PRÓXIMOS JOGOS ===== */
+
+.matches-table {
+  min-width: 560px;
+}
+
+.matches-table td:first-child {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.matches-table td:nth-child(2),
+.matches-table td:nth-child(3),
+.matches-table td:nth-child(4) {
+  white-space: nowrap;
+}
+
+/* ===== USER INLINE ===== */
+
+.user-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-inline__avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-primary));
+  border: 2px solid var(--color-secondary);
+  flex: 0 0 auto;
+}
+
+.user-inline__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.user-inline__name {
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+/* ===== RESPONSIVO ===== */
+
+@media (max-width: 768px) {
+  .league-show-hero {
+    padding: 16px;
+    gap: 14px;
+  }
+
+  .league-show-hero__main {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .league-show-avatar {
+    width: 58px;
+    height: 58px;
+  }
+
+  .league-show-meta,
+  .league-show-position {
+    font-size: 0.78rem;
+    margin-top: 3px;
+    line-height: 1.25;
+  }
+
+  .league-show-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .league-show-actions form,
+  .league-show-actions .btn-primary-custom,
+  .league-show-actions .btn-secondary-custom {
+    width: 100%;
+  }
+
+  .league-show-actions .btn-primary-custom,
+  .league-show-actions .btn-secondary-custom {
+    min-height: 34px;
+    padding: 8px 10px;
+    font-size: 0.76rem;
+    border-radius: 10px;
+  }
+
+  .dashboard-leagues-card {
+    padding: 14px;
+  }
+
+  .dashboard-leagues-card .dashboard-section__title {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+
+  .table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 2px;
+  }
+
+  .dashboard-leagues-table {
+    min-width: 560px;
+    font-size: 0.72rem;
+  }
+
+  .dashboard-leagues-table th,
+  .dashboard-leagues-table td {
+    padding: 7px 6px;
+    white-space: nowrap;
+  }
+
+  .dashboard-leagues-table thead th {
+    font-size: 0.62rem;
+    letter-spacing: 0.03em;
+  }
+
+  .ranking-table {
+    min-width: 600px;
+  }
+
+  .ranking-table td:first-child,
+  .ranking-table th:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    min-width: 42px;
+    background: #ffffff;
+    text-align: center;
+  }
+
+  .ranking-table td:nth-child(2),
+  .ranking-table th:nth-child(2) {
+    position: sticky;
+    left: 42px;
+    z-index: 2;
+    min-width: 138px;
+    max-width: 138px;
+    background: #ffffff;
+  }
+
+  .ranking-table th:first-child,
+  .ranking-table th:nth-child(2) {
+    z-index: 3;
+  }
+
+  .ranking-table th:nth-child(n+3),
+  .ranking-table td:nth-child(n+3) {
+    min-width: 64px;
+    text-align: center;
+  }
+
+  .user-inline {
+    gap: 6px;
+  }
+
+  .user-inline__avatar {
+    width: 24px;
+    height: 24px;
+    border-width: 1px;
+  }
+
+  .user-inline__name {
+    max-width: 96px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.72rem;
+  }
+
+  .matches-table {
+    min-width: 500px;
+    font-size: 0.7rem;
+  }
+
+  .matches-table th,
+  .matches-table td {
+    padding: 7px 6px;
+  }
+
+  .matches-table td:first-child,
+  .matches-table th:first-child {
+    min-width: 150px;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .matches-table td:nth-child(2),
+  .matches-table th:nth-child(2) {
+    min-width: 96px;
+    max-width: 96px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .matches-table td:nth-child(3),
+  .matches-table th:nth-child(3) {
+    min-width: 90px;
+  }
+
+  .matches-table td:nth-child(4),
+  .matches-table th:nth-child(4) {
+    min-width: 72px;
+  }
+
+  .dashboard-position-badge,
+  .discover-status {
+    padding: 5px 8px;
+    font-size: 0.68rem;
+    min-width: auto;
+  }
+
+  .league-member-row {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .league-member-row__actions {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .league-member-row__actions form,
+  .league-member-row__actions .btn-primary-custom,
+  .league-member-row__actions .btn-secondary-custom {
+    width: 100%;
+  }
+}

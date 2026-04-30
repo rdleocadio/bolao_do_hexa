@@ -1,0 +1,92 @@
+<section class="landing-hero">
+  <div class="landing-hero__overlay"></div>
+
+  <div class="landing-hero__content container">
+    <div class="landing-hero__text">
+      <p class="landing-hero__eyebrow">Bolão oficial da sua galera</p>
+
+      <h1 class="landing-hero__title">
+        Viva o melhor da Copa do Mundo com seus amigos.
+      </h1>
+
+      <p class="landing-hero__description">
+        Preencha seus palpites, crie ou entre em ligas, acompanhe a classificação
+        dos grupos e siga o mata-mata.
+      </p>
+
+      <div class="landing-hero__highlights">
+        <span>🏆 Ranking por liga</span>
+        <span>⚽ Palpites por jogo</span>
+        <span>🧩 Diversão garantida</span>
+      </div>
+    </div>
+
+    <div class="landing-login-card" id="login">
+      <div class="landing-login-card__header">
+        <div class="landing-login-card__header-row">
+          <div class="landing-login-card__logo">
+            <%= image_tag "logo-podcast.png", alt: "Canarinho Cast", class: "landing-login-card__logo-img" %>
+          </div>
+
+          <div class="landing-login-card__title-group">
+            <p class="landing-login-card__eyebrow">Acesse sua conta</p>
+            <h2>Entrar no Bolão</h2>
+          </div>
+        </div>
+      </div>
+
+      <% if alert.present? %>
+        <div class="alert alert-danger">
+          <%= alert %>
+        </div>
+      <% end %>
+
+      <% if notice.present? %>
+        <div class="alert alert-success">
+          <%= notice %>
+        </div>
+      <% end %>
+
+      <%= form_with scope: :user,
+            url: user_session_path,
+            local: true,
+            data: { turbo: false },
+            class: "landing-login-form" do |f| %>
+
+        <div class="landing-form-group">
+          <%= f.label :email, "E-mail" %>
+          <%= f.email_field :email,
+                autofocus: true,
+                autocomplete: "email",
+                class: "landing-form-input",
+                placeholder: "voce@email.com",
+                value: params.dig(:user, :email) %>
+        </div>
+
+        <div class="landing-form-group">
+          <%= f.label :password, "Senha" %>
+          <%= f.password_field :password,
+                autocomplete: "current-password",
+                class: "landing-form-input",
+                placeholder: "Sua senha" %>
+        </div>
+
+        <div class="landing-form-row">
+          <label class="landing-checkbox">
+            <%= f.check_box :remember_me %>
+            <span>Lembrar de mim</span>
+          </label>
+
+          <%= link_to "Esqueci minha senha", new_user_password_path, class: "landing-forgot-link" %>
+        </div>
+
+        <%= f.submit "Entrar", class: "landing-submit-button" %>
+      <% end %>
+
+      <div class="landing-login-card__footer">
+        <p>Ainda não tem conta?</p>
+        <%= link_to "Criar conta", new_user_registration_path, class: "landing-secondary-link" %>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,12 @@
+pt-BR:
+  time:
+    formats:
+      short: "%d/%m/%Y %H:%M"
+      long: "%d de %B de %Y às %H:%M"
+      default: "%d/%m/%Y %H:%M:%S"
+
+  date:
+    formats:
+      short: "%d/%m/%Y"
+      long: "%d de %B de %Y"
+      default: "%d/%m/%Y"

@@ -1,0 +1,125 @@
+<section class="leagues-dashboard-page page-section">
+  <div class="leagues-dashboard__hero">
+    <div class="leagues-dashboard__hero-main">
+      <div class="leagues-dashboard__hero-user">
+        <div class="leagues-dashboard__hero-profile">
+          <%= link_to user_path(@user), class: "leagues-dashboard__avatar" do %>
+            <% if @user.avatar.attached? %>
+              <%= image_tag @user.avatar, alt: @user.name.presence || @user.email %>
+            <% else %>
+              <div class="leagues-dashboard__avatar-placeholder">
+                <%= (@user.name.presence || @user.email).first.upcase %>
+              </div>
+            <% end %>
+          <% end %>
+
+          <div class="leagues-dashboard__profile-action">
+            <%= link_to "Editar perfil", edit_user_registration_path, class: "btn-sm-subtle" %>
+          </div>
+        </div>
+
+        <div class="leagues-dashboard__hero-copy">
+          <p class="leagues-dashboard__eyebrow">Dashboard</p>
+          <h1 class="section-title">
+            Bem-vindo, <%= @user.name.presence || @user.email %>!
+          </h1>
+        </div>
+      </div>
+
+      <div class="leagues-dashboard__summary">
+        <div class="leagues-dashboard__summary-card">
+          <p class="leagues-dashboard__summary-label">Pontuação total</p>
+
+          <div class="leagues-dashboard__summary-metric">
+            <span class="leagues-dashboard__summary-number"><%= @total_points %></span>
+            <span class="leagues-dashboard__summary-suffix">pts</span>
+          </div>
+
+          <p class="leagues-dashboard__summary-meta">
+            Jogos finalizados
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="leagues-dashboard__section-card">
+    <div class="leagues-dashboard__section-header">
+      <div>
+        <p class="leagues-dashboard__eyebrow">Suas ligas</p>
+      </div>
+
+      <div class="leagues-dashboard__header-actions">
+        <%= link_to "Outras ligas", discover_leagues_path, class: "btn-secondary-custom" %>
+        <%= link_to "Criar liga", new_league_path, class: "btn-primary-custom" %>
+      </div>
+    </div>
+
+    <% if @leagues.any? %>
+      <div class="leagues-dashboard__table-wrap">
+        <table class="leagues-dashboard__table">
+          <thead>
+            <tr>
+              <th>Ligas que você participa</th>
+              <th>Sua posição</th>
+              <th>Código de entrada</th>
+              <th>Criador</th>
+              <th>Tipo</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @leagues.each do |league| %>
+              <tr>
+                <td>
+                  <%= link_to league_path(league), class: "leagues-dashboard__league-link" do %>
+                    <div class="leagues-dashboard__league-avatar">
+                      <% if league.image.attached? %>
+                        <%= image_tag league.image, alt: league.name %>
+                      <% else %>
+                        <div class="leagues-dashboard__league-avatar-placeholder">
+                          <%= league.name.first.upcase %>
+                        </div>
+                      <% end %>
+                    </div>
+
+                    <span><%= league.name %></span>
+                  <% end %>
+                </td>
+
+                <td>
+                  <span class="leagues-dashboard__position-badge">
+                    <%= @league_positions[league.id] %>º
+                  </span>
+                </td>
+
+                <td>
+                  <span class="dashboard-position-badge">
+                    <%= league.code %>
+                  </span>
+                </td>
+
+                <td>
+                  <%= league.owner.name.presence || league.owner.email %>
+                </td>
+
+                <td>
+                  <% if league.private? %>
+                    <span class="discover-status discover-status--pending">Privada</span>
+                  <% else %>
+                    <span class="discover-status discover-status--approved">Aberta</span>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <div class="leagues-dashboard__empty">
+        <p>Você ainda não participa de nenhuma liga.</p>
+      </div>
+    <% end %>
+  </div>
+</section>

@@ -1,0 +1,15 @@
+<div class="admin-page">
+  <div class="admin-page__header">
+    <div>
+      <p class="admin-page__eyebrow">Admin</p>
+      <h1>Novo jogo</h1>
+      <p>Cadastre jogos da fase de grupos ou mata-mata.</p>
+    </div>
+
+    <%= link_to "Voltar", admin_matches_path, class: "btn btn-secondary" %>
+  </div>
+
+  <div class="admin-card">
+    <%= render "form", match: @match %>
+  </div>
+</div>

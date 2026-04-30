@@ -1,0 +1,15 @@
+<div class="brackets-column">
+  <h2><%= title %></h2>
+
+  <% if matches.any? %>
+    <% matches.each do |match| %>
+      <%= render "match_card",
+            match: match,
+            predictions_by_match_id: predictions_by_match_id %>
+    <% end %>
+  <% else %>
+    <div class="bracket-empty-card">
+      Jogos ainda não cadastrados
+    </div>
+  <% end %>
+</div>

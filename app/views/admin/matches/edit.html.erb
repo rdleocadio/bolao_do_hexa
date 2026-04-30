@@ -1,0 +1,45 @@
+<div class="container py-4">
+  <div class="mb-4">
+    <h1>Editar jogo</h1>
+
+    <p class="text-muted mb-0">
+      <%= @match.home_team_name.presence || "A definir" %>
+      x
+      <%= @match.away_team_name.presence || "A definir" %>
+    </p>
+
+    <p class="text-muted">
+      <%= @match.phase_label %>
+
+      <% if @match.group_code.present? %>
+        • Grupo <%= @match.group_code %>
+      <% end %>
+
+      <% if @match.kickoff_at.present? %>
+        • <%= l(@match.kickoff_at, format: :long) %>
+      <% end %>
+    </p>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <%= render "form", match: @match %>
+
+      <div class="d-flex gap-2 flex-wrap mt-3">
+        <% unless @match.locked? %>
+          <%= button_to "Travar agora",
+                lock_now_admin_match_path(@match),
+                method: :patch,
+                class: "btn btn-outline-danger" %>
+        <% else %>
+          <%= button_to "Reabrir palpites",
+                reopen_admin_match_path(@match),
+                method: :patch,
+                class: "btn btn-outline-success" %>
+        <% end %>
+
+        <%= link_to "Voltar", admin_matches_path, class: "btn btn-outline-secondary" %>
+      </div>
+    </div>
+  </div>
+</div>

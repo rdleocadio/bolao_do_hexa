@@ -1,0 +1,38 @@
+/* ===== RULES PAGE ===== */
+
+.rules-page {
+  padding-top: 20px;
+}
+
+.rules-card {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.rules-content {
+  margin-top: 24px;
+  color: var(--color-text);
+}
+
+.rules-content h2 {
+  margin: 28px 0 10px;
+  font-size: 1.25rem;
+  color: var(--color-accent-dark);
+}
+
+.rules-content ul,
+.rules-content ol {
+  margin: 0;
+  padding-left: 22px;
+}
+
+.rules-content li {
+  margin-bottom: 10px;
+  color: var(--color-text-soft);
+}
+
+.rules-content p {
+  margin: 0;
+  color: var(--color-text-soft);
+  line-height: 1.7;
+}

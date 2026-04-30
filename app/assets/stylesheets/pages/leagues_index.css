@@ -1,0 +1,652 @@
+/* ===== LEAGUES INDEX / DASHBOARD ===== */
+
+.leagues-dashboard-page {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding-top: 28px;
+  padding-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  overflow: visible;
+}
+
+/* ===== HERO + SUMMARY ===== */
+
+.leagues-dashboard-page .leagues-dashboard__hero {
+  padding: 1rem;
+  border-radius: 18px;
+  background: #ffffff;
+  border: 1px solid rgba(58, 58, 139, 0.08);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.leagues-dashboard-page .leagues-dashboard__hero-main {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.95fr) minmax(420px, 1.45fr);
+  align-items: stretch;
+  gap: 1rem;
+}
+
+.leagues-dashboard-page .leagues-dashboard__hero-user {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  min-width: 0;
+}
+
+.leagues-dashboard-page .leagues-dashboard__hero-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  flex-shrink: 0;
+}
+
+.leagues-dashboard-page .leagues-dashboard__avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-primary) 100%);
+  border: 2px solid var(--color-secondary);
+  box-shadow: none;
+}
+
+.leagues-dashboard-page .leagues-dashboard__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.leagues-dashboard-page .leagues-dashboard__avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 1.45rem;
+  font-weight: 900;
+}
+
+.leagues-dashboard-page .leagues-dashboard__hero-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.leagues-dashboard-page .leagues-dashboard__eyebrow {
+  margin: 0 0 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #459A41;
+}
+
+.leagues-dashboard-page .leagues-dashboard__title {
+  margin: 0;
+  font-size: clamp(1.55rem, 3vw, 2.2rem);
+  line-height: 1.1;
+  color: #111827;
+  word-break: normal;
+}
+
+.leagues-dashboard-page .leagues-dashboard__profile-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== SUMMARY INSIDE HERO ===== */
+
+.leagues-dashboard-page .leagues-dashboard__summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  align-items: stretch;
+}
+
+.leagues-dashboard-page .leagues-dashboard__summary-card {
+  min-height: 100%;
+  padding: 0.85rem;
+  border-radius: 16px;
+  background: #f8fafc;
+  border: 1px solid rgba(58, 58, 139, 0.08);
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.45rem;
+  grid-column: 3;
+}
+
+.leagues-dashboard-page .leagues-dashboard__summary-label {
+  margin: 0;
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: #6b7280;
+  line-height: 1.25;
+}
+
+.leagues-dashboard-page .leagues-dashboard__summary-metric {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+}
+
+.leagues-dashboard-page .leagues-dashboard__summary-number {
+  margin: 0;
+  font-size: clamp(1.65rem, 3vw, 2.2rem);
+  line-height: 1;
+  font-weight: 900;
+  color: #3A3A8B;
+}
+
+.leagues-dashboard-page .leagues-dashboard__summary-suffix {
+  font-size: 0.82rem;
+  line-height: 1;
+  font-weight: 900;
+  color: #3A3A8B;
+}
+
+.leagues-dashboard-page .leagues-dashboard__summary-suffix--hidden {
+  visibility: hidden;
+}
+
+.leagues-dashboard-page .leagues-dashboard__summary-meta {
+  margin: 0;
+  font-size: 0.76rem;
+  line-height: 1.3;
+  color: #6b7280;
+}
+
+/* ===== SECTION CARD ===== */
+
+.leagues-dashboard-page .leagues-dashboard__section-card {
+  padding: 1rem;
+  border-radius: 18px;
+  background: #ffffff;
+  border: 1px solid rgba(58, 58, 139, 0.08);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.leagues-dashboard-page .leagues-dashboard__section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.85rem;
+}
+
+.leagues-dashboard-page .leagues-dashboard__section-title {
+  margin: 0;
+  font-size: 1.35rem;
+  line-height: 1.15;
+  color: #111827;
+}
+
+.leagues-dashboard-page .leagues-dashboard__header-actions {
+  display: flex;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+/* ===== TABLE ===== */
+
+.leagues-dashboard-page .leagues-dashboard__table-wrap {
+  overflow-x: auto;
+}
+
+.leagues-dashboard-page .leagues-dashboard__table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 520px;
+}
+
+.leagues-dashboard-page .leagues-dashboard__table th,
+.leagues-dashboard-page .leagues-dashboard__table td {
+  padding: 0.85rem 0.75rem;
+  text-align: left;
+}
+
+.leagues-dashboard-page .leagues-dashboard__table thead th {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #3A3A8B;
+  border-bottom: 1px solid rgba(58, 58, 139, 0.12);
+}
+
+.leagues-dashboard-page .leagues-dashboard__table tbody td {
+  border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+  vertical-align: middle;
+  color: #111827;
+  font-size: 0.88rem;
+}
+
+.leagues-dashboard-page .leagues-dashboard__table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ===== LEAGUE LINK ===== */
+
+.leagues-dashboard-page .leagues-dashboard__league-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-decoration: none;
+  font-weight: 800;
+  color: #3A3A8B;
+}
+
+.leagues-dashboard-page .leagues-dashboard__league-link:hover {
+  color: #459A41;
+}
+
+.leagues-dashboard-page .leagues-dashboard__league-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-primary) 100%);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.leagues-dashboard-page .leagues-dashboard__league-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.leagues-dashboard-page .leagues-dashboard__league-avatar-placeholder {
+  color: #ffffff;
+  font-weight: 900;
+  font-size: 0.82rem;
+}
+
+.leagues-dashboard-page .leagues-dashboard__position-badge,
+.leagues-dashboard-page .dashboard-position-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 50px;
+  min-height: 24px;
+  padding: 0.22rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(254, 238, 0, 0.28);
+  color: #7a7100;
+  font-size: 0.75rem;
+  font-weight: 900;
+}
+
+/* ===== STATUS ===== */
+
+.leagues-dashboard-page .discover-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  padding: 0.32rem 0.65rem;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 0.74rem;
+}
+
+.leagues-dashboard-page .discover-status--approved {
+  background: rgba(69, 154, 65, 0.12);
+  color: #2f7a35;
+}
+
+.leagues-dashboard-page .discover-status--pending {
+  background: rgba(254, 238, 0, 0.28);
+  color: #7a7100;
+}
+
+/* ===== EMPTY ===== */
+
+.leagues-dashboard-page .leagues-dashboard__empty {
+  padding-top: 0.25rem;
+}
+
+.leagues-dashboard-page .leagues-dashboard__empty p {
+  margin: 0 0 0.85rem;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.leagues-dashboard-page .leagues-dashboard__empty-actions {
+  display: flex;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+/* ===== BUTTONS ===== */
+
+.leagues-dashboard-page .btn-primary-custom,
+.leagues-dashboard-page .btn-secondary-custom {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 0.5rem 0.8rem;
+  border-radius: 11px;
+  border: none;
+  font-size: 0.84rem;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.leagues-dashboard-page .btn-primary-custom:hover,
+.leagues-dashboard-page .btn-secondary-custom:hover {
+  transform: translateY(-1px);
+}
+
+.leagues-dashboard-page .btn-primary-custom {
+  background: #459A41;
+  color: #ffffff;
+  box-shadow: 0 8px 16px rgba(69, 154, 65, 0.2);
+}
+
+.leagues-dashboard-page .btn-primary-custom:hover {
+  box-shadow: 0 10px 20px rgba(69, 154, 65, 0.25);
+}
+
+.leagues-dashboard-page .btn-secondary-custom {
+  background: #fff45a;
+  color: #3A3A8B;
+  border: 1px solid rgba(58, 58, 139, 0.15);
+}
+
+.leagues-dashboard-page .btn-secondary-custom:hover {
+  box-shadow: 0 8px 16px rgba(15, 23, 42, 0.06);
+}
+
+.leagues-dashboard-page .btn-sm-subtle {
+  min-height: 28px;
+  padding: 0.32rem 0.65rem;
+  font-size: 0.74rem;
+  font-weight: 800;
+  border-radius: 999px;
+  background: transparent;
+  color: #3A3A8B;
+  border: 1px solid rgba(58, 58, 139, 0.15);
+  box-shadow: none;
+  text-decoration: none;
+}
+
+.leagues-dashboard-page .btn-sm-subtle:hover {
+  background: rgba(58, 58, 139, 0.08);
+  color: #23235f;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 960px) {
+  .leagues-dashboard-page .leagues-dashboard__hero-main {
+    grid-template-columns: 1fr;
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__summary {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__summary-card {
+    grid-column: auto;
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__header-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 720px) {
+  .leagues-dashboard-page .leagues-dashboard__summary {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .leagues-dashboard-page {
+    width: min(100% - 24px, 1120px);
+    gap: 1rem;
+    padding-top: 22px;
+    padding-bottom: 32px;
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__hero {
+    padding: 0.85rem;
+    border-radius: 16px;
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__hero-main {
+    gap: 0.85rem;
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__hero-user {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 0.75rem;
+    width: 100%;
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__avatar {
+    width: 52px;
+    height: 52px;
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__avatar-placeholder {
+    font-size: 1.2rem;
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__hero-copy {
+    align-items: flex-start;
+    text-align: left;
+    gap: 0.35rem;
+    min-width: 0;
+    flex: 1;
+    padding-top: 0.1rem;
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__eyebrow {
+    margin-bottom: 0.15rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-align: left;
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__title,
+  .leagues-dashboard-page .section-title {
+    font-size: clamp(1.25rem, 6vw, 1.65rem);
+    line-height: 1.1;
+    overflow-wrap: anywhere;
+    text-align: left;
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__summary-card {
+    padding: 0.75rem;
+    border-radius: 14px;
+    grid-column: auto;
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__summary-number {
+    font-size: 1.65rem;
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__header-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .leagues-dashboard-page .btn-primary-custom,
+  .leagues-dashboard-page .btn-secondary-custom {
+    width: 100%;
+  }
+
+  .leagues-dashboard-page .btn-sm-subtle {
+    width: auto;
+    max-width: max-content;
+    padding: 0.28rem 0.55rem;
+    font-size: 0.7rem;
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__section-card {
+    padding: 0.85rem;
+    border-radius: 16px;
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__section-title {
+    font-size: 1.25rem;
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__table-wrap {
+    overflow-x: visible;
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__table {
+    min-width: 0;
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__table thead {
+    display: none;
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__table tbody tr {
+    display: block;
+    padding: 0.85rem;
+    margin-bottom: 0.75rem;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+    border: 1px solid rgba(58, 58, 139, 0.08);
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__table tbody td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.85rem;
+    min-height: 46px;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+    text-align: left;
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__table tbody td:last-child {
+    border-bottom: none;
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__table tbody td::before {
+    content: "";
+    flex: 0 0 108px;
+    min-width: 108px;
+    max-width: 108px;
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: #6b7280;
+    text-align: left;
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__table tbody td:nth-child(1)::before {
+    content: "Liga";
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__table tbody td:nth-child(2)::before {
+    content: "Posição";
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__table tbody td:nth-child(3)::before {
+    content: "Código";
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__table tbody td:nth-child(4)::before {
+    content: "Criador";
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__table tbody td:nth-child(5)::before {
+    content: "Tipo";
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__table tbody td > * {
+    margin-left: auto;
+    text-align: right;
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__league-link {
+    max-width: calc(100% - 120px);
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.55rem;
+    text-align: right;
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__league-avatar {
+    width: 34px;
+    height: 34px;
+    flex: 0 0 34px;
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__league-link span,
+  .leagues-dashboard-page .leagues-dashboard__league-link strong {
+    text-align: right;
+    word-break: break-word;
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__position-badge {
+    min-width: 44px;
+    justify-content: center;
+  }
+}
+
+/* ===== MOBILE: LISTA SIMPLIFICADA DE LIGAS ===== */
+
+@media (max-width: 640px) {
+  .leagues-dashboard-page .leagues-dashboard__table thead th:nth-child(3),
+  .leagues-dashboard-page .leagues-dashboard__table thead th:nth-child(4),
+  .leagues-dashboard-page .leagues-dashboard__table tbody td:nth-child(3),
+  .leagues-dashboard-page .leagues-dashboard__table tbody td:nth-child(4) {
+    display: none;
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__table tbody td:nth-child(1)::before {
+    content: "Liga";
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__table tbody td:nth-child(2)::before {
+    content: "Posição";
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__table tbody td:nth-child(5)::before {
+    content: "Tipo";
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__table tbody td {
+    min-height: 42px;
+    padding: 0.55rem 0;
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__table tbody td::before {
+    flex: 0 0 86px;
+    min-width: 86px;
+    max-width: 86px;
+  }
+
+  .leagues-dashboard-page .leagues-dashboard__league-link {
+    max-width: calc(100% - 96px);
+  }
+}

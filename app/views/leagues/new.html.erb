@@ -1,0 +1,48 @@
+<section class="page-section">
+  <div class="app-card league-form-card">
+    <div class="league-form-card__header">
+      <p class="dashboard-section__eyebrow">Nova liga</p>
+      <h1 class="dashboard-section__title">Criar liga</h1>
+      <p class="league-form-card__text">
+        Dê um nome para sua liga e escolha uma imagem para personalizar a experiência.
+      </p>
+    </div>
+
+    <%= form_with model: @league, local: true, class: "league-form" do |f| %>
+      <% if @league.errors.any? %>
+        <div class="alert alert-danger">
+          <ul class="mb-0">
+            <% @league.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="league-form__group">
+        <%= f.label :name, "Nome da liga" %>
+        <%= f.text_field :name, class: "landing-form-input", placeholder: "Ex: Liga dos Amigos" %>
+      </div>
+
+      <div class="league-form__group">
+        <%= f.label :image, "Avatar da liga" %>
+        <%= f.file_field :image, class: "landing-form-input" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :private, "Tipo da liga" %>
+
+        <%= f.select :private,
+              [["Aberta", false],
+              ["Privada", true]],
+              {},
+              class: "form-control" %>
+      </div>
+
+      <div class="league-form__actions">
+        <%= link_to "Voltar", leagues_path, class: "btn-secondary-custom" %>
+        <%= f.submit "Criar liga", class: "btn-primary-custom" %>
+      </div>
+    <% end %>
+  </div>
+</section>
