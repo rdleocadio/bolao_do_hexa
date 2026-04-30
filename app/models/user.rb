@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  attr_accessor :accept_terms
+
   has_many :owned_leagues, class_name: "League", foreign_key: "owner_id", dependent: :destroy
   has_many :league_memberships, dependent: :destroy
   has_many :leagues, through: :league_memberships
@@ -9,6 +11,7 @@ class User < ApplicationRecord
   after_create :join_canario_league
 
   validates :name, presence: true
+  validates :accept_terms, acceptance: true, on: :create
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

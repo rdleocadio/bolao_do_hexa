@@ -5,4 +5,10 @@ class PagesController < ApplicationController
 
   def rules
   end
+
+  def privacy
+  end
+
+  def terms
+  end
 end

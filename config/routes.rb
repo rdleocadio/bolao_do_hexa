@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   root "pages#home"
 
   get "regras", to: "pages#rules", as: :rules
+  get "privacidade", to: "pages#privacy", as: :privacy
+  get "termos", to: "pages#terms", as: :terms
 
   resources :leagues, only: [:index, :show, :new, :create, :edit, :update] do
     member do

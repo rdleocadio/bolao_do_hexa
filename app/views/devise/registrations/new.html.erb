@@ -78,6 +78,19 @@
                   placeholder: "Repita sua senha" %>
           </div>
 
+          <div class="signup-form__group signup-form__terms">
+            <label class="signup-form__terms-label">
+              <%= f.check_box :accept_terms, required: true, class: "signup-form__checkbox" %>
+
+              <span>
+                Li e aceito os
+                <%= link_to "Termos de Uso", terms_path, target: "_blank", rel: "noopener" %>
+                e a
+                <%= link_to "Política de Privacidade", privacy_path, target: "_blank", rel: "noopener" %>.
+              </span>
+            </label>
+          </div>
+
           <%= f.submit "Criar conta", class: "signup-submit-button" %>
         <% end %>
 
