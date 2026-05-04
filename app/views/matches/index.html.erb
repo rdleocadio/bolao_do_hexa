@@ -8,8 +8,9 @@
 
     <div class="matches-filters__content" data-filters-content>
       <%= form_with url: matches_path, method: :get, local: true, class: "matches-filters__form" do %>
+
         <div class="matches-filters__group">
-          <label for="stage">Fase</label>
+          <label>Fase</label>
           <%= select_tag :stage,
                 options_for_select(
                   [
@@ -28,17 +29,17 @@
         </div>
 
         <div class="matches-filters__group">
-          <label for="group">Grupo</label>
+          <label>Grupo</label>
           <%= select_tag :group,
                 options_for_select(
-                  [["Todos", ""]] + @available_groups.map { |group| ["Grupo #{group}", group] },
+                  [["Todos", ""]] + @available_groups.map { |g| ["Grupo #{g}", g] },
                   params[:group]
                 ),
                 class: "matches-filters__select" %>
         </div>
 
         <div class="matches-filters__group">
-          <label for="status">Status</label>
+          <label>Status</label>
           <%= select_tag :status,
                 options_for_select(
                   [
@@ -52,14 +53,15 @@
         </div>
 
         <div class="matches-filters__group">
-          <label for="without_prediction">Palpites</label>
-          <%= select_tag :without_prediction,
+          <label>Palpites</label>
+          <%= select_tag :prediction_status,
                 options_for_select(
                   [
                     ["Todos os jogos", ""],
-                    ["Sem palpite", "1"]
+                    ["Com palpite", "with_prediction"],
+                    ["Sem palpite", "without_prediction"]
                   ],
-                  params[:without_prediction]
+                  params[:prediction_status]
                 ),
                 class: "matches-filters__select" %>
         </div>
@@ -68,19 +70,23 @@
           <%= submit_tag "Filtrar", class: "btn btn-primary" %>
           <%= link_to "Limpar", matches_path, class: "btn-secondary-custom" %>
         </div>
+
       <% end %>
     </div>
   </div>
 
   <% if @matches.any? %>
     <div class="matches-grid">
+
       <% @matches.each do |match| %>
         <% prediction = @predictions_by_match_id[match.id] || current_user.predictions.build(match: match) %>
         <% locked = match.locked? || match.finished? %>
 
-        <article class="match-card <%= 'match-card--locked' if locked %>">
+        <article id="match-<%= match.id %>" class="match-card <%= 'match-card--locked' if locked %>">
+
           <div class="match-card__top">
             <div class="match-card__meta">
+
               <span class="match-card__badge">
                 <%= match.phase_label %>
                 <% if match.group_code.present? %>
@@ -91,6 +97,7 @@
               <span class="match-card__status <%= locked ? 'match-card__status--closed' : 'match-card__status--open' %>">
                 <%= locked ? "Fechado" : "Aberto" %>
               </span>
+
             </div>
 
             <div class="match-card__datetime">
@@ -102,21 +109,25 @@
                         url: prediction.persisted? ? prediction_path(prediction) : predictions_path,
                         method: prediction.persisted? ? :patch : :post,
                         local: true,
+                        data: { turbo: false },
                         class: "match-card__form" do |f| %>
 
             <%= f.hidden_field :match_id, value: match.id %>
+
             <%= hidden_field_tag :stage, params[:stage] %>
             <%= hidden_field_tag :group, params[:group] %>
             <%= hidden_field_tag :status, params[:status] %>
-            <%= hidden_field_tag :without_prediction, params[:without_prediction] %>
+            <%= hidden_field_tag :prediction_status, params[:prediction_status] %>
+            <%= hidden_field_tag :return_to, request.fullpath %>
 
             <div class="match-card__prediction-row">
+
               <span class="match-card__team-name match-card__team-name--home">
                 <%= match.home_team_name %>
               </span>
 
               <div class="match-card__flag">
-                <%= image_tag(match.home_team_flag_url, alt: match.home_team_name) rescue image_tag("flags/default.png", alt: match.home_team_name) %>
+                <%= image_tag(match.home_team_flag_url, alt: match.home_team_name) rescue image_tag("flags/default.png") %>
               </div>
 
               <%= f.number_field :predicted_home_score,
@@ -134,16 +145,19 @@
                     disabled: locked %>
 
               <div class="match-card__flag">
-                <%= image_tag(match.away_team_flag_url, alt: match.away_team_name) rescue image_tag("flags/default.png", alt: match.away_team_name) %>
+                <%= image_tag(match.away_team_flag_url, alt: match.away_team_name) rescue image_tag("flags/default.png") %>
               </div>
 
               <span class="match-card__team-name match-card__team-name--away">
                 <%= match.away_team_name %>
               </span>
+
             </div>
 
             <div class="match-card__content">
+
               <div class="match-card__scores">
+
                 <div class="match-card__score-block">
                   <label>Placar computado</label>
                   <div class="match-card__official-score">
@@ -165,22 +179,14 @@
                     <% end %>
                   </div>
                 </div>
+
               </div>
 
               <div class="match-card__footer">
                 <% unless locked %>
                   <div class="match-card__actions">
-                    <%= f.submit prediction.persisted? ? "Atualizar palpite" : "Salvar palpite", class: "btn btn-primary" %>
-
-                    <% if prediction.persisted? %>
-                      <%= link_to "Limpar palpite",
-                            prediction_path(prediction, stage: params[:stage], group: params[:group], status: params[:status], without_prediction: params[:without_prediction]),
-                            data: {
-                              turbo_method: :delete,
-                              turbo_confirm: "Deseja limpar seu palpite?"
-                            },
-                            class: "btn btn-secondary" %>
-                    <% end %>
+                    <%= f.submit prediction.persisted? ? "Atualizar palpite" : "Salvar palpite",
+                          class: "btn btn-primary" %>
                   </div>
                 <% else %>
                   <span class="match-card__locked-message">
@@ -188,15 +194,40 @@
                   </span>
                 <% end %>
               </div>
+
+            </div>
+
+          <% end %>
+
+          <% if prediction.persisted? && !locked %>
+            <div class="match-card__actions">
+              <%= button_to "Limpar palpite",
+                    prediction_path(prediction),
+                    method: :delete,
+                    params: {
+                      return_to: request.fullpath
+                    },
+                    form: {
+                      data: { turbo: false },
+                      class: "match-card__delete-form",
+                      onsubmit: "return confirm('Deseja limpar seu palpite?');"
+                    },
+                    class: "btn btn-secondary" %>
             </div>
           <% end %>
+
         </article>
       <% end %>
+
     </div>
+
   <% else %>
+
     <div class="matches-empty app-card">
       <h2>Nenhum jogo encontrado</h2>
       <p>Tente ajustar os filtros para visualizar outras partidas.</p>
     </div>
+
   <% end %>
+
 </section>

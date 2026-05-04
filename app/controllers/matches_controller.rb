@@ -26,11 +26,19 @@ class MatchesController < ApplicationController
       end
     end
 
-    if params[:without_prediction] == "1"
-      predicted_match_ids = current_user.predictions.pluck(:match_id)
+    predicted_match_ids = current_user.predictions.select(:match_id)
 
+    case params[:prediction_status]
+    when "with_prediction"
       matches = if matches.is_a?(Array)
-                  matches.reject { |match| predicted_match_ids.include?(match.id) }
+                  matches.select { |match| predicted_match_ids.map(&:match_id).include?(match.id) }
+                else
+                  matches.where(id: predicted_match_ids)
+                end
+    when "without_prediction"
+      matches = if matches.is_a?(Array)
+                  predicted_ids = current_user.predictions.pluck(:match_id)
+                  matches.reject { |match| predicted_ids.include?(match.id) }
                 else
                   matches.where.not(id: predicted_match_ids)
                 end
