@@ -43,7 +43,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
 
   config.action_mailer.smtp_settings = {
-    address: ENV.fetch("SMTP_ADDRESS", "smtp-relay.brevo.com"),
+    address: ENV.fetch("SMTP_ADDRESS", "smtp.zoho.com"),
     port: ENV.fetch("SMTP_PORT", 587).to_i,
     domain: ENV.fetch("SMTP_DOMAIN", "bolaocanarinho.com"),
     user_name: ENV.fetch("SMTP_USERNAME"),
