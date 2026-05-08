@@ -8,9 +8,26 @@ class League < ApplicationRecord
 
   before_validation :generate_code, on: :create
 
-  validates :name, presence: true,
-                 uniqueness: { case_sensitive: false, message: "já está em uso" }
-  validates :code, presence: true, uniqueness: true
+  validates :name,
+            presence: true,
+            uniqueness: {
+              case_sensitive: false,
+              message: "já está em uso"
+            }
+
+  validates :code,
+            presence: true,
+            uniqueness: true
+
+  validates :image,
+            content_type: {
+              in: ["image/png", "image/jpeg", "image/webp"],
+              message: "deve ser PNG, JPG, JPEG ou WEBP"
+            },
+            size: {
+              less_than: 3.megabytes,
+              message: "deve ter no máximo 3MB"
+            }
 
   def private?
     private

@@ -33,14 +33,24 @@ body {
 .site-navbar__brand {
   display: inline-flex;
   align-items: center;
-  text-decoration: none;
+  justify-content: center;
   flex-shrink: 0;
+  text-decoration: none;
 }
 
 .site-navbar__logo {
-  height: 42px;
+  display: block;
+  height: 44px;
   width: auto;
   object-fit: contain;
+  transition:
+    opacity 0.2s ease,
+    filter 0.2s ease;
+}
+
+.site-navbar__brand:hover .site-navbar__logo {
+  filter: drop-shadow(0 0 6px rgba(255, 230, 0, 0.28));
+  opacity: 0.96;
 }
 
 .site-navbar__menu {
@@ -249,7 +259,7 @@ body {
   }
 
   .site-navbar__logo {
-    height: 36px;
+    height: 38px;
   }
 
   .site-navbar__socials {
@@ -275,7 +285,7 @@ body {
   }
 
   .site-navbar__logo {
-    height: 32px;
+    height: 34px;
   }
 
   .site-navbar__social-link {

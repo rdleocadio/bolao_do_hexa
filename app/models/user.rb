@@ -13,6 +13,16 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :accept_terms, acceptance: true, on: :create
 
+  validates :avatar,
+            content_type: {
+              in: ["image/png", "image/jpeg", "image/webp"],
+              message: "deve ser PNG, JPG, JPEG ou WEBP"
+            },
+            size: {
+              less_than: 3.megabytes,
+              message: "deve ter no máximo 3MB"
+            }
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,

@@ -10,3 +10,8 @@ pt-BR:
       short: "%d/%m/%Y"
       long: "%d de %B de %Y"
       default: "%d/%m/%Y"
+
+  errors:
+    messages:
+      content_type_invalid: "deve ser PNG, JPG, JPEG ou WEBP"
+      file_size_out_of_range: "deve ter no máximo %{max}"

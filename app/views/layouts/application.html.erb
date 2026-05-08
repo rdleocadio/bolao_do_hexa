@@ -32,9 +32,11 @@
   <body class="app-layout">
     <nav class="site-navbar">
       <div class="site-navbar__inner">
-        <div class="site-navbar__brand">
-          <%= image_tag "logo-bolao.png", alt: "Bolão do Hexa", class: "site-navbar__logo" %>
-        </div>
+        <%= link_to root_path, class: "site-navbar__brand" do %>
+          <%= image_tag "logo-bolao.png",
+              alt: "Bolão do Canarinho",
+              class: "site-navbar__logo" %>
+        <% end %>
 
         <div class="site-navbar__socials">
           <%= link_to "https://www.youtube.com/@CanarinhoCast", target: "_blank", rel: "noopener", class: "site-navbar__social-link" do %>

@@ -24,6 +24,8 @@ gem "bootsnap", require: false
 gem "faker", group: [:development, :test]
 gem "simplecov", require: false, group: :test
 
+gem "active_storage_validations"
+
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
 end
