@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'contact/index'
   devise_for :users, controllers: {
     sessions: "users/sessions",
     registrations: "users/registrations"
@@ -9,6 +10,7 @@ Rails.application.routes.draw do
   get "regras", to: "pages#rules", as: :rules
   get "privacidade", to: "pages#privacy", as: :privacy
   get "termos", to: "pages#terms", as: :terms
+  get "contato", to: "contact#index", as: :contact
 
   resources :leagues, only: [:index, :show, :new, :create, :edit, :update] do
     member do

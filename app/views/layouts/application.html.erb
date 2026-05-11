@@ -71,6 +71,7 @@
               <%= link_to "Classificação Copa", standings_path, class: "site-navbar__link" %>
               <%= link_to "Mata-mata", brackets_path, class: "site-navbar__link" %>
               <%= link_to "Regras", rules_path, class: "site-navbar__link" %>
+              <%= link_to "Contato", contact_path, class: "site-navbar__link" %>
 
               <% if current_user.admin? %>
                 <%= link_to "Admin", admin_matches_path, class: "site-navbar__link" %>
