@@ -52,6 +52,13 @@ Rails.application.routes.draw do
         delete :bulk_destroy
       end
     end
+
+    resources :group_standing_overrides, only: [:index, :edit, :update] do
+      collection do
+        post :generate
+        delete :reset
+      end
+    end
   end
 
   if Rails.env.development?

@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  group_code: MyString
+  team_name: MyString
+  position: 1
+  played: 1
+  wins: 1
+  draws: 1
+  losses: 1
+  goals_for: 1
+  goals_against: 1
+  goal_difference: 1
+  points: 1
+  admin_note: MyText
+
+two:
+  group_code: MyString
+  team_name: MyString
+  position: 1
+  played: 1
+  wins: 1
+  draws: 1
+  losses: 1
+  goals_for: 1
+  goals_against: 1
+  goal_difference: 1
+  points: 1
+  admin_note: MyText

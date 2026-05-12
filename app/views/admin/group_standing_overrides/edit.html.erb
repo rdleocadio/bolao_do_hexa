@@ -1,0 +1,97 @@
+<section class="admin-page">
+  <div class="container">
+
+    <div class="admin-page__header">
+      <h1>Editar Classificação Manual</h1>
+
+      <p>
+        Ajuste manualmente a posição e os números da seleção no grupo.
+      </p>
+    </div>
+
+    <div class="admin-card">
+      <h2><%= @override.team_name %></h2>
+      <p>Grupo <%= @override.group_code %></p>
+
+      <%= form_with model: [:admin, @override], local: true do |f| %>
+        <% if @override.errors.any? %>
+          <div class="form-errors">
+            <h3>Confira os erros abaixo:</h3>
+
+            <ul>
+              <% @override.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="form-grid">
+          <div class="field">
+            <%= f.label :position, "Posição" %>
+            <%= f.number_field :position, class: "form-input", min: 1 %>
+          </div>
+
+          <div class="field">
+            <%= f.label :points, "Pontos" %>
+            <%= f.number_field :points, class: "form-input", min: 0 %>
+          </div>
+
+          <div class="field">
+            <%= f.label :played, "Jogos" %>
+            <%= f.number_field :played, class: "form-input", min: 0 %>
+          </div>
+
+          <div class="field">
+            <%= f.label :wins, "Vitórias" %>
+            <%= f.number_field :wins, class: "form-input", min: 0 %>
+          </div>
+
+          <div class="field">
+            <%= f.label :draws, "Empates" %>
+            <%= f.number_field :draws, class: "form-input", min: 0 %>
+          </div>
+
+          <div class="field">
+            <%= f.label :losses, "Derrotas" %>
+            <%= f.number_field :losses, class: "form-input", min: 0 %>
+          </div>
+
+          <div class="field">
+            <%= f.label :goals_for, "Gols Pró" %>
+            <%= f.number_field :goals_for, class: "form-input", min: 0 %>
+          </div>
+
+          <div class="field">
+            <%= f.label :goals_against, "Gols Contra" %>
+            <%= f.number_field :goals_against, class: "form-input", min: 0 %>
+          </div>
+
+          <div class="field">
+            <%= f.label :goal_difference, "Saldo de Gols" %>
+            <%= f.number_field :goal_difference, class: "form-input" %>
+          </div>
+        </div>
+
+        <div class="field">
+          <%= f.label :admin_note, "Observação interna" %>
+          <%= f.text_area :admin_note,
+              class: "form-input",
+              rows: 4,
+              placeholder: "Ex: Ajustado manualmente por critério de cartões ou decisão oficial." %>
+        </div>
+
+        <div class="form-actions">
+          <%= f.submit "Salvar classificação",
+              class: "btn btn-primary" %>
+
+          <%= link_to "Voltar",
+              admin_group_standing_overrides_path(group_code: @override.group_code),
+              class: "btn btn-secondary" %>
+        </div>
+      <% end %>
+
+    </div>
+
+  </div>
+</section>

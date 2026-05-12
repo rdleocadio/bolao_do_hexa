@@ -1,0 +1,128 @@
+<section class="admin-page">
+  <div class="container">
+
+    <div class="admin-page__header">
+      <h1>Ajuste Manual da Classificação</h1>
+
+      <p>
+        Gere uma classificação manual baseada na classificação automática
+        e ajuste os critérios manualmente apenas se necessário.
+      </p>
+    </div>
+
+    <div class="admin-card">
+      <%= form_with url: admin_group_standing_overrides_path,
+                    method: :get,
+                    local: true,
+                    class: "admin-form-inline" do %>
+
+        <div class="field">
+          <label for="group_code">Grupo</label>
+
+          <%= select_tag :group_code,
+              options_for_select(@groups, @selected_group),
+              onchange: "this.form.submit();",
+              class: "form-input" %>
+        </div>
+
+      <% end %>
+    </div>
+
+    <div class="admin-card">
+      <div class="admin-card__actions">
+        <%= button_to "Gerar classificação manual",
+            generate_admin_group_standing_overrides_path(group_code: @selected_group),
+            method: :post,
+            class: "btn btn-primary",
+            form: {
+              data: {
+                turbo_confirm: "Isso substituirá a classificação manual atual do Grupo #{@selected_group}. Deseja continuar?"
+              }
+            } %>
+
+        <%= button_to "Voltar para classificação automática",
+            reset_admin_group_standing_overrides_path(group_code: @selected_group),
+            method: :delete,
+            class: "btn btn-danger",
+            form: {
+              data: {
+                turbo_confirm: "Isso removerá toda a classificação manual do Grupo #{@selected_group}. Deseja continuar?"
+              }
+            } %>
+      </div>
+    </div>
+
+    <% if @overrides.any? %>
+
+      <div class="admin-table-wrapper">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Seleção</th>
+              <th>PTS</th>
+              <th>J</th>
+              <th>V</th>
+              <th>E</th>
+              <th>D</th>
+              <th>GP</th>
+              <th>GC</th>
+              <th>SG</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @overrides.each do |standing| %>
+              <tr>
+                <td><%= standing.position %></td>
+
+                <td>
+                  <div class="team-cell">
+                    <%= image_tag(
+                      "flags/#{standing.team_name.parameterize}.png",
+                      alt: standing.team_name,
+                      class: "team-flag"
+                    ) rescue nil %>
+
+                    <span><%= standing.team_name %></span>
+                  </div>
+                </td>
+
+                <td><%= standing.points %></td>
+                <td><%= standing.played %></td>
+                <td><%= standing.wins %></td>
+                <td><%= standing.draws %></td>
+                <td><%= standing.losses %></td>
+                <td><%= standing.goals_for %></td>
+                <td><%= standing.goals_against %></td>
+                <td><%= standing.goal_difference %></td>
+
+                <td>
+                  <%= link_to "Editar",
+                      edit_admin_group_standing_override_path(standing),
+                      class: "btn btn-secondary btn-sm" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+    <% else %>
+
+      <div class="empty-state">
+        <p>
+          Ainda não existe classificação manual para este grupo.
+        </p>
+
+        <p>
+          Clique em <strong>“Gerar classificação manual”</strong>
+          para criar uma versão editável baseada na classificação automática.
+        </p>
+      </div>
+
+    <% end %>
+
+  </div>
+</section>

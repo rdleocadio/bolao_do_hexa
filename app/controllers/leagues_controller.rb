@@ -22,6 +22,12 @@ class LeaguesController < ApplicationController
       position = ranking.find_index { |entry| entry[:user].id == current_user.id }
       @league_positions[league.id] = position.present? ? position + 1 : "-"
     end
+
+    @upcoming_matches_without_predictions = Match
+      .where("locked_at >= ?", Time.current)
+      .where.not(id: current_user.predictions.select(:match_id))
+      .order(:locked_at)
+      .limit(5)
   end
 
   def discover
@@ -177,10 +183,10 @@ class LeaguesController < ApplicationController
         next unless match.present?
         next unless match.finished?
         next if match.home_score.nil? || match.away_score.nil?
-        next if prediction.home_score.nil? || prediction.away_score.nil?
+        next if prediction.predicted_home_score.nil? || prediction.predicted_away_score.nil?
 
-        home_prediction = prediction.home_score
-        away_prediction = prediction.away_score
+        home_prediction = prediction.predicted_home_score
+        away_prediction = prediction.predicted_away_score
         home_real = match.home_score
         away_real = match.away_score
 

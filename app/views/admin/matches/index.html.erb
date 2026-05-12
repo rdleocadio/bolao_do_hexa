@@ -9,6 +9,7 @@
         stage: params[:stage],
         group_code: params[:group_code],
       ), class: "btn btn-primary" %>
+      <%= link_to "Ajustar classificação dos grupos", admin_group_standing_overrides_path %>
 
       <%= link_to "Voltar ao app", root_path, class: "btn btn-outline-secondary" %>
     </div>

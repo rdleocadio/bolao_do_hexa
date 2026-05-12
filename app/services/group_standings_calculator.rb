@@ -21,6 +21,14 @@ class GroupStandingsCalculator
   end
 
   def call
+    manual_standings = manual_standings_for_group
+
+    return manual_standings if manual_standings.any?
+
+    automatic_standings
+  end
+
+  def automatic_standings
     stats = build_initial_stats
 
     finished_matches.each do |match|
@@ -45,6 +53,25 @@ class GroupStandingsCalculator
   private
 
   attr_reader :group_code
+
+  def manual_standings_for_group
+    GroupStandingOverride
+      .where(group_code: group_code)
+      .order(:position)
+      .map do |standing|
+        TeamStats.new(
+          team: standing.team_name,
+          played: standing.played || 0,
+          wins: standing.wins || 0,
+          draws: standing.draws || 0,
+          losses: standing.losses || 0,
+          goals_for: standing.goals_for || 0,
+          goals_against: standing.goals_against || 0,
+          goal_difference: standing.goal_difference || 0,
+          points: standing.points || 0
+        )
+      end
+  end
 
   def matches
     @matches ||= Match.where(stage: :group_stage, group_code: group_code).order(:kickoff_at)

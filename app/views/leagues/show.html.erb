@@ -34,7 +34,6 @@ end %>
       <div>
         <p class="dashboard-section__eyebrow">Perfil da liga</p>
 
-        <!-- 🔥 HEADER COM BOTÃO DE EDITAR -->
         <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
           <h1 class="dashboard-hero__title"><%= @league.name %></h1>
 
@@ -99,10 +98,14 @@ end %>
             <% sorted_ranking.each_with_index do |entry, index| %>
               <tr>
                 <td>
-                  <% if index == 0 %> 🥇
-                  <% elsif index == 1 %> 🥈
-                  <% elsif index == 2 %> 🥉
-                  <% else %> <%= index + 1 %>
+                  <% if index == 0 %>
+                    🥇
+                  <% elsif index == 1 %>
+                    🥈
+                  <% elsif index == 2 %>
+                    🥉
+                  <% else %>
+                    <%= index + 1 %>
                   <% end %>
                 </td>
 
@@ -200,9 +203,29 @@ end %>
           <tbody>
             <% @upcoming_matches.each do |match| %>
               <tr>
-                <td><strong><%= match.home_team %> x <%= match.away_team %></strong></td>
+                <td>
+                  <strong class="league-show-match-teams">
+
+                    <%= image_tag(match.home_team_flag_url,
+                        class: "league-show-match-flag",
+                        alt: match.home_team_name) rescue image_tag("flags/default.png",
+                        class: "league-show-match-flag",
+                        alt: "Bandeira padrão") %>
+
+                    <span>x</span>
+
+                    <%= image_tag(match.away_team_flag_url,
+                        class: "league-show-match-flag",
+                        alt: match.away_team_name) rescue image_tag("flags/default.png",
+                        class: "league-show-match-flag",
+                        alt: "Bandeira padrão") %>
+
+                  </strong>
+                </td>
+
                 <td><%= stage_labels[match.stage.to_s] || match.stage.to_s.humanize %></td>
                 <td><%= l(match.kickoff_at, format: :short) %></td>
+
                 <td>
                   <% if match.finished? %>
                     <span class="dashboard-position-badge">

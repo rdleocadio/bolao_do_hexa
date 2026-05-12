@@ -39,10 +39,52 @@
             Jogos finalizados
           </p>
         </div>
-
       </div>
     </div>
   </div>
+
+  <% if @upcoming_matches_without_predictions.present? && @upcoming_matches_without_predictions.any? %>
+    <div class="leagues-dashboard__upcoming-card">
+      <div class="leagues-dashboard__upcoming-header">
+        <h2>Próximos jogos sem palpites</h2>
+        <p>É possível palpitar até 15 minutos antes do inicio de cada partida.</p>
+      </div>
+
+      <div class="leagues-dashboard__upcoming-list">
+        <% @upcoming_matches_without_predictions.each do |match| %>
+          <div class="leagues-dashboard__upcoming-item">
+            <div class="leagues-dashboard__upcoming-date">
+              <%= l(match.kickoff_at, format: :short) %>
+            </div>
+
+            <div class="leagues-dashboard__upcoming-teams">
+              <span><%= match.home_team_name %></span>
+
+              <%= image_tag(match.home_team_flag_url,
+                  class: "leagues-dashboard__upcoming-flag",
+                  alt: match.home_team_name) rescue image_tag("flags/default.png",
+                  class: "leagues-dashboard__upcoming-flag",
+                  alt: "Bandeira padrão") %>
+
+              <strong>x</strong>
+
+              <%= image_tag(match.away_team_flag_url,
+                  class: "leagues-dashboard__upcoming-flag",
+                  alt: match.away_team_name) rescue image_tag("flags/default.png",
+                  class: "leagues-dashboard__upcoming-flag",
+                  alt: "Bandeira padrão") %>
+
+              <span><%= match.away_team_name %></span>
+            </div>
+
+            <%= link_to "Palpitar",
+                matches_path(anchor: "match-#{match.id}"),
+                class: "btn-primary-custom leagues-dashboard__upcoming-button" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 
   <div class="leagues-dashboard__section-card">
     <div class="leagues-dashboard__section-header">
