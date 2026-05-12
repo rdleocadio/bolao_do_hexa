@@ -516,3 +516,12 @@ pt-BR:
       curacao: "Curaçau"
       haiti: "Haiti"
       panama: "Panamá"
+
+  league_edit:
+    subtitle: "Atualize as informações da sua liga."
+    current_image: "Imagem atual"
+    name: "Nome da liga"
+    new_image: "Nova imagem"
+    save: "Salvar alterações"
+    delete_league: "Excluir liga"
+    delete_confirm: "Tem certeza que deseja excluir esta liga? Esta ação não poderá ser desfeita."

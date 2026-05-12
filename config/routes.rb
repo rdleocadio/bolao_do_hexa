@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     get "termos", to: "pages#terms", as: :terms
     get "contato", to: "contact#index", as: :contact
 
-    resources :leagues, only: [:index, :show, :new, :create, :edit, :update] do
+    resources :leagues, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
       member do
         post :join
       end

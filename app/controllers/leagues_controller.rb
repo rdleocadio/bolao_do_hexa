@@ -1,5 +1,7 @@
 class LeaguesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_league, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_league_owner!, only: [:edit, :update, :destroy]
 
   def index
     @user = current_user
@@ -45,8 +47,6 @@ class LeaguesController < ApplicationController
   end
 
   def show
-    @league = League.find(params[:id])
-
     @approved_memberships = @league.league_memberships.approved.includes(:user).order(:created_at)
     @pending_memberships = @league.league_memberships.pending.includes(:user).order(:created_at)
 
@@ -147,12 +147,9 @@ class LeaguesController < ApplicationController
   end
 
   def edit
-    @league = League.find(params[:id])
   end
 
   def update
-    @league = League.find(params[:id])
-
     if @league.update(league_params)
       redirect_to @league, notice: "Liga atualizada com sucesso."
     else
@@ -160,7 +157,23 @@ class LeaguesController < ApplicationController
     end
   end
 
+  def destroy
+    @league.destroy
+
+    redirect_to leagues_path, notice: "Liga excluída com sucesso."
+  end
+
   private
+
+  def set_league
+    @league = League.find(params[:id])
+  end
+
+  def authorize_league_owner!
+    unless @league.owner == current_user || current_user.admin?
+      redirect_to leagues_path, alert: "Você não tem permissão para alterar esta liga."
+    end
+  end
 
   def build_league_ranking(league)
     approved_users = league.league_memberships

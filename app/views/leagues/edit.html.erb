@@ -1,7 +1,9 @@
 <section class="page-section">
   <div class="app-card league-edit-card">
     <div class="league-edit-header">
-      <p class="league-edit-header__eyebrow"><%= t("leagues.edit") %></p>
+      <p class="league-edit-header__eyebrow">
+        <%= t("leagues.edit") %>
+      </p>
 
       <h1 class="league-edit-header__title">
         <%= @league.name %>
@@ -43,6 +45,35 @@
         <%= link_to t("buttons.cancel"),
               league_path(@league),
               class: "btn-secondary-custom" %>
+      </div>
+    <% end %>
+
+    <% if @league.owner == current_user || current_user.admin? %>
+      <div class="league-danger-zone">
+        <div class="league-danger-zone__content">
+          <span class="league-danger-zone__icon">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+          </span>
+
+          <div>
+            <h2 class="league-danger-zone__title">
+              Encerrar liga
+            </h2>
+
+            <p class="league-danger-zone__text">
+              Ao excluir esta liga, todos os participantes serão removidos
+              e esta ação não poderá ser desfeita.
+            </p>
+          </div>
+        </div>
+
+        <%= button_to t("league_edit.delete_league"),
+              league_path(@league),
+              method: :delete,
+              class: "btn-danger-custom",
+              data: {
+                turbo_confirm: t("league_edit.delete_confirm")
+              } %>
       </div>
     <% end %>
   </div>

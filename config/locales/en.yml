@@ -516,3 +516,12 @@ en:
       curacao: "Curaçao"
       haiti: "Haiti"
       panama: "Panama"
+
+  league_edit:
+    subtitle: "Update your league information."
+    current_image: "Current image"
+    name: "League name"
+    new_image: "New image"
+    save: "Save changes"
+    delete_league: "Delete league"
+    delete_confirm: "Are you sure you want to delete this league? This action cannot be undone."
