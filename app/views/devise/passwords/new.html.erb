@@ -3,31 +3,36 @@
 
   <div class="landing-hero__content container">
     <div class="landing-hero__text">
-      <p class="landing-hero__eyebrow">Bolão oficial da sua galera</p>
+      <p class="landing-hero__eyebrow"><%= t("home.eyebrow") %></p>
 
       <h1 class="landing-hero__title">
-        Viva o melhor da Copa do Mundo com seus amigos.
+        <%= t("home.title") %>
       </h1>
 
       <p class="landing-hero__description">
-        Preencha seus palpites, crie ou entre em ligas, acompanhe a classificação dos grupos e siga o mata-mata.
+        <%= t("home.description") %>
       </p>
 
       <div class="landing-hero__highlights">
-        <span>🏆 Ranking por liga</span>
-        <span>⚽ Palpites por jogo</span>
-        <span>🧩 Diversão garantida</span>
+        <span><%= t("home.highlights.league_ranking") %></span>
+        <span><%= t("home.highlights.match_predictions") %></span>
+        <span><%= t("home.highlights.guaranteed_fun") %></span>
       </div>
     </div>
 
     <div class="landing-login-card">
       <div class="landing-login-card__header">
         <div class="landing-login-card__header-row">
-          <%= image_tag "logo-podcast.png", alt: "Bolão do Hexa", class: "landing-login-card__logo-img" %>
+          <%= image_tag "logo-podcast.png",
+              alt: t("app.title"),
+              class: "landing-login-card__logo-img" %>
 
           <div class="landing-login-card__title-group">
-            <p class="landing-login-card__eyebrow">Recuperar acesso</p>
-            <h2>Redefinir senha</h2>
+            <p class="landing-login-card__eyebrow">
+              <%= t("passwords.recover_access") %>
+            </p>
+
+            <h2><%= t("passwords.reset_password") %></h2>
           </div>
         </div>
       </div>
@@ -40,20 +45,25 @@
         <%= render "devise/shared/error_messages", resource: resource %>
 
         <div class="landing-form-group">
-          <%= f.label :email, "E-mail" %>
+          <%= f.label :email, t("forms.email") %>
+
           <%= f.email_field :email,
                 autofocus: true,
                 autocomplete: "email",
                 class: "landing-form-input",
-                placeholder: "voce@email.com" %>
+                placeholder: t("forms.placeholders.email") %>
         </div>
 
-        <%= f.submit "Enviar instruções", class: "landing-submit-button" %>
+        <%= f.submit t("passwords.send_instructions"),
+              class: "landing-submit-button" %>
       <% end %>
 
       <div class="landing-login-card__footer">
-        <p>Lembrou sua senha?</p>
-        <%= link_to "Voltar para login", new_user_session_path, class: "landing-secondary-link" %>
+        <p><%= t("passwords.remembered_password") %></p>
+
+        <%= link_to t("passwords.back_to_login"),
+              new_user_session_path,
+              class: "landing-secondary-link" %>
       </div>
     </div>
   </div>

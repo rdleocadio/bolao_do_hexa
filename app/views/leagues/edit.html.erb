@@ -1,34 +1,48 @@
 <section class="page-section">
   <div class="app-card league-edit-card">
     <div class="league-edit-header">
-      <p class="league-edit-header__eyebrow">Editar liga</p>
-      <h1 class="league-edit-header__title"><%= @league.name %></h1>
+      <p class="league-edit-header__eyebrow"><%= t("leagues.edit") %></p>
+
+      <h1 class="league-edit-header__title">
+        <%= @league.name %>
+      </h1>
+
       <p class="league-edit-header__subtitle">
-        Atualize o nome e a imagem da sua liga.
+        <%= t("league_edit.subtitle") %>
       </p>
     </div>
 
-    <%= form_with model: @league, local: true, html: { class: "league-edit-form" } do |f| %>
+    <%= form_with model: @league,
+          local: true,
+          html: { class: "league-edit-form" } do |f| %>
+
       <% if @league.image.attached? %>
         <div class="league-edit-current-image">
           <%= image_tag @league.image, alt: @league.name %>
-          <span>Imagem atual da liga</span>
+
+          <span>
+            <%= t("league_edit.current_image") %>
+          </span>
         </div>
       <% end %>
 
       <div class="league-edit-field">
-        <%= f.label :name, "Nome da liga" %>
+        <%= f.label :name, t("league_edit.name") %>
         <%= f.text_field :name %>
       </div>
 
       <div class="league-edit-field">
-        <%= f.label :image, "Nova foto da liga" %>
+        <%= f.label :image, t("league_edit.new_image") %>
         <%= f.file_field :image %>
       </div>
 
       <div class="league-edit-actions">
-        <%= f.submit "Salvar alterações", class: "btn-primary-custom" %>
-        <%= link_to "Cancelar", league_path(@league), class: "btn-secondary-custom" %>
+        <%= f.submit t("league_edit.save"),
+              class: "btn-primary-custom" %>
+
+        <%= link_to t("buttons.cancel"),
+              league_path(@league),
+              class: "btn-secondary-custom" %>
       </div>
     <% end %>
   </div>

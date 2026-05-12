@@ -1,31 +1,518 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
-  hello: "Hello world"
+  time:
+    formats:
+      short: "%m/%d/%Y %I:%M %p"
+      long: "%B %d, %Y at %I:%M %p"
+      default: "%m/%d/%Y %I:%M:%S %p"
+
+  date:
+    formats:
+      short: "%m/%d/%Y"
+      long: "%B %d, %Y"
+      default: "%m/%d/%Y"
+
+  errors:
+    unauthorized: "Unauthorized access."
+    messages:
+      content_type_invalid: "must be PNG, JPG, JPEG or WEBP"
+      file_size_out_of_range: "must be at most %{max}"
+
+  app:
+    title: "Bolão do Canarinho"
+
+  languages:
+    portuguese: "Portuguese"
+    english: "English"
+
+  footer:
+    developed_by: "Developed by Rodrigo Leocádio"
+
+  navbar:
+    open_menu: "Open menu"
+    menu: "Menu"
+    dashboard: "Dashboard"
+    predictions: "My Predictions"
+    leagues: "My leagues"
+    discover_leagues: "Leagues"
+    world_cup_standings: "World Cup Standings"
+    standings: "Standings"
+    bracket: "Knockout Stage"
+    rules: "Rules"
+    contact: "Contact"
+    admin: "Admin"
+    edit_profile: "Edit profile"
+    logout: "Log out"
+    login: "Sign in"
+    register: "Sign up"
+
+  buttons:
+    save: "Save"
+    cancel: "Cancel"
+    edit: "Edit"
+    delete: "Delete"
+    back: "Back"
+    approve: "Approve"
+    reject: "Reject"
+
+  forms:
+    name: "Name"
+    email: "E-mail"
+    password: "Password"
+    remember_me: "Remember me"
+    forgot_password: "Forgot your password?"
+    placeholders:
+      full_name: "Your full name"
+      email: "you@email.com"
+      password: "Your password"
+
+  home:
+    eyebrow: "The official pool for your crew"
+    title: "Enjoy the best of the World Cup with your friends."
+    subtitle: "Get into the World Cup spirit and compete with your friends."
+    description: "Submit your predictions, create or join leagues, follow the group standings and track the knockout stage."
+    highlights:
+      league_ranking: "🏆 League ranking"
+      match_predictions: "⚽ Match predictions"
+      guaranteed_fun: "🧩 Guaranteed fun"
+    login:
+      eyebrow: "Access your account"
+      title: "Sign in to the pool"
+      no_account: "Don’t have an account yet?"
+
+  dashboard:
+    title: "Dashboard"
+    welcome: "Welcome"
+    welcome_user: "Welcome, %{user}!"
+    total_points: "Total points"
+    total_score: "Total score"
+    predictions_made: "Predictions made"
+    finished_matches: "Finished matches"
+    leagues_position: "League position"
+    points_abbr: "pts"
+    upcoming_without_predictions:
+      title: "Upcoming matches without predictions"
+      description: "You can submit predictions up to 15 minutes before each match starts."
+
+  leagues:
+    title: "My leagues"
+    your_leagues: "Your leagues"
+    other_leagues: "Other leagues"
+    discover: "Discover leagues"
+    create: "Create league"
+    edit: "Edit league"
+    join: "Join league"
+    code: "League code"
+    members: "Members"
+    ranking: "Ranking"
+    empty: "You are not part of any league yet."
+    table:
+      leagues_you_joined: "Leagues you joined"
+      your_position: "Your position"
+      entry_code: "Entry code"
+      creator: "Creator"
+      type: "Type"
+    status:
+      private: "Private"
+      open: "Open"
+
+  league:
+    profile: "League profile"
+    your_position: "Your position:"
+    code: "League code:"
+    created_by: "Created by:"
+    invite_link: "Invite link:"
+    request_entry: "Request entry"
+    pending_requests: "Pending requests"
+    no_pending_requests: "There are no pending requests at the moment."
+    membership:
+      pending: "Your request is pending approval."
+      rejected: "Your request was rejected."
+
+  league_edit:
+    subtitle: "Update your league name and image."
+    current_image: "Current league image"
+    name: "League name"
+    new_image: "New league image"
+    save: "Save changes"
+
+  league_new:
+    eyebrow: "New league"
+    description: "Give your league a name and choose an image to personalize the experience."
+    name: "League name"
+    image: "League avatar"
+    type: "League type"
+    placeholders:
+      name: "Ex: Friends League"
+
+  discover:
+    join_with_code:
+      title: "Join with code"
+      description: "Enter the league code to join or request participation."
+      placeholder: "Enter the league code"
+      button: "Join"
+    search:
+      title: "Search leagues"
+      description: "Search by name or code to filter the league list below."
+      placeholder: "Search by name or code"
+      button: "Search"
+    list:
+      title: "League list"
+    table:
+      name: "Name"
+      type: "Type"
+      participants: "Participants"
+      creator: "Creator"
+      action: "Action"
+    status:
+      already_joined: "You already joined"
+      pending: "Pending request"
+    actions:
+      request_again: "Request again"
+      join: "Join"
+      request_entry: "Request entry"
+      participate: "Participate"
+    empty: "No leagues found with the selected filters."
+
+  matches:
+    next_matches: "Upcoming matches"
+    predictions: "Predictions"
+    finished: "Finished"
+    locked: "Locked"
+    open: "Open"
+    closed: "Closed"
+    match: "Match"
+    stage: "Stage"
+    date: "Date"
+    status: "Status"
+    group: "Group"
+    group_with_code: "Group %{code}"
+    all_matches: "All matches"
+    versus: "vs"
+    official_score: "Official score"
+    official_short_label: "Official"
+    not_finished: "Match not finished"
+    points: "Points"
+    result: "Result"
+    to_be_defined: "To be defined"
+    date_to_be_defined: "Date to be defined"
+    no_pending: "There are no pending matches at the moment."
+    empty_title: "No matches found"
+    empty_description: "Try adjusting the filters to see other matches."
+    statuses:
+      open_plural: "Open"
+      closed_plural: "Closed"
+
+  predictions:
+    title: "Predictions"
+    predict: "Predict"
+    save: "Save prediction"
+    update: "Update prediction"
+    updated: "Prediction updated successfully"
+    clear: "Clear prediction"
+    confirm_clear: "Do you want to clear your prediction?"
+    closed_for_match: "Predictions are closed for this match"
+    with_prediction: "With prediction"
+    without_prediction: "Without prediction"
+    user_prediction: "User prediction"
+    short_label: "Prediction"
+
+  filters:
+    title: "Filters"
+    all_feminine: "All"
+    all_masculine: "All"
+    apply: "Filter"
+    clear: "Clear"
+
+  rankings:
+    ordinal: "%{position}th"
+
+  ranking:
+    title: "Ranking"
+    position: "Pos"
+    participant: "Participant"
+    points: "Points"
+    exact_score: "Exact score"
+    partial_score: "Partial score"
+    winner_draw: "Winner/draw"
+    errors: "Errors"
+    empty: "There are no approved participants in the ranking yet."
+    tie_breaker: "Tie-break criteria: more exact scores, more partial scores, more winners/draws and fewer total errors."
+
+  stages:
+    group_stage: "Group stage"
+    second_phase: "Second phase"
+    round_of_16: "Round of 16"
+    quarterfinal: "Quarterfinal"
+    semifinal: "Semifinal"
+    third_place: "Third place match"
+    final: "Final"
+
+  teams:
+    default_flag: "Default flag"
+
+  brackets:
+    filter_stage: "Filter stage"
+    all_stages: "All stages"
+    second_phase: "Round of 32"
+    round_of_16: "Round of 16"
+    quarterfinal: "Quarterfinals"
+    semifinal: "Semifinals"
+    third_place: "3rd place"
+    final: "Final"
+    third_place_not_registered: "Third place match not registered yet"
+    final_not_registered: "Final not registered yet"
+    matches_not_registered: "Matches not registered yet"
+
+  contact:
+    title: "Contact Bolão Canarinho"
+    subtitle: "Discover ways to support the project and, if you need any help, we’ll be happy to talk to you."
+    support:
+      title: "Support Bolão Canarinho"
+      description_1: "This app was created exclusively for entertainment purposes, with the goal of providing the best fun experience for you and your friends."
+      description_2: "There is no fee to participate. But if you would like to help with the project’s maintenance costs, you can make a Pix contribution of any amount using the key below:"
+      donation: "50% of all funds raised will be donated to a charity."
+      accountability: "The accountability report will be shared here after the World Cup ends."
+      thanks: "Thank you for being part of this! 💛"
+    pix:
+      key_label: "Pix key"
+      name_label: "Name"
+    form:
+      title: "Send your message"
+      description: "Having trouble, have a suggestion, or want to partner with us? Tell us how we can help."
+      name: "Name"
+      email: "E-mail"
+      subject: "Subject"
+      message: "Message"
+      submit: "Send message"
+      placeholders:
+        name: "Your name"
+        email: "you@example.com"
+        message: "Write your message here..."
+      options:
+        select: "Select an option"
+        support: "App support issue"
+        partnership: "Partnership"
+        suggestion: "Suggestion"
+        other: "Other subject"
+
+  rules:
+    eyebrow: "Bolão do Hexa"
+    title: "Scoring and tie-break rules"
+    scoring:
+      title: "Prediction scoring"
+      exact:
+        title: "Exact score (5 pts):"
+        description: "correct result with the exact number of goals for both teams."
+      partial:
+        title: "Partial result (4 pts):"
+        description: "correct winner and the exact number of goals for at least one team."
+      winner:
+        title: "Winner/Draw (3 pts):"
+        description: "correctly predicting only the winner or the draw."
+      error:
+        title: "Wrong prediction (0 pts):"
+        description: "when the prediction misses the winner or draw."
+    tie_breaker:
+      title: "League tie-breakers"
+      rule_1: "Highest total score."
+      rule_2: "Highest number of exact scores."
+      rule_3: "Highest number of partial results."
+      rule_4: "Highest number of winners/draws predicted correctly."
+      rule_5: "Lowest number of errors."
+    lock:
+      title: "Prediction lock"
+      description: "Predictions remain available until 15 minutes before the match starts. After the match is locked, it will no longer be possible to create or edit predictions."
+
+  terms:
+    title: "Terms of Use"
+    introduction: "By using Bolão do Hexa, you agree to the terms below."
+    sections:
+      usage:
+        title: "1. Platform usage"
+        description: "Bolão do Hexa is an entertainment platform for sports predictions."
+      account:
+        title: "2. User account"
+        description: "The user is responsible for the information provided and for keeping their account secure."
+      rules:
+        title: "3. Game rules"
+        item_1: "Predictions must be submitted before matches begin"
+        item_2: "After kickoff, editing predictions will not be possible"
+        item_3: "Scoring follows the rules defined on the platform"
+      availability:
+        title: "4. Availability"
+        description: "We do not guarantee uninterrupted or continuous platform availability."
+      conduct:
+        title: "5. Conduct"
+        item_1: "Do not use the platform for improper purposes"
+        item_2: "Do not attempt to manipulate results or exploit system vulnerabilities"
+      changes:
+        title: "6. Changes"
+        description: "These terms may be updated at any time."
+      acceptance:
+        title: "7. Acceptance"
+        description: "By creating an account, you declare that you have read and agreed to these terms."
+
+  privacy:
+    title: "Privacy Policy"
+    introduction: "This platform follows the guidelines of the Brazilian General Data Protection Law (LGPD - Law No. 13.709/2018), respecting user privacy and personal data protection."
+    sections:
+      data:
+        title: "1. Collected data"
+        item_1: "Name"
+        item_2: "E-mail"
+        item_3: "Profile picture (avatar)"
+      purpose:
+        title: "2. Purpose of use"
+        description: "The data is used for user identification, display in leagues and rankings, and operation of the prediction system."
+      sharing:
+        title: "3. Data sharing"
+        description: "Your name and photo may be visible to other users within the platform. Your data is not sold. Sharing only occurs when necessary for platform operation or legal obligations."
+      storage:
+        title: "4. Storage"
+        description: "Data is stored in a secure environment and protected by technical measures compatible with modern web applications."
+      rights:
+        title: "5. User rights"
+        item_1: "Request data modification"
+        item_2: "Request account deletion"
+      cookies:
+        title: "6. Cookies"
+        description: "We only use essential cookies required for application functionality (login and session)."
+      contact:
+        title: "7. Contact"
+        description: "For questions, contact the platform administrator."
+
+  standings:
+    group_with_code: "Group %{code}"
+    position: "Pos"
+    team: "Team"
+    points_abbr: "PTS"
+    played_abbr: "P"
+    wins_abbr: "W"
+    draws_abbr: "D"
+    losses_abbr: "L"
+    goals_for_abbr: "GF"
+    goals_against_abbr: "GA"
+    goal_difference_abbr: "GD"
+    empty: "There are no groups with registered matches yet."
+
+  user_profile:
+    eyebrow: "Participant profile"
+    leagues_eyebrow: "Participant leagues"
+    leagues_title: "Leagues and current position"
+    predictions_title: "Prediction history"
+    empty_leagues: "This participant is not in any approved league yet."
+    empty_predictions: "This participant has not made any predictions yet."
+    table:
+      league: "League"
+      position: "Position"
+
+  profile_edit:
+    eyebrow: "Your account"
+    title: "Edit your profile and keep your information up to date."
+    description: "Update your photo, name, email and password to keep your account ready for the pool with your identity."
+    form_eyebrow: "Edit profile"
+    form_title: "My account"
+    current_photo: "Current photo"
+    profile_photo_alt: "Profile photo"
+    change_photo: "Change profile photo"
+    waiting_confirmation: "Waiting for confirmation for: %{email}"
+    new_password: "New password"
+    password_confirmation: "Confirm new password"
+    current_password: "Current password"
+    minimum_password_length: "Minimum of %{count} characters"
+    back_question: "Want to go back?"
+    go_home: "Go to home"
+    cancel_account_title: "Cancel account"
+    cancel_account_description: "If you wish, you can permanently delete your account."
+    cancel_my_account: "Cancel my account"
+    confirm_cancel: "Are you sure?"
+    highlights:
+      avatar: "🖼️ Profile photo"
+      security: "🔐 Account security"
+      updated_data: "⚙️ Updated information"
+    placeholders:
+      new_password: "Leave blank if you do not want to change it"
+      password_confirmation: "Repeat the new password"
+      current_password: "Enter your current password to confirm"
+
+  signup:
+    eyebrow: "Create your account"
+    title: "Join the pool"
+    password_confirmation: "Confirm password"
+    already_have_account: "Already have an account?"
+    sign_in_now: "Sign in now"
+    placeholders:
+      password: "Create a password"
+      password_confirmation: "Repeat your password"
+    terms:
+      prefix: "I have read and accept the"
+      terms_link: "Terms of Use"
+      middle: "and the"
+      privacy_link: "Privacy Policy"
+
+  passwords:
+    recover_access: "Recover access"
+    reset_password: "Reset password"
+    send_instructions: "Send instructions"
+    remembered_password: "Remembered your password?"
+    back_to_login: "Back to login"
+    change_access: "Change access"
+    change_password: "Change password"
+    confirm_new_password: "Confirm new password"
+    change_my_password: "Change my password"
+    back_to_login_question: "Want to go back to login?"
+    placeholders:
+      new_password: "Enter your new password"
+      confirm_new_password: "Repeat your new password"
+
+  teams:
+    default_flag: "Default flag"
+    names:
+      canada: "Canada"
+      estados_unidos: "United States"
+      mexico: "Mexico"
+      arabia_saudita: "Saudi Arabia"
+      australia: "Australia"
+      catar: "Qatar"
+      coreia_do_sul: "South Korea"
+      ira: "Iran"
+      iraque: "Iraq"
+      japao: "Japan"
+      jordania: "Jordan"
+      uzbequistao: "Uzbekistan"
+      africa_do_sul: "South Africa"
+      argelia: "Algeria"
+      cabo_verde: "Cape Verde"
+      costa_do_marfim: "Ivory Coast"
+      egito: "Egypt"
+      gana: "Ghana"
+      marrocos: "Morocco"
+      rd_do_congo: "DR Congo"
+      senegal: "Senegal"
+      tunisia: "Tunisia"
+      argentina: "Argentina"
+      brasil: "Brazil"
+      colombia: "Colombia"
+      equador: "Ecuador"
+      paraguai: "Paraguay"
+      uruguai: "Uruguay"
+      nova_zelandia: "New Zealand"
+      alemanha: "Germany"
+      austria: "Austria"
+      belgica: "Belgium"
+      bosnia_e_herzegovina: "Bosnia and Herzegovina"
+      croacia: "Croatia"
+      escocia: "Scotland"
+      espanha: "Spain"
+      franca: "France"
+      holanda: "Netherlands"
+      inglaterra: "England"
+      noruega: "Norway"
+      portugal: "Portugal"
+      republica_tcheca: "Czech Republic"
+      suecia: "Sweden"
+      suica: "Switzerland"
+      turquia: "Turkey"
+      curacao: "Curaçao"
+      haiti: "Haiti"
+      panama: "Panama"

@@ -3,21 +3,20 @@
 
   <div class="landing-hero__content container">
     <div class="landing-hero__text">
-      <p class="landing-hero__eyebrow">Bolão oficial da sua galera</p>
+      <p class="landing-hero__eyebrow"><%= t("home.eyebrow") %></p>
 
       <h1 class="landing-hero__title">
-        Viva o melhor da Copa do Mundo com seus amigos.
+        <%= t("home.title") %>
       </h1>
 
       <p class="landing-hero__description">
-        Preencha seus palpites, crie ou entre em ligas, acompanhe a classificação
-        dos grupos e siga o mata-mata.
+        <%= t("home.description") %>
       </p>
 
       <div class="landing-hero__highlights">
-        <span>🏆 Ranking por liga</span>
-        <span>⚽ Palpites por jogo</span>
-        <span>🧩 Diversão garantida</span>
+        <span><%= t("home.highlights.league_ranking") %></span>
+        <span><%= t("home.highlights.match_predictions") %></span>
+        <span><%= t("home.highlights.guaranteed_fun") %></span>
       </div>
     </div>
 
@@ -25,12 +24,14 @@
       <div class="landing-login-card__header">
         <div class="landing-login-card__header-row">
           <div class="landing-login-card__logo">
-            <%= image_tag "logo-podcast.png", alt: "Canarinho Cast", class: "landing-login-card__logo-img" %>
+            <%= image_tag "logo-podcast.png",
+                alt: "Canarinho Cast",
+                class: "landing-login-card__logo-img" %>
           </div>
 
           <div class="landing-login-card__title-group">
-            <p class="landing-login-card__eyebrow">Acesse sua conta</p>
-            <h2>Entrar no Bolão</h2>
+            <p class="landing-login-card__eyebrow"><%= t("home.login.eyebrow") %></p>
+            <h2><%= t("home.login.title") %></h2>
           </div>
         </div>
       </div>
@@ -54,38 +55,38 @@
             class: "landing-login-form" do |f| %>
 
         <div class="landing-form-group">
-          <%= f.label :email, "E-mail" %>
+          <%= f.label :email, t("forms.email") %>
           <%= f.email_field :email,
                 autofocus: true,
                 autocomplete: "email",
                 class: "landing-form-input",
-                placeholder: "voce@email.com",
+                placeholder: t("forms.placeholders.email"),
                 value: params.dig(:user, :email) %>
         </div>
 
         <div class="landing-form-group">
-          <%= f.label :password, "Senha" %>
+          <%= f.label :password, t("forms.password") %>
           <%= f.password_field :password,
                 autocomplete: "current-password",
                 class: "landing-form-input",
-                placeholder: "Sua senha" %>
+                placeholder: t("forms.placeholders.password") %>
         </div>
 
         <div class="landing-form-row">
           <label class="landing-checkbox">
             <%= f.check_box :remember_me %>
-            <span>Lembrar de mim</span>
+            <span><%= t("forms.remember_me") %></span>
           </label>
 
-          <%= link_to "Esqueci minha senha", new_user_password_path, class: "landing-forgot-link" %>
+          <%= link_to t("forms.forgot_password"), new_user_password_path, class: "landing-forgot-link" %>
         </div>
 
-        <%= f.submit "Entrar", class: "landing-submit-button" %>
+        <%= f.submit t("navbar.login"), class: "landing-submit-button" %>
       <% end %>
 
       <div class="landing-login-card__footer">
-        <p>Ainda não tem conta?</p>
-        <%= link_to "Criar conta", new_user_registration_path, class: "landing-secondary-link" %>
+        <p><%= t("home.login.no_account") %></p>
+        <%= link_to t("navbar.register"), new_user_registration_path, class: "landing-secondary-link" %>
       </div>
     </div>
   </div>

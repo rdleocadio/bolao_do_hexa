@@ -928,3 +928,11 @@ body:has(.landing-hero) .landing-hero {
 body:has(.landing-hero) .site-footer {
   margin-top: 0;
 }
+
+.timezone-label {
+  font-size: 0.72rem;
+  opacity: 0.68;
+  margin-left: 4px;
+  font-weight: 600;
+  white-space: nowrap;
+}

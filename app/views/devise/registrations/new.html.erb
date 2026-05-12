@@ -4,31 +4,33 @@
 
     <div class="signup-hero__content container">
       <div class="landing-hero__text">
-        <p class="landing-hero__eyebrow">Bolão oficial da sua galera</p>
+        <p class="landing-hero__eyebrow"><%= t("home.eyebrow") %></p>
 
         <h1 class="landing-hero__title">
-          Viva o melhor da Copa do Mundo com seus amigos.
+          <%= t("home.title") %>
         </h1>
 
         <p class="landing-hero__description">
-          Preencha seus palpites, crie ou entre em ligas, acompanhe a classificação dos grupos e siga o mata-mata.
+          <%= t("home.description") %>
         </p>
 
         <div class="landing-hero__highlights">
-          <span>🏆 Ranking por liga</span>
-          <span>⚽ Palpites por jogo</span>
-          <span>🧩 Diversão garantida</span>
+          <span><%= t("home.highlights.league_ranking") %></span>
+          <span><%= t("home.highlights.match_predictions") %></span>
+          <span><%= t("home.highlights.guaranteed_fun") %></span>
         </div>
       </div>
 
       <div class="signup-card">
         <div class="signup-card__header">
           <div class="signup-card__header-row">
-            <%= image_tag "logo-podcast.png", alt: "Bolão do Hexa", class: "signup-card__logo-img" %>
+            <%= image_tag "logo-podcast.png",
+                alt: t("app.title"),
+                class: "signup-card__logo-img" %>
 
             <div class="signup-card__title-group">
-              <p class="signup-card__eyebrow">Crie sua conta</p>
-              <h2>Entrar no bolão</h2>
+              <p class="signup-card__eyebrow"><%= t("signup.eyebrow") %></p>
+              <h2><%= t("signup.title") %></h2>
             </div>
           </div>
         </div>
@@ -41,61 +43,73 @@
           <%= render "devise/shared/error_messages", resource: resource %>
 
           <div class="signup-form__group">
-            <%= f.label :name, "Nome" %>
+            <%= f.label :name, t("forms.name") %>
             <%= f.text_field :name,
                   autofocus: true,
                   class: "signup-form__input",
-                  placeholder: "Seu nome completo" %>
+                  placeholder: t("forms.placeholders.full_name") %>
           </div>
 
           <div class="signup-form__group">
-            <%= f.label :email, "E-mail" %>
+            <%= f.label :email, t("forms.email") %>
             <%= f.email_field :email,
                   autocomplete: "email",
                   class: "signup-form__input",
-                  placeholder: "voce@email.com" %>
+                  placeholder: t("forms.placeholders.email") %>
           </div>
 
           <div class="signup-form__group">
-            <%= f.label :password, "Senha" %>
+            <%= f.label :password, t("forms.password") %>
+
             <% if @minimum_password_length %>
               <p class="signup-form__hint">
-                Mínimo de <%= @minimum_password_length %> caracteres
+                <%= t("profile_edit.minimum_password_length", count: @minimum_password_length) %>
               </p>
             <% end %>
+
             <%= f.password_field :password,
                   autocomplete: "new-password",
                   class: "signup-form__input",
-                  placeholder: "Crie uma senha" %>
+                  placeholder: t("signup.placeholders.password") %>
           </div>
 
           <div class="signup-form__group">
-            <%= f.label :password_confirmation, "Confirmar senha" %>
+            <%= f.label :password_confirmation, t("signup.password_confirmation") %>
             <%= f.password_field :password_confirmation,
                   autocomplete: "new-password",
                   class: "signup-form__input",
-                  placeholder: "Repita sua senha" %>
+                  placeholder: t("signup.placeholders.password_confirmation") %>
           </div>
 
           <div class="signup-form__group signup-form__terms">
             <label class="signup-form__terms-label">
-              <%= f.check_box :accept_terms, required: true, class: "signup-form__checkbox" %>
+              <%= f.check_box :accept_terms,
+                    required: true,
+                    class: "signup-form__checkbox" %>
 
               <span>
-                Li e aceito os
-                <%= link_to "Termos de Uso", terms_path, target: "_blank", rel: "noopener" %>
-                e a
-                <%= link_to "Política de Privacidade", privacy_path, target: "_blank", rel: "noopener" %>.
+                <%= t("signup.terms.prefix") %>
+                <%= link_to t("signup.terms.terms_link"),
+                    terms_path,
+                    target: "_blank",
+                    rel: "noopener" %>
+                <%= t("signup.terms.middle") %>
+                <%= link_to t("signup.terms.privacy_link"),
+                    privacy_path,
+                    target: "_blank",
+                    rel: "noopener" %>.
               </span>
             </label>
           </div>
 
-          <%= f.submit "Criar conta", class: "signup-submit-button" %>
+          <%= f.submit t("navbar.register"), class: "signup-submit-button" %>
         <% end %>
 
         <div class="signup-card__footer">
-          <p>Já tem conta?</p>
-          <%= link_to "Acessar agora", new_user_session_path, class: "signup-secondary-link" %>
+          <p><%= t("signup.already_have_account") %></p>
+          <%= link_to t("signup.sign_in_now"),
+              new_user_session_path,
+              class: "signup-secondary-link" %>
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@
 
   <div class="matches-filters app-card">
     <button type="button" class="matches-filters__toggle" data-filters-toggle>
-      Filtros
+      <%= t("filters.title") %>
       <span>▾</span>
     </button>
 
@@ -10,18 +10,18 @@
       <%= form_with url: matches_path, method: :get, local: true, class: "matches-filters__form" do %>
 
         <div class="matches-filters__group">
-          <label>Fase</label>
+          <label><%= t("matches.stage") %></label>
           <%= select_tag :stage,
                 options_for_select(
                   [
-                    ["Todas", ""],
-                    ["Fase de grupos", "group_stage"],
-                    ["Segunda fase", "second_phase"],
-                    ["Oitavas de final", "round_of_16"],
-                    ["Quartas de final", "quarterfinal"],
-                    ["Semifinal", "semifinal"],
-                    ["Disputa de 3º lugar", "third_place"],
-                    ["Final", "final"]
+                    [t("filters.all_feminine"), ""],
+                    [t("stages.group_stage"), "group_stage"],
+                    [t("stages.second_phase"), "second_phase"],
+                    [t("stages.round_of_16"), "round_of_16"],
+                    [t("stages.quarterfinal"), "quarterfinal"],
+                    [t("stages.semifinal"), "semifinal"],
+                    [t("stages.third_place"), "third_place"],
+                    [t("stages.final"), "final"]
                   ],
                   params[:stage]
                 ),
@@ -29,23 +29,23 @@
         </div>
 
         <div class="matches-filters__group">
-          <label>Grupo</label>
+          <label><%= t("matches.group") %></label>
           <%= select_tag :group,
                 options_for_select(
-                  [["Todos", ""]] + @available_groups.map { |g| ["Grupo #{g}", g] },
+                  [[t("filters.all_masculine"), ""]] + @available_groups.map { |g| [t("matches.group_with_code", code: g), g] },
                   params[:group]
                 ),
                 class: "matches-filters__select" %>
         </div>
 
         <div class="matches-filters__group">
-          <label>Status</label>
+          <label><%= t("matches.status") %></label>
           <%= select_tag :status,
                 options_for_select(
                   [
-                    ["Todos", ""],
-                    ["Abertos", "open"],
-                    ["Fechados", "closed"]
+                    [t("filters.all_masculine"), ""],
+                    [t("matches.statuses.open_plural"), "open"],
+                    [t("matches.statuses.closed_plural"), "closed"]
                   ],
                   params[:status]
                 ),
@@ -53,13 +53,13 @@
         </div>
 
         <div class="matches-filters__group">
-          <label>Palpites</label>
+          <label><%= t("predictions.title") %></label>
           <%= select_tag :prediction_status,
                 options_for_select(
                   [
-                    ["Todos os jogos", ""],
-                    ["Com palpite", "with_prediction"],
-                    ["Sem palpite", "without_prediction"]
+                    [t("matches.all_matches"), ""],
+                    [t("predictions.with_prediction"), "with_prediction"],
+                    [t("predictions.without_prediction"), "without_prediction"]
                   ],
                   params[:prediction_status]
                 ),
@@ -67,8 +67,8 @@
         </div>
 
         <div class="matches-filters__actions">
-          <%= submit_tag "Filtrar", class: "btn btn-primary" %>
-          <%= link_to "Limpar", matches_path, class: "btn-secondary-custom" %>
+          <%= submit_tag t("filters.apply"), class: "btn btn-primary" %>
+          <%= link_to t("filters.clear"), matches_path, class: "btn-secondary-custom" %>
         </div>
 
       <% end %>
@@ -88,20 +88,24 @@
             <div class="match-card__meta">
 
               <span class="match-card__badge">
-                <%= match.phase_label %>
+                <%= t("stages.#{match.stage}", default: match.phase_label) %>
                 <% if match.group_code.present? %>
-                  • Grupo <%= match.group_code %>
+                  • <%= t("matches.group_with_code", code: match.group_code) %>
                 <% end %>
               </span>
 
               <span class="match-card__status <%= locked ? 'match-card__status--closed' : 'match-card__status--open' %>">
-                <%= locked ? "Fechado" : "Aberto" %>
+                <%= locked ? t("matches.closed") : t("matches.open") %>
               </span>
 
             </div>
 
             <div class="match-card__datetime">
-              <span><%= l(match.kickoff_at, format: :short) %></span>
+              <span><%= l(match.kickoff_at, format: :short) %>
+                    <span class="timezone-label">
+                      (<%= timezone_label %>)
+                    </span>
+              </span>
             </div>
           </div>
 
@@ -123,11 +127,11 @@
             <div class="match-card__prediction-row">
 
               <span class="match-card__team-name match-card__team-name--home">
-                <%= match.home_team_name %>
+                <%= translated_team_name(match.home_team_name) %>
               </span>
 
               <div class="match-card__flag">
-                <%= image_tag(match.home_team_flag_url, alt: match.home_team_name) rescue image_tag("flags/default.png") %>
+                <%= image_tag(match.home_team_flag_url, alt: match.home_team_name) rescue image_tag("flags/default.png", alt: t("teams.default_flag")) %>
               </div>
 
               <%= f.number_field :predicted_home_score,
@@ -136,7 +140,7 @@
                     class: "match-card__input match-card__input--inline",
                     disabled: locked %>
 
-              <div class="match-card__vs">vs</div>
+              <div class="match-card__vs"><%= t("matches.versus") %></div>
 
               <%= f.number_field :predicted_away_score,
                     value: prediction.predicted_away_score,
@@ -145,11 +149,11 @@
                     disabled: locked %>
 
               <div class="match-card__flag">
-                <%= image_tag(match.away_team_flag_url, alt: match.away_team_name) rescue image_tag("flags/default.png") %>
+                <%= image_tag(match.away_team_flag_url, alt: match.away_team_name) rescue image_tag("flags/default.png", alt: t("teams.default_flag")) %>
               </div>
 
               <span class="match-card__team-name match-card__team-name--away">
-                <%= match.away_team_name %>
+                <%= translated_team_name(match.away_team_name) %>
               </span>
 
             </div>
@@ -159,21 +163,21 @@
               <div class="match-card__scores">
 
                 <div class="match-card__score-block">
-                  <label>Placar computado</label>
+                  <label><%= t("matches.official_score") %></label>
                   <div class="match-card__official-score">
                     <% if match.home_score.present? && match.away_score.present? %>
                       <strong><%= match.home_score %> x <%= match.away_score %></strong>
                     <% else %>
-                      <span class="match-card__empty">Jogo não finalizado</span>
+                      <span class="match-card__empty"><%= t("matches.not_finished") %></span>
                     <% end %>
                   </div>
                 </div>
 
                 <div class="match-card__score-block">
-                  <label>Pontuação</label>
+                  <label><%= t("matches.points") %></label>
                   <div class="match-card__points">
                     <% if prediction.persisted? && match.finished? %>
-                      <strong><%= prediction.points || 0 %> pts</strong>
+                      <strong><%= prediction.points || 0 %> <%= t("dashboard.points_abbr") %></strong>
                     <% else %>
                       <span class="match-card__empty">—</span>
                     <% end %>
@@ -185,12 +189,12 @@
               <div class="match-card__footer">
                 <% unless locked %>
                   <div class="match-card__actions">
-                    <%= f.submit prediction.persisted? ? "Atualizar palpite" : "Salvar palpite",
+                    <%= f.submit prediction.persisted? ? t("predictions.update") : t("predictions.save"),
                           class: "btn btn-primary" %>
                   </div>
                 <% else %>
                   <span class="match-card__locked-message">
-                    Palpite encerrado para esta partida
+                    <%= t("predictions.closed_for_match") %>
                   </span>
                 <% end %>
               </div>
@@ -201,7 +205,7 @@
 
           <% if prediction.persisted? && !locked %>
             <div class="match-card__actions">
-              <%= button_to "Limpar palpite",
+              <%= button_to t("predictions.clear"),
                     prediction_path(prediction),
                     method: :delete,
                     params: {
@@ -210,7 +214,7 @@
                     form: {
                       data: { turbo: false },
                       class: "match-card__delete-form",
-                      onsubmit: "return confirm('Deseja limpar seu palpite?');"
+                      onsubmit: "return confirm('#{t("predictions.confirm_clear")}');"
                     },
                     class: "btn btn-secondary" %>
             </div>
@@ -224,8 +228,8 @@
   <% else %>
 
     <div class="matches-empty app-card">
-      <h2>Nenhum jogo encontrado</h2>
-      <p>Tente ajustar os filtros para visualizar outras partidas.</p>
+      <h2><%= t("matches.empty_title") %></h2>
+      <p><%= t("matches.empty_description") %></p>
     </div>
 
   <% end %>

@@ -107,6 +107,22 @@
   flex-wrap: nowrap;
 }
 
+@media (max-width: 600px) {
+  .leagues-discover-page .discover-form__row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .leagues-discover-page .discover-form__row .landing-form-input {
+    width: 100%;
+  }
+
+  .leagues-discover-page .discover-form__row .btn-primary-custom,
+  .leagues-discover-page .discover-form__row .btn-secondary-custom {
+    width: 100%;
+  }
+}
+
 .leagues-discover-page .discover-form__row .landing-form-input {
   flex: 1;
   min-width: 0;

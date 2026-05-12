@@ -14,29 +14,29 @@
           <% end %>
 
           <div class="leagues-dashboard__profile-action">
-            <%= link_to "Editar perfil", edit_user_registration_path, class: "btn-sm-subtle" %>
+            <%= link_to t("navbar.edit_profile"), edit_user_registration_path, class: "btn-sm-subtle" %>
           </div>
         </div>
 
         <div class="leagues-dashboard__hero-copy">
-          <p class="leagues-dashboard__eyebrow">Dashboard</p>
+          <p class="leagues-dashboard__eyebrow"><%= t("dashboard.title") %></p>
           <h1 class="section-title">
-            Bem-vindo, <%= @user.name.presence || @user.email %>!
+            <%= t("dashboard.welcome_user", user: @user.name.presence || @user.email) %>
           </h1>
         </div>
       </div>
 
       <div class="leagues-dashboard__summary">
         <div class="leagues-dashboard__summary-card">
-          <p class="leagues-dashboard__summary-label">Pontuação total</p>
+          <p class="leagues-dashboard__summary-label"><%= t("dashboard.total_score") %></p>
 
           <div class="leagues-dashboard__summary-metric">
             <span class="leagues-dashboard__summary-number"><%= @total_points %></span>
-            <span class="leagues-dashboard__summary-suffix">pts</span>
+            <span class="leagues-dashboard__summary-suffix"><%= t("dashboard.points_abbr") %></span>
           </div>
 
           <p class="leagues-dashboard__summary-meta">
-            Jogos finalizados
+            <%= t("dashboard.finished_matches") %>
           </p>
         </div>
       </div>
@@ -46,8 +46,8 @@
   <% if @upcoming_matches_without_predictions.present? && @upcoming_matches_without_predictions.any? %>
     <div class="leagues-dashboard__upcoming-card">
       <div class="leagues-dashboard__upcoming-header">
-        <h2>Próximos jogos sem palpites</h2>
-        <p>É possível palpitar até 15 minutos antes do inicio de cada partida.</p>
+        <h2><%= t("dashboard.upcoming_without_predictions.title") %></h2>
+        <p><%= t("dashboard.upcoming_without_predictions.description") %></p>
       </div>
 
       <div class="leagues-dashboard__upcoming-list">
@@ -55,29 +55,32 @@
           <div class="leagues-dashboard__upcoming-item">
             <div class="leagues-dashboard__upcoming-date">
               <%= l(match.kickoff_at, format: :short) %>
+              <span class="timezone-label">
+                (<%= timezone_label %>)
+              </span>
             </div>
 
             <div class="leagues-dashboard__upcoming-teams">
-              <span><%= match.home_team_name %></span>
+              <span><%= translated_team_name(match.home_team_name) %></span>
 
               <%= image_tag(match.home_team_flag_url,
                   class: "leagues-dashboard__upcoming-flag",
                   alt: match.home_team_name) rescue image_tag("flags/default.png",
                   class: "leagues-dashboard__upcoming-flag",
-                  alt: "Bandeira padrão") %>
+                  alt: t("teams.default_flag")) %>
 
-              <strong>x</strong>
+              <strong><%= t("matches.versus") %></strong>
 
               <%= image_tag(match.away_team_flag_url,
                   class: "leagues-dashboard__upcoming-flag",
                   alt: match.away_team_name) rescue image_tag("flags/default.png",
                   class: "leagues-dashboard__upcoming-flag",
-                  alt: "Bandeira padrão") %>
+                  alt: t("teams.default_flag")) %>
 
-              <span><%= match.away_team_name %></span>
+              <span><%= translated_team_name(match.away_team_name) %></span>
             </div>
 
-            <%= link_to "Palpitar",
+            <%= link_to t("predictions.predict"),
                 matches_path(anchor: "match-#{match.id}"),
                 class: "btn-primary-custom leagues-dashboard__upcoming-button" %>
           </div>
@@ -89,12 +92,12 @@
   <div class="leagues-dashboard__section-card">
     <div class="leagues-dashboard__section-header">
       <div>
-        <p class="leagues-dashboard__eyebrow">Suas ligas</p>
+        <p class="leagues-dashboard__eyebrow"><%= t("leagues.your_leagues") %></p>
       </div>
 
       <div class="leagues-dashboard__header-actions">
-        <%= link_to "Outras ligas", discover_leagues_path, class: "btn-secondary-custom" %>
-        <%= link_to "Criar liga", new_league_path, class: "btn-primary-custom" %>
+        <%= link_to t("leagues.other_leagues"), discover_leagues_path, class: "btn-secondary-custom" %>
+        <%= link_to t("leagues.create"), new_league_path, class: "btn-primary-custom" %>
       </div>
     </div>
 
@@ -103,11 +106,11 @@
         <table class="leagues-dashboard__table">
           <thead>
             <tr>
-              <th>Ligas que você participa</th>
-              <th>Sua posição</th>
-              <th>Código de entrada</th>
-              <th>Criador</th>
-              <th>Tipo</th>
+              <th><%= t("leagues.table.leagues_you_joined") %></th>
+              <th><%= t("leagues.table.your_position") %></th>
+              <th><%= t("leagues.table.entry_code") %></th>
+              <th><%= t("leagues.table.creator") %></th>
+              <th><%= t("leagues.table.type") %></th>
             </tr>
           </thead>
 
@@ -132,7 +135,7 @@
 
                 <td>
                   <span class="leagues-dashboard__position-badge">
-                    <%= @league_positions[league.id] %>º
+                    <%= t("rankings.ordinal", position: @league_positions[league.id]) %>
                   </span>
                 </td>
 
@@ -148,9 +151,9 @@
 
                 <td>
                   <% if league.private? %>
-                    <span class="discover-status discover-status--pending">Privada</span>
+                    <span class="discover-status discover-status--pending"><%= t("leagues.status.private") %></span>
                   <% else %>
-                    <span class="discover-status discover-status--approved">Aberta</span>
+                    <span class="discover-status discover-status--approved"><%= t("leagues.status.open") %></span>
                   <% end %>
                 </td>
               </tr>
@@ -160,7 +163,7 @@
       </div>
     <% else %>
       <div class="leagues-dashboard__empty">
-        <p>Você ainda não participa de nenhuma liga.</p>
+        <p><%= t("leagues.empty") %></p>
       </div>
     <% end %>
   </div>

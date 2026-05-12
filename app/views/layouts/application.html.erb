@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Bolão do Canarinho</title>
+    <title><%= t("app.title") %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -34,57 +34,79 @@
       <div class="site-navbar__inner">
         <%= link_to root_path, class: "site-navbar__brand" do %>
           <%= image_tag "logo-bolao.png",
-              alt: "Bolão do Canarinho",
+              alt: t("app.title"),
               class: "site-navbar__logo" %>
         <% end %>
 
         <div class="site-navbar__socials">
-          <%= link_to "https://www.youtube.com/@CanarinhoCast", target: "_blank", rel: "noopener", class: "site-navbar__social-link" do %>
+          <%= link_to "https://www.youtube.com/@CanarinhoCast", target: "_blank", rel: "noopener", class: "site-navbar__social-link", aria: { label: "YouTube" } do %>
             <i class="fa-brands fa-youtube"></i>
           <% end %>
 
-          <%= link_to "https://www.instagram.com/canarinhocast/", target: "_blank", rel: "noopener", class: "site-navbar__social-link" do %>
+          <%= link_to "https://www.instagram.com/canarinhocast/", target: "_blank", rel: "noopener", class: "site-navbar__social-link", aria: { label: "Instagram" } do %>
             <i class="fa-brands fa-instagram"></i>
           <% end %>
 
-          <%= link_to "https://www.tiktok.com/@canarinhocast", target: "_blank", rel: "noopener", class: "site-navbar__social-link" do %>
+          <%= link_to "https://www.tiktok.com/@canarinhocast", target: "_blank", rel: "noopener", class: "site-navbar__social-link", aria: { label: "TikTok" } do %>
             <i class="fa-brands fa-tiktok"></i>
           <% end %>
 
-          <%= link_to "https://x.com/canarinhocast", target: "_blank", rel: "noopener", class: "site-navbar__social-link" do %>
+          <%= link_to "https://x.com/canarinhocast", target: "_blank", rel: "noopener", class: "site-navbar__social-link", aria: { label: "X" } do %>
             <i class="fa-brands fa-x-twitter"></i>
+          <% end %>
+        </div>
+
+        <div class="site-navbar__languages">
+          <%= link_to url_for(locale: "pt-BR"),
+              class: "site-navbar__language #{'active' if I18n.locale.to_s == 'pt-BR'}",
+              aria: { label: t("languages.portuguese") } do %>
+            <img src="https://flagcdn.com/w40/br.png" alt="<%= t("languages.portuguese") %>">
+          <% end %>
+
+          <%= link_to url_for(locale: :en),
+              class: "site-navbar__language #{'active' if I18n.locale == :en}",
+              aria: { label: t("languages.english") } do %>
+            <img src="https://flagcdn.com/w40/us.png" alt="<%= t("languages.english") %>">
           <% end %>
         </div>
 
         <input type="checkbox" id="site-navbar-toggle" class="site-navbar__toggle-checkbox">
 
-        <label for="site-navbar-toggle" class="site-navbar__toggle" aria-label="Abrir menu">
+        <label for="site-navbar-toggle" class="site-navbar__toggle" aria-label="<%= t("navbar.open_menu") %>">
           <i class="fa-solid fa-bars"></i>
         </label>
 
         <div class="site-navbar__menu">
           <% if user_signed_in? %>
             <div class="site-navbar__links">
-              <%= link_to "Menu", leagues_path, class: "site-navbar__link" %>
-              <%= link_to "Explorar Ligas", discover_leagues_path, class: "site-navbar__link" %>
-              <%= link_to "Meus Palpites", matches_path, class: "site-navbar__link" %>
-              <%= link_to "Classificação Copa", standings_path, class: "site-navbar__link" %>
-              <%= link_to "Mata-mata", brackets_path, class: "site-navbar__link" %>
-              <%= link_to "Regras", rules_path, class: "site-navbar__link" %>
-              <%= link_to "Contato", contact_path, class: "site-navbar__link" %>
+              <%= link_to t("navbar.menu"), leagues_path, class: "site-navbar__link" %>
+              <%= link_to t("navbar.discover_leagues"), discover_leagues_path, class: "site-navbar__link" %>
+              <%= link_to t("navbar.predictions"), matches_path, class: "site-navbar__link" %>
+              <%= link_to t("navbar.world_cup_standings"), standings_path, class: "site-navbar__link" %>
+              <%= link_to t("navbar.bracket"), brackets_path, class: "site-navbar__link" %>
+              <%= link_to t("navbar.rules"), rules_path, class: "site-navbar__link" %>
+              <%= link_to t("navbar.contact"), contact_path, class: "site-navbar__link" %>
 
               <% if current_user.admin? %>
-                <%= link_to "Admin", admin_matches_path, class: "site-navbar__link" %>
+                <%= link_to t("navbar.admin"), admin_matches_path, class: "site-navbar__link" %>
               <% end %>
             </div>
 
             <div class="site-navbar__actions">
-              <%= link_to "Sair", destroy_user_session_path, data: { turbo_method: :delete }, class: "site-navbar__button site-navbar__button--highlight" %>
+              <%= link_to t("navbar.logout"),
+                  destroy_user_session_path,
+                  data: { turbo_method: :delete },
+                  class: "site-navbar__button site-navbar__button--highlight" %>
             </div>
           <% else %>
             <div class="site-navbar__actions">
-              <%= link_to "Entrar", "#login", class: "site-navbar__button site-navbar__button--ghost" %>
-              <%= link_to "Criar conta", new_user_registration_path, class: "site-navbar__button site-navbar__button--highlight" %>
+              <%= link_to t("navbar.login"),
+                  "#login",
+                  class: "site-navbar__button site-navbar__button--ghost" %>
+
+              <%= link_to t("navbar.register"),
+                  new_user_registration_path,
+                  class: "site-navbar__button site-navbar__button--highlight" %>
             </div>
           <% end %>
         </div>
@@ -99,7 +121,7 @@
       <div class="site-footer__inner">
         <h2 class="site-footer__brand">
           <a href="https://www.linkedin.com/in/rdleocadio/" target="_blank" rel="noopener">
-            Desenvolvido por Rodrigo Leocádio
+            <%= t("footer.developed_by") %>
           </a>
         </h2>
       </div>

@@ -1,33 +1,51 @@
 <section class="rules-page page-section">
   <div class="app-card rules-card">
-    <p class="dashboard-section__eyebrow">Bolão do Hexa</p>
-    <h1 class="section-title">Regras de pontuação e desempate</h1>
+    <p class="dashboard-section__eyebrow"><%= t("rules.eyebrow") %></p>
+
+    <h1 class="section-title">
+      <%= t("rules.title") %>
+    </h1>
 
     <div class="rules-content">
-      <h2>Pontuação dos palpites</h2>
+
+      <h2><%= t("rules.scoring.title") %></h2>
 
       <ul>
-        <li><strong>Placar exato (5 pts):</strong> acerto do resultado com o número correto de gols das duas seleções.</li>
-        <li><strong>Resultado parcial (4 pts):</strong> acerto do vencedor e a quantidade de gols de pelo menos uma seleção.</li>
-        <li><strong>Vencedor/Empate (3 pts):</strong> acerto apenas da seleção vencedora ou do empate.</li>
-        <li><strong>Erro (0 pts):</strong> quando o palpite não acerta o vencedor ou empate.</li>
+        <li>
+          <strong><%= t("rules.scoring.exact.title") %></strong>
+          <%= t("rules.scoring.exact.description") %>
+        </li>
+
+        <li>
+          <strong><%= t("rules.scoring.partial.title") %></strong>
+          <%= t("rules.scoring.partial.description") %>
+        </li>
+
+        <li>
+          <strong><%= t("rules.scoring.winner.title") %></strong>
+          <%= t("rules.scoring.winner.description") %>
+        </li>
+
+        <li>
+          <strong><%= t("rules.scoring.error.title") %></strong>
+          <%= t("rules.scoring.error.description") %>
+        </li>
       </ul>
 
-      <h2>Desempate nas ligas</h2>
+      <h2><%= t("rules.tie_breaker.title") %></h2>
 
       <ol>
-        <li>Maior pontuação total.</li>
-        <li>Maior número de placares exatos.</li>
-        <li>Maior número de resultados parciais.</li>
-        <li>Maior número de vencedores/empate acertados.</li>
-        <li>Menor quantidade de erros.</li>
+        <li><%= t("rules.tie_breaker.rule_1") %></li>
+        <li><%= t("rules.tie_breaker.rule_2") %></li>
+        <li><%= t("rules.tie_breaker.rule_3") %></li>
+        <li><%= t("rules.tie_breaker.rule_4") %></li>
+        <li><%= t("rules.tie_breaker.rule_5") %></li>
       </ol>
 
-      <h2>Bloqueio dos palpites</h2>
+      <h2><%= t("rules.lock.title") %></h2>
 
       <p>
-        Os palpites ficam disponíveis até o prazo de 15 minutos antes do inicio da partida.
-        Após o fechamento do jogo, não será mais possível criar ou editar o palpite.
+        <%= t("rules.lock.description") %>
       </p>
     </div>
   </div>

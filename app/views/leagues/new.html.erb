@@ -1,10 +1,11 @@
 <section class="page-section">
   <div class="app-card league-form-card">
     <div class="league-form-card__header">
-      <p class="dashboard-section__eyebrow">Nova liga</p>
-      <h1 class="dashboard-section__title">Criar liga</h1>
+      <p class="dashboard-section__eyebrow"><%= t("league_new.eyebrow") %></p>
+      <h1 class="dashboard-section__title"><%= t("leagues.create") %></h1>
+
       <p class="league-form-card__text">
-        Dê um nome para sua liga e escolha uma imagem para personalizar a experiência.
+        <%= t("league_new.description") %>
       </p>
     </div>
 
@@ -20,28 +21,36 @@
       <% end %>
 
       <div class="league-form__group">
-        <%= f.label :name, "Nome da liga" %>
-        <%= f.text_field :name, class: "landing-form-input", placeholder: "Ex: Liga dos Amigos" %>
+        <%= f.label :name, t("league_new.name") %>
+        <%= f.text_field :name,
+              class: "landing-form-input",
+              placeholder: t("league_new.placeholders.name") %>
       </div>
 
       <div class="league-form__group">
-        <%= f.label :image, "Avatar da liga" %>
+        <%= f.label :image, t("league_new.image") %>
         <%= f.file_field :image, class: "landing-form-input" %>
       </div>
 
       <div class="form-group">
-        <%= f.label :private, "Tipo da liga" %>
+        <%= f.label :private, t("league_new.type") %>
 
         <%= f.select :private,
-              [["Aberta", false],
-              ["Privada", true]],
+              [
+                [t("leagues.status.open"), false],
+                [t("leagues.status.private"), true]
+              ],
               {},
               class: "form-control" %>
       </div>
 
       <div class="league-form__actions">
-        <%= link_to "Voltar", leagues_path, class: "btn-secondary-custom" %>
-        <%= f.submit "Criar liga", class: "btn-primary-custom" %>
+        <%= link_to t("buttons.back"),
+              leagues_path,
+              class: "btn-secondary-custom" %>
+
+        <%= f.submit t("leagues.create"),
+              class: "btn-primary-custom" %>
       </div>
     <% end %>
   </div>

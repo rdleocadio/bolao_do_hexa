@@ -73,7 +73,11 @@
                       <%= check_box_tag "match_ids[]", match.id %>
                     </td>
 
-                    <td><%= l(match.kickoff_at, format: :short) %></td>
+                    <td><%= l(match.kickoff_at, format: :short) %>
+                        <span class="timezone-label">
+                          (<%= timezone_label %>)
+                        </span>
+                    </td>
                     <td><%= match.stage.humanize %></td>
                     <td><%= match.group_code.presence || "-" %></td>
                     <td><strong><%= match.home_team %> x <%= match.away_team %></strong></td>

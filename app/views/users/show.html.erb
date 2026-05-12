@@ -13,7 +13,7 @@
         </div>
 
         <div>
-          <p class="dashboard-hero__eyebrow">Perfil do participante</p>
+          <p class="dashboard-hero__eyebrow"><%= t("user_profile.eyebrow") %></p>
           <h1 class="dashboard-hero__title">
             <%= @user.name.presence || @user.email %>
           </h1>
@@ -22,8 +22,8 @@
 
       <div class="user-profile-stats">
         <div class="user-profile-stat">
-          <span>Pontuação total</span>
-          <strong><%= @total_points %> pts</strong>
+          <span><%= t("dashboard.total_score") %></span>
+          <strong><%= @total_points %> <%= t("dashboard.points_abbr") %></strong>
         </div>
       </div>
     </div>
@@ -32,8 +32,8 @@
   <div class="app-card dashboard-leagues-card">
     <div class="dashboard-leagues-card__header">
       <div>
-        <p class="dashboard-section__eyebrow">Ligas do participante</p>
-        <h2 class="dashboard-section__title">Ligas e posição atual</h2>
+        <p class="dashboard-section__eyebrow"><%= t("user_profile.leagues_eyebrow") %></p>
+        <h2 class="dashboard-section__title"><%= t("user_profile.leagues_title") %></h2>
       </div>
     </div>
 
@@ -42,8 +42,8 @@
         <table class="dashboard-leagues-table">
           <thead>
             <tr>
-              <th>Liga</th>
-              <th>Posição</th>
+              <th><%= t("user_profile.table.league") %></th>
+              <th><%= t("user_profile.table.position") %></th>
             </tr>
           </thead>
 
@@ -83,7 +83,7 @@
                 <td>
                   <span class="dashboard-position-badge">
                     <% if @league_positions[league.id].present? %>
-                      <%= @league_positions[league.id] %>º
+                      <%= t("rankings.ordinal", position: @league_positions[league.id]) %>
                     <% else %>
                       -
                     <% end %>
@@ -96,7 +96,7 @@
       </div>
     <% else %>
       <div class="dashboard-empty-state">
-        <p>Este participante ainda não está em nenhuma liga aprovada.</p>
+        <p><%= t("user_profile.empty_leagues") %></p>
       </div>
     <% end %>
   </div>
@@ -104,8 +104,8 @@
   <div class="app-card dashboard-leagues-card">
     <div class="dashboard-leagues-card__header">
       <div>
-        <p class="dashboard-section__eyebrow">Palpites</p>
-        <h2 class="dashboard-section__title">Histórico de palpites</h2>
+        <p class="dashboard-section__eyebrow"><%= t("predictions.title") %></p>
+        <h2 class="dashboard-section__title"><%= t("user_profile.predictions_title") %></h2>
       </div>
     </div>
 
@@ -114,10 +114,10 @@
         <table class="dashboard-leagues-table">
           <thead>
             <tr>
-              <th>Jogo</th>
-              <th>Palpite</th>
-              <th>Resultado</th>
-              <th>Pontos</th>
+              <th><%= t("matches.match") %></th>
+              <th><%= t("predictions.short_label") %></th>
+              <th><%= t("matches.result") %></th>
+              <th><%= t("matches.points") %></th>
             </tr>
           </thead>
 
@@ -132,7 +132,7 @@
                   <div class="prediction-match-row">
                     <%= image_tag(match.home_team_flag_url, class: "prediction-flag", alt: home_team) rescue image_tag("flags/default.png", class: "prediction-flag", alt: home_team) %>
 
-                    <strong>x</strong>
+                    <strong><%= t("matches.versus") %></strong>
 
                     <%= image_tag(match.away_team_flag_url, class: "prediction-flag", alt: away_team) rescue image_tag("flags/default.png", class: "prediction-flag", alt: away_team) %>
                   </div>
@@ -162,7 +162,7 @@
       </div>
     <% else %>
       <div class="dashboard-empty-state">
-        <p>Este participante ainda não fez palpites.</p>
+        <p><%= t("user_profile.empty_predictions") %></p>
       </div>
     <% end %>
   </div>

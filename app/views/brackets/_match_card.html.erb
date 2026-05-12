@@ -1,39 +1,45 @@
 <% prediction = predictions_by_match_id&.dig(match.id) %>
 
-<% home_name = match.home_team_name.presence || "A definir" %>
-<% away_name = match.away_team_name.presence || "A definir" %>
+<% home_name = translated_team_name(match.home_team_name) %>
+<% away_name = translated_team_name(match.away_team_name) %>
 
 <div class="bracket-match-card">
   <div class="bracket-match-card__date">
     <span>
       <% if match.kickoff_at.present? %>
-        <%= l(match.kickoff_at, format: "%d/%m/%Y - %H:%M") %>
+        <%= l(match.kickoff_at, format: :short) %>
+        <span class="timezone-label">
+          (<%= timezone_label %>)
+        </span>
       <% else %>
-        Data a definir
+        <%= t("matches.date_to_be_defined") %>
       <% end %>
     </span>
 
     <strong>
       <% if prediction.present? && match.finished? %>
-        <%= prediction.points %> pts
+        <%= prediction.points %> <%= t("dashboard.points_abbr") %>
       <% else %>
-        - pts
+        - <%= t("dashboard.points_abbr") %>
       <% end %>
     </strong>
   </div>
 
   <div class="bracket-match-card__team">
     <div class="bracket-match-card__team-info">
-      <%= image_tag match.home_team_flag_url, alt: home_name, class: "bracket-match-card__flag" %>
+      <%= image_tag match.home_team_flag_url,
+          alt: home_name,
+          class: "bracket-match-card__flag" %>
+
       <span><%= home_name %></span>
     </div>
 
     <div class="bracket-match-card__scores">
-      <span title="Palpite do usuário">
+      <span title="<%= t("predictions.user_prediction") %>">
         <%= prediction&.home_score.present? ? prediction.home_score : "-" %>
       </span>
 
-      <strong title="Placar oficial">
+      <strong title="<%= t("matches.official_score") %>">
         <%= match.home_score.present? ? match.home_score : "-" %>
       </strong>
     </div>
@@ -41,23 +47,26 @@
 
   <div class="bracket-match-card__team">
     <div class="bracket-match-card__team-info">
-      <%= image_tag match.away_team_flag_url, alt: away_name, class: "bracket-match-card__flag" %>
+      <%= image_tag match.away_team_flag_url,
+          alt: away_name,
+          class: "bracket-match-card__flag" %>
+
       <span><%= away_name %></span>
     </div>
 
     <div class="bracket-match-card__scores">
-      <span title="Palpite do usuário">
+      <span title="<%= t("predictions.user_prediction") %>">
         <%= prediction&.away_score.present? ? prediction.away_score : "-" %>
       </span>
 
-      <strong title="Placar oficial">
+      <strong title="<%= t("matches.official_score") %>">
         <%= match.away_score.present? ? match.away_score : "-" %>
       </strong>
     </div>
   </div>
 
   <div class="bracket-match-card__legend">
-    <span>Palpite</span>
-    <strong>Oficial</strong>
+    <span><%= t("predictions.short_label") %></span>
+    <strong><%= t("matches.official_short_label") %></strong>
   </div>
 </div>

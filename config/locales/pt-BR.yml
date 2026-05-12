@@ -12,6 +12,507 @@ pt-BR:
       default: "%d/%m/%Y"
 
   errors:
+    unauthorized: "Acesso não autorizado."
     messages:
       content_type_invalid: "deve ser PNG, JPG, JPEG ou WEBP"
       file_size_out_of_range: "deve ter no máximo %{max}"
+
+  app:
+    title: "Bolão do Canarinho"
+
+  languages:
+    portuguese: "Português"
+    english: "Inglês"
+
+  footer:
+    developed_by: "Desenvolvido por Rodrigo Leocádio"
+
+  navbar:
+    open_menu: "Abrir menu"
+    menu: "Menu"
+    dashboard: "Dashboard"
+    predictions: "Meus Palpites"
+    leagues: "Minhas ligas"
+    discover_leagues: "Ligas"
+    world_cup_standings: "Classificação Copa"
+    standings: "Classificação"
+    bracket: "Mata-mata"
+    rules: "Regras"
+    contact: "Contato"
+    admin: "Admin"
+    edit_profile: "Editar perfil"
+    logout: "Sair"
+    login: "Entrar"
+    register: "Criar conta"
+
+  buttons:
+    save: "Salvar"
+    cancel: "Cancelar"
+    edit: "Editar"
+    delete: "Excluir"
+    back: "Voltar"
+    approve: "Aprovar"
+    reject: "Rejeitar"
+
+  forms:
+    name: "Nome"
+    email: "E-mail"
+    password: "Senha"
+    remember_me: "Lembrar de mim"
+    forgot_password: "Esqueci minha senha"
+    placeholders:
+      full_name: "Seu nome completo"
+      email: "voce@email.com"
+      password: "Sua senha"
+
+  home:
+    eyebrow: "Bolão oficial da sua galera"
+    title: "Viva o melhor da Copa do Mundo com seus amigos."
+    subtitle: "Entre no clima da Copa e dispute com seus amigos."
+    description: "Preencha seus palpites, crie ou entre em ligas, acompanhe a classificação dos grupos e siga o mata-mata."
+    highlights:
+      league_ranking: "🏆 Ranking por liga"
+      match_predictions: "⚽ Palpites por jogo"
+      guaranteed_fun: "🧩 Diversão garantida"
+    login:
+      eyebrow: "Acesse sua conta"
+      title: "Entrar no Bolão"
+      no_account: "Ainda não tem conta?"
+
+  dashboard:
+    title: "Dashboard"
+    welcome: "Bem-vindo"
+    welcome_user: "Bem-vindo, %{user}!"
+    total_points: "Pontos totais"
+    total_score: "Pontuação total"
+    predictions_made: "Palpites realizados"
+    finished_matches: "Jogos finalizados"
+    leagues_position: "Posição nas ligas"
+    points_abbr: "pts"
+    upcoming_without_predictions:
+      title: "Próximos jogos sem palpites"
+      description: "É possível palpitar até 15 minutos antes do início de cada partida."
+
+  leagues:
+    title: "Minhas ligas"
+    your_leagues: "Suas ligas"
+    other_leagues: "Outras ligas"
+    discover: "Explorar ligas"
+    create: "Criar liga"
+    edit: "Editar liga"
+    join: "Entrar na liga"
+    code: "Código da liga"
+    members: "Membros"
+    ranking: "Ranking"
+    empty: "Você ainda não participa de nenhuma liga."
+    table:
+      leagues_you_joined: "Ligas que você participa"
+      your_position: "Sua posição"
+      entry_code: "Código de entrada"
+      creator: "Criador"
+      type: "Tipo"
+    status:
+      private: "Privada"
+      open: "Aberta"
+
+  league:
+    profile: "Perfil da liga"
+    your_position: "Sua posição:"
+    code: "Código Liga:"
+    created_by: "Criada por:"
+    invite_link: "Link Convite:"
+    request_entry: "Solicitar entrada"
+    pending_requests: "Solicitações pendentes"
+    no_pending_requests: "Nenhuma solicitação pendente no momento."
+    membership:
+      pending: "Sua solicitação está pendente de aprovação."
+      rejected: "Sua solicitação foi recusada."
+
+  league_edit:
+    subtitle: "Atualize o nome e a imagem da sua liga."
+    current_image: "Imagem atual da liga"
+    name: "Nome da liga"
+    new_image: "Nova foto da liga"
+    save: "Salvar alterações"
+
+  league_new:
+    eyebrow: "Nova liga"
+    description: "Dê um nome para sua liga e escolha uma imagem para personalizar a experiência."
+    name: "Nome da liga"
+    image: "Avatar da liga"
+    type: "Tipo da liga"
+    placeholders:
+      name: "Ex: Liga dos Amigos"
+
+  discover:
+    join_with_code:
+      title: "Entrar com código"
+      description: "Digite o código da liga para entrar ou solicitar participação."
+      placeholder: "Digite o código da liga"
+      button: "Entrar"
+    search:
+      title: "Pesquisar ligas"
+      description: "Busque por nome ou código para filtrar a lista de ligas abaixo."
+      placeholder: "Buscar por nome ou código"
+      button: "Buscar"
+    list:
+      title: "Lista de ligas"
+    table:
+      name: "Nome"
+      type: "Tipo"
+      participants: "Participantes"
+      creator: "Criador"
+      action: "Ação"
+    status:
+      already_joined: "Você já participa"
+      pending: "Solicitação pendente"
+    actions:
+      request_again: "Solicitar novamente"
+      join: "Entrar"
+      request_entry: "Solicitar entrada"
+      participate: "Participar"
+    empty: "Nenhuma liga encontrada com os filtros informados."
+
+  matches:
+    next_matches: "Próximos jogos"
+    predictions: "Palpites"
+    finished: "Finalizado"
+    locked: "Travado"
+    open: "Aberto"
+    closed: "Fechado"
+    match: "Jogo"
+    stage: "Fase"
+    date: "Data"
+    status: "Status"
+    group: "Grupo"
+    group_with_code: "Grupo %{code}"
+    all_matches: "Todos os jogos"
+    versus: "x"
+    official_score: "Placar computado"
+    official_short_label: "Oficial"
+    not_finished: "Jogo não finalizado"
+    points: "Pontuação"
+    result: "Resultado"
+    to_be_defined: "A definir"
+    date_to_be_defined: "Data a definir"
+    no_pending: "Não há jogos pendentes no momento."
+    empty_title: "Nenhum jogo encontrado"
+    empty_description: "Tente ajustar os filtros para visualizar outras partidas."
+    statuses:
+      open_plural: "Abertos"
+      closed_plural: "Fechados"
+
+  predictions:
+    title: "Palpites"
+    predict: "Palpitar"
+    save: "Salvar palpite"
+    update: "Atualizar palpite"
+    updated: "Palpite atualizado com sucesso"
+    clear: "Limpar palpite"
+    confirm_clear: "Deseja limpar seu palpite?"
+    closed_for_match: "Palpite encerrado para esta partida"
+    with_prediction: "Com palpite"
+    without_prediction: "Sem palpite"
+    user_prediction: "Palpite do usuário"
+    short_label: "Palpite"
+
+  filters:
+    title: "Filtros"
+    all_feminine: "Todas"
+    all_masculine: "Todos"
+    apply: "Filtrar"
+    clear: "Limpar"
+
+  rankings:
+    ordinal: "%{position}º"
+
+  ranking:
+    title: "Ranking"
+    position: "Pos"
+    participant: "Participante"
+    points: "Pontos"
+    exact_score: "Resultado exato"
+    partial_score: "Resultado parcial"
+    winner_draw: "Vencedor/empate"
+    errors: "Erros"
+    empty: "Ainda não há participantes aprovados no ranking."
+    tie_breaker: "Critérios de desempate: mais resultados exatos, mais resultados parciais, mais vencedores/empates e menos erros totais."
+
+  stages:
+    group_stage: "Fase de grupos"
+    second_phase: "Segunda fase"
+    round_of_16: "Oitavas de final"
+    quarterfinal: "Quartas de final"
+    semifinal: "Semifinal"
+    third_place: "Disputa de 3º lugar"
+    final: "Final"
+
+  teams:
+    default_flag: "Bandeira padrão"
+
+  brackets:
+    filter_stage: "Filtrar fase"
+    all_stages: "Todas as fases"
+    second_phase: "16 avos"
+    round_of_16: "Oitavas"
+    quarterfinal: "Quartas"
+    semifinal: "Semifinal"
+    third_place: "3º lugar"
+    final: "Final"
+    third_place_not_registered: "Disputa de 3º lugar ainda não cadastrada"
+    final_not_registered: "Final ainda não cadastrada"
+    matches_not_registered: "Jogos ainda não cadastrados"
+
+  contact:
+    title: "Fale com o Bolão Canarinho"
+    subtitle: "Conheça formas de apoiar o projeto e, se precisar de qualquer ajuda, estaremos felizes em falar com você."
+    support:
+      title: "Apoie o Bolão Canarinho"
+      description_1: "Este aplicativo foi criado exclusivamente para fins de entretenimento, com o objetivo de proporcionar a melhor experiência de diversão para você e seus amigos."
+      description_2: "Não existe nenhuma cobrança para participar. Mas, caso queira contribuir com os custos de manutenção do projeto, você pode fazer um Pix de qualquer valor para a chave abaixo:"
+      donation: "50% de todo valor arrecadado será doado para uma instituição de caridade."
+      accountability: "As prestações de contas serão divulgadas aqui mesmo após o final da Copa do Mundo."
+      thanks: "Obrigado por fazer parte disso! 💛"
+    pix:
+      key_label: "Chave Pix"
+      name_label: "Nome"
+    form:
+      title: "Envie sua mensagem"
+      description: "Está com alguma dificuldade, tem uma sugestão ou quer fazer uma parceria? Conte para nós como podemos ajudar."
+      name: "Nome"
+      email: "E-mail"
+      subject: "Assunto"
+      message: "Mensagem"
+      submit: "Enviar mensagem"
+      placeholders:
+        name: "Seu nome"
+        email: "seuemail@exemplo.com"
+        message: "Escreva sua mensagem aqui..."
+      options:
+        select: "Selecione uma opção"
+        support: "Dificuldade no aplicativo"
+        partnership: "Parceria"
+        suggestion: "Sugestão"
+        other: "Outro assunto"
+
+  rules:
+    eyebrow: "Bolão do Hexa"
+    title: "Regras de pontuação e desempate"
+    scoring:
+      title: "Pontuação dos palpites"
+      exact:
+        title: "Placar exato (5 pts):"
+        description: "acerto do resultado com o número correto de gols das duas seleções."
+      partial:
+        title: "Resultado parcial (4 pts):"
+        description: "acerto do vencedor e a quantidade de gols de pelo menos uma seleção."
+      winner:
+        title: "Vencedor/Empate (3 pts):"
+        description: "acerto apenas da seleção vencedora ou do empate."
+      error:
+        title: "Erro (0 pts):"
+        description: "quando o palpite não acerta o vencedor ou empate."
+    tie_breaker:
+      title: "Desempate nas ligas"
+      rule_1: "Maior pontuação total."
+      rule_2: "Maior número de placares exatos."
+      rule_3: "Maior número de resultados parciais."
+      rule_4: "Maior número de vencedores/empate acertados."
+      rule_5: "Menor quantidade de erros."
+    lock:
+      title: "Bloqueio dos palpites"
+      description: "Os palpites ficam disponíveis até o prazo de 15 minutos antes do início da partida. Após o fechamento do jogo, não será mais possível criar ou editar o palpite."
+
+  terms:
+    title: "Termos de Uso"
+    introduction: "Ao utilizar o Bolão do Hexa, você concorda com os termos abaixo."
+    sections:
+      usage:
+        title: "1. Uso da plataforma"
+        description: "O Bolão do Hexa é uma plataforma de entretenimento para realização de palpites esportivos."
+      account:
+        title: "2. Conta do usuário"
+        description: "O usuário é responsável pelas informações fornecidas e pela segurança da sua conta."
+      rules:
+        title: "3. Regras do jogo"
+        item_1: "Os palpites devem ser feitos antes do início das partidas"
+        item_2: "Após o início, não será possível editar"
+        item_3: "A pontuação segue as regras definidas na plataforma"
+      availability:
+        title: "4. Disponibilidade"
+        description: "Não garantimos funcionamento contínuo ou sem interrupções da plataforma."
+      conduct:
+        title: "5. Conduta"
+        item_1: "Não utilizar a plataforma para fins indevidos"
+        item_2: "Não tentar manipular resultados ou explorar falhas do sistema"
+      changes:
+        title: "6. Alterações"
+        description: "Os termos podem ser atualizados a qualquer momento."
+      acceptance:
+        title: "7. Aceite"
+        description: "Ao criar uma conta, você declara que leu e concorda com estes termos."
+
+  privacy:
+    title: "Política de Privacidade"
+    introduction: "Esta plataforma segue as diretrizes da Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018), respeitando a privacidade e a proteção dos dados pessoais dos usuários."
+    sections:
+      data:
+        title: "1. Dados coletados"
+        item_1: "Nome"
+        item_2: "E-mail"
+        item_3: "Foto de perfil (avatar)"
+      purpose:
+        title: "2. Finalidade do uso"
+        description: "Os dados são utilizados para identificação do usuário, exibição em ligas e rankings, e funcionamento do sistema de palpites."
+      sharing:
+        title: "3. Compartilhamento"
+        description: "Seu nome e foto podem ser visíveis para outros usuários dentro da plataforma. Seus dados não são vendidos. O compartilhamento ocorre apenas quando necessário para funcionamento da plataforma ou cumprimento de obrigações legais."
+      storage:
+        title: "4. Armazenamento"
+        description: "Os dados são armazenados em ambiente seguro e protegidos por medidas técnicas compatíveis com aplicações web modernas."
+      rights:
+        title: "5. Direitos do usuário"
+        item_1: "Solicitar alteração dos dados"
+        item_2: "Solicitar exclusão da conta"
+      cookies:
+        title: "6. Cookies"
+        description: "Utilizamos apenas cookies essenciais para funcionamento da aplicação (login e sessão)."
+      contact:
+        title: "7. Contato"
+        description: "Para dúvidas, entre em contato com o administrador da plataforma."
+
+  standings:
+    group_with_code: "Grupo %{code}"
+    position: "Pos"
+    team: "Seleção"
+    points_abbr: "PTS"
+    played_abbr: "J"
+    wins_abbr: "V"
+    draws_abbr: "E"
+    losses_abbr: "D"
+    goals_for_abbr: "GP"
+    goals_against_abbr: "GC"
+    goal_difference_abbr: "SG"
+    empty: "Ainda não há grupos com jogos cadastrados."
+
+  user_profile:
+    eyebrow: "Perfil do participante"
+    leagues_eyebrow: "Ligas do participante"
+    leagues_title: "Ligas e posição atual"
+    predictions_title: "Histórico de palpites"
+    empty_leagues: "Este participante ainda não está em nenhuma liga aprovada."
+    empty_predictions: "Este participante ainda não fez palpites."
+    table:
+      league: "Liga"
+      position: "Posição"
+
+  profile_edit:
+    eyebrow: "Sua conta"
+    title: "Edite seu perfil e mantenha seus dados atualizados."
+    description: "Altere sua foto, nome, e-mail e senha para manter sua conta pronta para acompanhar o bolão com a sua identidade."
+    form_eyebrow: "Editar perfil"
+    form_title: "Minha conta"
+    current_photo: "Foto atual"
+    profile_photo_alt: "Foto de perfil"
+    change_photo: "Alterar foto de perfil"
+    waiting_confirmation: "Aguardando confirmação para: %{email}"
+    new_password: "Nova senha"
+    password_confirmation: "Confirmar nova senha"
+    current_password: "Senha atual"
+    minimum_password_length: "Mínimo de %{count} caracteres"
+    back_question: "Quer voltar?"
+    go_home: "Ir para o início"
+    cancel_account_title: "Cancelar conta"
+    cancel_account_description: "Se desejar, você pode excluir sua conta permanentemente."
+    cancel_my_account: "Cancelar minha conta"
+    confirm_cancel: "Tem certeza?"
+    highlights:
+      avatar: "🖼️ Foto de perfil"
+      security: "🔐 Segurança da conta"
+      updated_data: "⚙️ Dados atualizados"
+    placeholders:
+      new_password: "Deixe em branco se não quiser alterar"
+      password_confirmation: "Repita a nova senha"
+      current_password: "Digite sua senha atual para confirmar"
+
+  signup:
+    eyebrow: "Crie sua conta"
+    title: "Entrar no bolão"
+    password_confirmation: "Confirmar senha"
+    already_have_account: "Já tem conta?"
+    sign_in_now: "Acessar agora"
+    placeholders:
+      password: "Crie uma senha"
+      password_confirmation: "Repita sua senha"
+    terms:
+      prefix: "Li e aceito os"
+      terms_link: "Termos de Uso"
+      middle: "e a"
+      privacy_link: "Política de Privacidade"
+
+  passwords:
+    recover_access: "Recuperar acesso"
+    reset_password: "Redefinir senha"
+    send_instructions: "Enviar instruções"
+    remembered_password: "Lembrou sua senha?"
+    back_to_login: "Voltar para login"
+    change_access: "Alterar acesso"
+    change_password: "Alterar senha"
+    confirm_new_password: "Confirmar nova senha"
+    change_my_password: "Alterar minha senha"
+    back_to_login_question: "Deseja voltar ao login?"
+    placeholders:
+      new_password: "Digite sua nova senha"
+      confirm_new_password: "Repita sua nova senha"
+
+  teams:
+    default_flag: "Bandeira padrão"
+    names:
+      canada: "Canadá"
+      estados_unidos: "Estados Unidos"
+      mexico: "México"
+      arabia_saudita: "Arábia Saudita"
+      australia: "Austrália"
+      catar: "Catar"
+      coreia_do_sul: "Coreia do Sul"
+      ira: "Irã"
+      iraque: "Iraque"
+      japao: "Japão"
+      jordania: "Jordânia"
+      uzbequistao: "Uzbequistão"
+      africa_do_sul: "África do Sul"
+      argelia: "Argélia"
+      cabo_verde: "Cabo Verde"
+      costa_do_marfim: "Costa do Marfim"
+      egito: "Egito"
+      gana: "Gana"
+      marrocos: "Marrocos"
+      rd_do_congo: "RD do Congo"
+      senegal: "Senegal"
+      tunisia: "Tunísia"
+      argentina: "Argentina"
+      brasil: "Brasil"
+      colombia: "Colômbia"
+      equador: "Equador"
+      paraguai: "Paraguai"
+      uruguai: "Uruguai"
+      nova_zelandia: "Nova Zelândia"
+      alemanha: "Alemanha"
+      austria: "Áustria"
+      belgica: "Bélgica"
+      bosnia_e_herzegovina: "Bósnia e Herzegovina"
+      croacia: "Croácia"
+      escocia: "Escócia"
+      espanha: "Espanha"
+      franca: "França"
+      holanda: "Holanda"
+      inglaterra: "Inglaterra"
+      noruega: "Noruega"
+      portugal: "Portugal"
+      republica_tcheca: "República Tcheca"
+      suecia: "Suécia"
+      suica: "Suíça"
+      turquia: "Turquia"
+      curacao: "Curaçau"
+      haiti: "Haiti"
+      panama: "Panamá"

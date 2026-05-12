@@ -1,11 +1,9 @@
 <section class="contact-page">
   <div class="contact-hero">
     <div class="container contact-hero__content">
-      <h1>Fale com o Bolão Canarinho</h1>
+      <h1><%= t("contact.title") %></h1>
 
-      <p>
-        Conheça formas de apoiar o projeto e, se precisar de qualquer ajuda, estaremos felizes em falar com você.
-      </p>
+      <p><%= t("contact.subtitle") %></p>
     </div>
   </div>
 
@@ -18,45 +16,32 @@
           </span>
 
           <div>
-            <h2>Apoie o Bolão Canarinho</h2>
+            <h2><%= t("contact.support.title") %></h2>
           </div>
         </div>
 
-        <p>
-          Este aplicativo foi criado exclusivamente para fins de entretenimento,
-          com o objetivo de proporcionar a melhor experiência de diversão para
-          você e seus amigos.
-        </p>
+        <p><%= t("contact.support.description_1") %></p>
 
-        <p>
-          Não existe nenhuma cobrança para participar. Mas, caso queira contribuir
-          com os custos de manutenção do projeto, você pode fazer um Pix de qualquer
-          valor para a chave abaixo:
-        </p>
+        <p><%= t("contact.support.description_2") %></p>
 
         <div class="pix-box">
-          <span>Chave Pix</span>
+          <span><%= t("contact.pix.key_label") %></span>
           <strong>63.485.641/0001-01</strong>
         </div>
 
         <div class="pix-box pix-box--small">
-          <span>Nome</span>
+          <span><%= t("contact.pix.name_label") %></span>
           <strong>RL Tecnologia da Informacao</strong>
         </div>
 
         <div class="donation-highlight">
           <i class="fa-solid fa-hand-holding-heart"></i>
-          <p>
-            50% de todo valor arrecadado será doado para uma instituição de caridade.
-          </p>
+          <p><%= t("contact.support.donation") %></p>
         </div>
 
-        <p class="contact-note">
-          As prestações de contas serão divulgadas aqui mesmo após o final da Copa
-          do Mundo.
-        </p>
+        <p class="contact-note"><%= t("contact.support.accountability") %></p>
 
-        <strong class="contact-thanks">Obrigado por fazer parte disso! 💛</strong>
+        <strong class="contact-thanks"><%= t("contact.support.thanks") %></strong>
       </aside>
 
       <div class="contact-card contact-card--form">
@@ -66,59 +51,56 @@
           </span>
 
           <div>
-            <h2>Envie sua mensagem</h2>
-            <p>
-              Está com alguma dificuldade, tem uma sugestão ou quer fazer uma parceria?
-              Conte para nós como podemos ajudar.
-            </p>
+            <h2><%= t("contact.form.title") %></h2>
+            <p><%= t("contact.form.description") %></p>
           </div>
         </div>
 
         <form class="contact-form" action="https://formspree.io/f/mvzldonq" method="post">
           <div class="contact-form__group">
-            <label for="contact_name">Nome</label>
+            <label for="contact_name"><%= t("contact.form.name") %></label>
             <input
               type="text"
               id="contact_name"
               name="name"
-              placeholder="Seu nome"
+              placeholder="<%= t("contact.form.placeholders.name") %>"
             >
           </div>
 
           <div class="contact-form__group">
-            <label for="contact_email">E-mail</label>
+            <label for="contact_email"><%= t("contact.form.email") %></label>
             <input
               type="email"
               id="contact_email"
               name="email"
-              placeholder="seuemail@exemplo.com"
+              placeholder="<%= t("contact.form.placeholders.email") %>"
             >
           </div>
 
           <div class="contact-form__group">
-            <label for="contact_subject">Assunto</label>
+            <label for="contact_subject"><%= t("contact.form.subject") %></label>
             <select id="contact_subject" name="subject">
-              <option value="">Selecione uma opção</option>
-              <option value="suporte">Dificuldade no aplicativo</option>
-              <option value="parceria">Parceria</option>
-              <option value="sugestao">Sugestão</option>
-              <option value="outro">Outro assunto</option>
+              <option value=""><%= t("contact.form.options.select") %></option>
+              <option value="suporte"><%= t("contact.form.options.support") %></option>
+              <option value="parceria"><%= t("contact.form.options.partnership") %></option>
+              <option value="sugestao"><%= t("contact.form.options.suggestion") %></option>
+              <option value="outro"><%= t("contact.form.options.other") %></option>
             </select>
           </div>
 
           <div class="contact-form__group">
-            <label for="contact_message">Mensagem</label>
+            <label for="contact_message"><%= t("contact.form.message") %></label>
             <textarea
               id="contact_message"
               name="message"
               rows="6"
-              placeholder="Escreva sua mensagem aqui..."
+              placeholder="<%= t("contact.form.placeholders.message") %>"
             ></textarea>
           </div>
 
           <button type="submit" class="contact-button">
             <i class="fa-solid fa-paper-plane"></i>
-            Enviar mensagem
+            <%= t("contact.form.submit") %>
           </button>
         </form>
       </div>

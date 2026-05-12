@@ -1,25 +1,92 @@
-<h2>Change your password</h2>
+<section class="landing-hero">
+  <div class="landing-hero__overlay"></div>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-  <%= f.hidden_field :reset_password_token %>
+  <div class="landing-hero__content container">
+    <div class="landing-hero__text">
+      <p class="landing-hero__eyebrow"><%= t("home.eyebrow") %></p>
 
-  <div class="field">
-    <p><%= f.label :password, "New password" %></p>
-    <% if @minimum_password_length %>
-      <p><em>(<%= @minimum_password_length %> characters minimum)</em></p>
-    <% end %>
-    <p><%= f.password_field :password, autofocus: true, autocomplete: "new-password" %></p>
+      <h1 class="landing-hero__title">
+        <%= t("home.title") %>
+      </h1>
+
+      <p class="landing-hero__description">
+        <%= t("home.description") %>
+      </p>
+
+      <div class="landing-hero__highlights">
+        <span><%= t("home.highlights.league_ranking") %></span>
+        <span><%= t("home.highlights.match_predictions") %></span>
+        <span><%= t("home.highlights.guaranteed_fun") %></span>
+      </div>
+    </div>
+
+    <div class="landing-login-card">
+      <div class="landing-login-card__header">
+        <div class="landing-login-card__header-row">
+          <%= image_tag "logo-podcast.png",
+              alt: t("app.title"),
+              class: "landing-login-card__logo-img" %>
+
+          <div class="landing-login-card__title-group">
+            <p class="landing-login-card__eyebrow">
+              <%= t("passwords.change_access") %>
+            </p>
+
+            <h2><%= t("passwords.change_password") %></h2>
+          </div>
+        </div>
+      </div>
+
+      <%= form_for(resource,
+            as: resource_name,
+            url: password_path(resource_name),
+            html: {
+              method: :put,
+              class: "landing-login-form"
+            }) do |f| %>
+
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+        <%= f.hidden_field :reset_password_token %>
+
+        <div class="landing-form-group">
+          <%= f.label :password, t("forms.password") %>
+
+          <% if @minimum_password_length %>
+            <small style="color: var(--color-text-soft); font-weight: 600;">
+              <%= t("profile_edit.minimum_password_length",
+                    count: @minimum_password_length) %>
+            </small>
+          <% end %>
+
+          <%= f.password_field :password,
+                autofocus: true,
+                autocomplete: "new-password",
+                class: "landing-form-input",
+                placeholder: t("passwords.placeholders.new_password") %>
+        </div>
+
+        <div class="landing-form-group">
+          <%= f.label :password_confirmation,
+                t("passwords.confirm_new_password") %>
+
+          <%= f.password_field :password_confirmation,
+                autocomplete: "new-password",
+                class: "landing-form-input",
+                placeholder: t("passwords.placeholders.confirm_new_password") %>
+        </div>
+
+        <%= f.submit t("passwords.change_my_password"),
+              class: "landing-submit-button" %>
+      <% end %>
+
+      <div class="landing-login-card__footer">
+        <p><%= t("passwords.back_to_login_question") %></p>
+
+        <%= link_to t("passwords.back_to_login"),
+              new_user_session_path,
+              class: "landing-secondary-link" %>
+      </div>
+    </div>
   </div>
-
-  <div class="field">
-    <p><%= f.label :password_confirmation, "Confirm new password" %></p>
-    <p><%= f.password_field :password_confirmation, autocomplete: "new-password" %></p>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Change my password" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</section>
