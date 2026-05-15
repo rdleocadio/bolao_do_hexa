@@ -4,12 +4,24 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
 
-    @predictions = @user.predictions.includes(:match).select { |prediction| prediction.match.present? }
+    @predictions = @user.predictions
+                        .joins(:match)
+                        .includes(:match)
+                        .where(
+                          "matches.locked_at <= :now OR matches.kickoff_at <= :now",
+                          now: Time.current
+                        )
+                        .order("matches.kickoff_at ASC")
 
     @total_points = @predictions.sum(&:points)
 
     @leagues = League.joins(:league_memberships)
-                     .where(league_memberships: { user_id: @user.id, status: LeagueMembership.statuses[:approved] })
+                     .where(
+                       league_memberships: {
+                         user_id: @user.id,
+                         status: LeagueMembership.statuses[:approved]
+                       }
+                     )
                      .includes(:owner, :league_memberships)
                      .distinct
 
