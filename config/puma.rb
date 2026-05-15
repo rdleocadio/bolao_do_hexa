@@ -9,7 +9,7 @@ rails_env = ENV.fetch("RAILS_ENV") { "development" }
 environment rails_env
 
 if rails_env == "production"
-  worker_count = Integer(ENV.fetch("WEB_CONCURRENCY") { 1 })
+  worker_count = Integer(ENV.fetch("WEB_CONCURRENCY") { 0 })
 
   if worker_count.positive?
     workers worker_count
