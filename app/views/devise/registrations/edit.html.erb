@@ -23,10 +23,15 @@
     <div class="landing-login-card">
       <div class="landing-login-card__header">
         <div class="landing-login-card__header-row">
-          <%= image_tag "logo-podcast.png", alt: t("app.title"), class: "landing-login-card__logo-img" %>
+          <%= image_tag "logo-podcast.png",
+                alt: t("app.title"),
+                class: "landing-login-card__logo-img" %>
 
           <div class="landing-login-card__title-group">
-            <p class="landing-login-card__eyebrow"><%= t("profile_edit.form_eyebrow") %></p>
+            <p class="landing-login-card__eyebrow">
+              <%= t("profile_edit.form_eyebrow") %>
+            </p>
+
             <h2><%= t("profile_edit.form_title") %></h2>
           </div>
         </div>
@@ -35,12 +40,18 @@
       <%= form_for(resource,
             as: resource_name,
             url: registration_path(resource_name),
-            html: { method: :put, multipart: true, class: "landing-login-form" }) do |f| %>
+            html: {
+              method: :put,
+              multipart: true,
+              class: "landing-login-form"
+            }) do |f| %>
 
-        <%= render "devise/shared/error_messages", resource: resource %>
+        <%= render "devise/shared/error_messages",
+              resource: resource %>
 
         <div class="landing-form-group">
           <%= f.label :name, t("forms.name") %>
+
           <%= f.text_field :name,
                 autofocus: true,
                 autocomplete: "name",
@@ -50,6 +61,7 @@
 
         <div class="landing-form-group">
           <%= f.label :email, t("forms.email") %>
+
           <%= f.email_field :email,
                 autocomplete: "email",
                 class: "landing-form-input",
@@ -58,84 +70,157 @@
 
         <% if current_user.avatar.attached? %>
           <div class="landing-form-group">
-            <label><%= t("profile_edit.current_photo") %></label>
+            <label>
+              <%= t("profile_edit.current_photo") %>
+            </label>
+
             <div style="display: flex; align-items: center; gap: 12px;">
               <%= image_tag current_user.avatar,
-                alt: t("profile_edit.profile_photo_alt"),
-                style: "width: 72px; height: 72px; object-fit: cover; border-radius: 50%; border: 3px solid #FEEE00;" %>
+                    alt: t("profile_edit.profile_photo_alt"),
+                    style: "
+                      width: 72px;
+                      height: 72px;
+                      object-fit: cover;
+                      border-radius: 50%;
+                      border: 3px solid #FEEE00;
+                    " %>
             </div>
           </div>
         <% end %>
 
         <div class="landing-form-group">
           <%= f.label :avatar, t("profile_edit.change_photo") %>
-          <%= f.file_field :avatar, class: "landing-form-input" %>
+
+          <%= f.file_field :avatar,
+                class: "landing-form-input" %>
         </div>
 
-        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <% if devise_mapping.confirmable? &&
+              resource.pending_reconfirmation? %>
+
           <div class="alert alert-success">
-            <%= t("profile_edit.waiting_confirmation", email: resource.unconfirmed_email) %>
+            <%= t(
+                  "profile_edit.waiting_confirmation",
+                  email: resource.unconfirmed_email
+                ) %>
           </div>
         <% end %>
 
         <div class="landing-form-group">
-          <%= f.label :password, t("profile_edit.new_password") %>
+          <%= f.label :password,
+                t("profile_edit.new_password") %>
+
           <%= f.password_field :password,
                 autocomplete: "new-password",
                 class: "landing-form-input",
-                placeholder: t("profile_edit.placeholders.new_password") %>
+                placeholder: t(
+                  "profile_edit.placeholders.new_password"
+                ) %>
 
           <% if @minimum_password_length %>
-            <small style="color: var(--color-text-soft); font-weight: 600;">
-              <%= t("profile_edit.minimum_password_length", count: @minimum_password_length) %>
+            <small
+              style="
+                color: var(--color-text-soft);
+                font-weight: 600;
+              "
+            >
+              <%= t(
+                    "profile_edit.minimum_password_length",
+                    count: @minimum_password_length
+                  ) %>
             </small>
           <% end %>
         </div>
 
         <div class="landing-form-group">
-          <%= f.label :password_confirmation, t("profile_edit.password_confirmation") %>
+          <%= f.label :password_confirmation,
+                t("profile_edit.password_confirmation") %>
+
           <%= f.password_field :password_confirmation,
                 autocomplete: "new-password",
                 class: "landing-form-input",
-                placeholder: t("profile_edit.placeholders.password_confirmation") %>
+                placeholder: t(
+                  "profile_edit.placeholders.password_confirmation"
+                ) %>
         </div>
 
         <div class="landing-form-group">
-          <%= f.label :current_password, t("profile_edit.current_password") %>
+          <%= f.label :current_password,
+                t("profile_edit.current_password") %>
+
           <%= f.password_field :current_password,
                 autocomplete: "current-password",
                 class: "landing-form-input",
-                placeholder: t("profile_edit.placeholders.current_password") %>
+                placeholder: t(
+                  "profile_edit.placeholders.current_password"
+                ) %>
         </div>
 
-        <%= f.submit t("league_edit.save"), class: "landing-submit-button" %>
+        <%= f.submit t("league_edit.save"),
+              class: "landing-submit-button" %>
+
       <% end %>
 
       <div class="landing-login-card__footer">
         <p><%= t("profile_edit.back_question") %></p>
-        <%= link_to t("profile_edit.go_home"), root_path, class: "landing-secondary-link" %>
+
+        <%= link_to t("profile_edit.go_home"),
+              root_path,
+              class: "landing-secondary-link" %>
       </div>
 
-      <hr style="margin: 22px 0; border: 0; border-top: 1px solid rgba(58, 58, 139, 0.12);">
+      <hr
+        style="
+          margin: 22px 0;
+          border: 0;
+          border-top: 1px solid rgba(58, 58, 139, 0.12);
+        "
+      >
 
       <div>
-        <p style="margin: 0 0 12px; font-weight: 800; color: #a72828;">
+        <p
+          style="
+            margin: 0 0 12px;
+            font-weight: 800;
+            color: #a72828;
+          "
+        >
           <%= t("profile_edit.cancel_account_title") %>
         </p>
 
-        <p style="margin: 0 0 14px; color: var(--color-text-soft);">
+        <p
+          style="
+            margin: 0 0 14px;
+            color: var(--color-text-soft);
+          "
+        >
           <%= t("profile_edit.cancel_account_description") %>
         </p>
 
-        <%= button_to t("profile_edit.cancel_my_account"),
-              registration_path(resource_name),
+        <%= form_with url: registration_path(resource_name),
               method: :delete,
-              data: {
-                confirm: t("profile_edit.confirm_cancel"),
-                turbo_confirm: t("profile_edit.confirm_cancel")
-              },
-              class: "btn-primary-custom",
-              form: { style: "display: inline-block;" } %>
+              local: true do %>
+
+          <div class="landing-form-group">
+            <%= label_tag :current_password,
+                  "Confirme sua senha" %>
+
+            <%= password_field_tag :current_password,
+                  nil,
+                  required: true,
+                  autocomplete: "current-password",
+                  class: "landing-form-input",
+                  placeholder: "Digite sua senha atual" %>
+          </div>
+
+          <%= submit_tag t("profile_edit.cancel_my_account"),
+                class: "btn-primary-custom",
+                data: {
+                  confirm: t("profile_edit.confirm_cancel"),
+                  turbo_confirm: t("profile_edit.confirm_cancel")
+                } %>
+
+        <% end %>
       </div>
     </div>
   </div>

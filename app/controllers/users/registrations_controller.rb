@@ -9,6 +9,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def destroy
+    unless current_user.valid_password?(params[:current_password])
+      flash[:alert] = "Senha incorreta."
+
+      redirect_back fallback_location: edit_user_registration_path
+      return
+    end
+
+    super
+  end
+
   protected
 
   def configure_permitted_parameters
