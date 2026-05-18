@@ -125,15 +125,17 @@
 
 .leagues-discover-page .discover-form__row .landing-form-input {
   flex: 1;
+  width: 100%;
   min-width: 0;
-  height: 40px;
-  padding: 0 0.75rem;
+  min-height: 36px;
+  padding: 0.5rem 0.8rem;
   border: 1px solid #d8ddea;
-  border-radius: 12px;
+  border-radius: 11px;
   background: #ffffff;
   color: #1f2937;
-  font-size: 0.9rem;
+  font-size: 0.84rem;
   outline: none;
+  box-sizing: border-box;
 }
 
 .leagues-discover-page .discover-form__row .landing-form-input:focus {
