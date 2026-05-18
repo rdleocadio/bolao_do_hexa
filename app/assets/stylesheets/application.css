@@ -13,11 +13,10 @@
 @import url("pages/contact.css");
 
 @font-face {
-  font-family: "Qualy";
-  src: url("/assets/Qualy-Bold.otf") format("opentype");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
+  font-family: "QualyBold";
+  src:
+    url("/assets/qualy-bold.woff2") format("woff2"),
+    url("/assets/qualy-bold.woff") format("woff");
 }
 
 /* ===== PALETTE ===== */
