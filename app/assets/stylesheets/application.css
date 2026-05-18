@@ -13,10 +13,13 @@
 @import url("pages/contact.css");
 
 @font-face {
-  font-family: "QualyBold";
+  font-family: "Qualy";
   src:
     url("/assets/qualy-bold.woff2") format("woff2"),
     url("/assets/qualy-bold.woff") format("woff");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
 }
 
 /* ===== PALETTE ===== */
@@ -77,7 +80,7 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: "QualyBold";
+  font-family: "Qualy";
   background: linear-gradient(180deg, #f7f9fc 0%, #f1f5fb 100%);
   color: var(--color-text);
   line-height: 1.5;
@@ -85,7 +88,7 @@ body {
 
 .landing-submit-button,
 .btn-primary-custom {
-  font-family: "QualyBold";
+  font-family: "Qualy";
 }
 
 img {
