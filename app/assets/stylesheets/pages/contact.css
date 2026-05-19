@@ -9,8 +9,7 @@
 .contact-hero {
   padding: 72px 0 48px;
   background:
-    linear-gradient(135deg, rgba(0, 92, 49, 0.96), rgba(20, 120, 62, 0.92)),
-    url("/assets/pattern-brasil.png");
+    linear-gradient(135deg, rgba(0, 92, 49, 0.96), rgba(20, 120, 62, 0.92));
   background-size: cover;
   background-position: center;
   color: #ffffff;
