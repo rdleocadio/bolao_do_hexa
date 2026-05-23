@@ -8,127 +8,115 @@
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-  overflow: visible;
 }
 
-/* ===== SECTION CARDS ===== */
+/* ===== CARDS ===== */
 
-.leagues-discover-page .discover-page-card,
+.leagues-discover-page .discover-actions-card,
 .leagues-discover-page .discover-list-card {
   padding: 1rem;
   border-radius: 18px;
   background: #ffffff;
   border: 1px solid rgba(58, 58, 139, 0.08);
   box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
-  margin-bottom: 0;
 }
 
-.leagues-discover-page .discover-page-card__header,
-.leagues-discover-page .discover-list-card__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 1rem;
-  flex-wrap: wrap;
-  margin-bottom: 0.85rem;
+/* ===== HEADER ===== */
+
+.leagues-discover-page .discover-actions-card__header {
+  margin-bottom: 1rem;
 }
 
-.leagues-discover-page .discover-page-card__header h1:not(.section-title),
-.leagues-discover-page .discover-page-card__header h2:not(.section-title),
-.leagues-discover-page .discover-list-card__header h1:not(.section-title),
-.leagues-discover-page .discover-list-card__header h2:not(.section-title) {
-  margin: 0;
-  font-size: 1.35rem;
-  line-height: 1.15;
-  color: #111827;
-}
-
-.leagues-discover-page .discover-page-card__header p,
-.leagues-discover-page .discover-list-card__header p {
-  margin: 0.35rem 0 0;
-  max-width: 760px;
-  font-size: 0.9rem;
-  line-height: 1.45;
-  color: #6b7280;
-}
-
-/* ===== GRID DOS CARDS ===== */
-
-.leagues-discover-page .leagues-discover-page__cards {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.8rem;
-  align-items: stretch;
-}
-
-.leagues-discover-page .leagues-discover-page__cards > .app-card + .app-card {
-  margin-top: 0;
-}
-
-/* ===== DISCOVER BLOCK ===== */
-
-.leagues-discover-page .discover-block {
-  min-height: 190px;
-  padding: 0.95rem;
-  border-radius: 18px;
-  background: #ffffff;
-  border: 1px solid rgba(58, 58, 139, 0.08);
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
-  display: flex;
-  flex-direction: column;
-}
-
-.leagues-discover-page .discover-block__title {
-  margin: 0 0 0.4rem;
-  font-size: 1.05rem;
-  line-height: 1.2;
+.leagues-discover-page .discover-actions-card__title {
+  margin: 0 0 0.35rem;
+  font-size: 1.2rem;
   font-weight: 900;
   color: #3A3A8B;
 }
 
-.leagues-discover-page .discover-block__text {
-  min-height: 54px;
-  margin: 0 0 0.85rem;
+.leagues-discover-page .discover-actions-card__text {
+  margin: 0;
   font-size: 0.9rem;
-  line-height: 1.45;
   color: #6b7280;
+  line-height: 1.45;
 }
 
-/* ===== FORM ===== */
+/* ===== GRID ===== */
 
-.leagues-discover-page .discover-form {
+.leagues-discover-page .discover-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+  align-items: stretch;
+}
+
+/* ===== ACTION BOX ===== */
+
+.leagues-discover-page .discover-action-box {
+  padding: 1rem;
+  border-radius: 16px;
+  border: 1px solid rgba(58, 58, 139, 0.08);
+  background: #fafafa;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+}
+
+.leagues-discover-page .discover-action-box--highlight {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 214, 10, 0.12),
+    rgba(69, 154, 65, 0.12)
+  );
+
+  border: 1px solid rgba(255, 214, 10, 0.18);
+}
+
+/* ===== CONTENT ===== */
+
+.leagues-discover-page .discover-action-box__content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.leagues-discover-page .discover-action-box__content h2 {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 900;
+  color: #3A3A8B;
+}
+
+.leagues-discover-page .discover-action-box__content p {
+  margin: 0;
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: #6b7280;
+  min-height: 42px;
+}
+
+/* ===== FORMS ===== */
+
+.leagues-discover-page .discover-compact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.leagues-discover-page .discover-compact-form__actions {
+  display: flex;
+  gap: 0.65rem;
   margin-top: auto;
 }
 
-.leagues-discover-page .discover-form__row {
-  display: flex;
-  gap: 0.65rem;
-  align-items: center;
-  flex-wrap: nowrap;
-}
+/* ===== INPUT ===== */
 
-@media (max-width: 600px) {
-  .leagues-discover-page .discover-form__row {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .leagues-discover-page .discover-form__row .landing-form-input {
-    width: 100%;
-  }
-
-  .leagues-discover-page .discover-form__row .btn-primary-custom,
-  .leagues-discover-page .discover-form__row .btn-secondary-custom {
-    width: 100%;
-  }
-}
-
-.leagues-discover-page .discover-form__row .landing-form-input {
-  flex: 1;
+.leagues-discover-page .landing-form-input {
   width: 100%;
-  min-width: 0;
-  min-height: 36px;
-  padding: 0.5rem 0.8rem;
+  min-height: 40px;
+  padding: 0.55rem 0.8rem;
   border: 1px solid #d8ddea;
   border-radius: 11px;
   background: #ffffff;
@@ -138,9 +126,53 @@
   box-sizing: border-box;
 }
 
-.leagues-discover-page .discover-form__row .landing-form-input:focus {
+.leagues-discover-page .landing-form-input:focus {
   border-color: #459A41;
   box-shadow: 0 0 0 3px rgba(69, 154, 65, 0.12);
+}
+
+/* ===== BUTTONS ===== */
+
+.leagues-discover-page .btn-primary-custom,
+.leagues-discover-page .btn-secondary-custom {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 40px;
+  padding: 0.55rem 0.85rem;
+  border-radius: 11px;
+  border: none;
+  font-size: 0.84rem;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+  text-align: center;
+}
+
+.leagues-discover-page .btn-primary-custom:hover,
+.leagues-discover-page .btn-secondary-custom:hover {
+  transform: translateY(-1px);
+}
+
+.leagues-discover-page .btn-primary-custom {
+  background: #459A41;
+  color: #ffffff;
+}
+
+.leagues-discover-page .btn-secondary-custom {
+  background: #fff45a;
+  color: #3A3A8B;
+}
+
+/* ===== CREATE BUTTON FIX ===== */
+
+.leagues-discover-page .discover-action-box--highlight .btn-primary-custom {
+  margin-top: auto;
 }
 
 /* ===== TABLE ===== */
@@ -180,7 +212,7 @@
   border-bottom: none;
 }
 
-/* ===== LIGA (FIX PRINCIPAL) ===== */
+/* ===== LEAGUE LINK ===== */
 
 .leagues-discover-page .dashboard-league-link {
   display: inline-flex;
@@ -204,9 +236,6 @@
   height: 34px;
   border-radius: 50%;
   object-fit: cover;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
 }
 
 /* ===== ACTIONS ===== */
@@ -241,70 +270,50 @@
   color: #7a7100;
 }
 
-/* ===== BUTTONS ===== */
+/* ===== STATIC LEAGUE ITEM ===== */
 
-.leagues-discover-page .btn-primary-custom,
-.leagues-discover-page .btn-secondary-custom {
+.dashboard-league-link--static {
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ===== PRIVATE PLACEHOLDER ===== */
+
+.discover-private-placeholder {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 36px;
-  padding: 0.5rem 0.8rem;
-  border-radius: 11px;
-  border: none;
-  font-size: 0.84rem;
-  font-weight: 800;
-  text-decoration: none;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
-}
 
-.leagues-discover-page .btn-primary-custom:hover,
-.leagues-discover-page .btn-secondary-custom:hover {
-  transform: translateY(-1px);
-}
+  min-width: 28px;
 
-.leagues-discover-page .btn-primary-custom {
-  background: #459A41;
-  color: #ffffff;
-  box-shadow: 0 8px 16px rgba(69, 154, 65, 0.2);
-}
+  color: #9ca3af;
 
-.leagues-discover-page .btn-primary-custom:hover {
-  box-shadow: 0 10px 20px rgba(69, 154, 65, 0.25);
-}
-
-.leagues-discover-page .btn-secondary-custom {
-  background: #fff45a;
-  color: #3A3A8B;
-  border: 1px solid rgba(58, 58, 139, 0.15);
-  box-shadow: none;
-}
-
-.leagues-discover-page .btn-secondary-custom:hover {
-  box-shadow: none;
+  font-weight: 700;
+  font-size: 0.9rem;
 }
 
 /* ===== RESPONSIVE ===== */
 
 @media (max-width: 900px) {
-  .leagues-discover-page .leagues-discover-page__cards {
+
+  .leagues-discover-page .discover-actions-grid {
     grid-template-columns: 1fr;
-    gap: 0.75rem;
+    align-items: center;
+    text-align: center;
   }
 
-  .leagues-discover-page .discover-block {
-    min-height: auto;
-    height: auto;
+  .leagues-discover-page .discover-action-box {
+    max-width: 420px;
+    width: 100%;
+    margin: 0 auto;
   }
 
-  .leagues-discover-page .discover-block__text {
-    min-height: auto;
-  }
 }
 
 @media (max-width: 600px) {
-  .leagues-discover-page .leagues-discover-page__cards {
-    grid-template-columns: 1fr;
+
+  .leagues-discover-page .discover-compact-form__actions {
+    flex-direction: column;
   }
+
 }

@@ -1,39 +1,103 @@
 class LeagueMembershipsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_membership
-  before_action :authorize_owner!
 
   def approve
+    unless owner?
+      redirect_to league_path(@league),
+        alert: t("league.errors.owner_only")
+      return
+    end
+
     if @membership.pending? || @membership.rejected?
+
       @membership.update!(status: :approved)
-      redirect_to league_path(@league), notice: "Participante aprovado com sucesso."
+
+      redirect_to league_path(@league),
+        notice: t("league.messages.approved_success")
+
     else
-      redirect_to league_path(@league), alert: "Essa solicitação não pode ser aprovada."
+
+      redirect_to league_path(@league),
+        alert: t("league.errors.cannot_approve")
+
     end
   end
 
   def reject
+    unless owner?
+      redirect_to league_path(@league),
+        alert: t("league.errors.owner_only")
+      return
+    end
+
     if @membership.pending? || @membership.approved?
+
       if owner_membership?(@membership)
-        redirect_to league_path(@league), alert: "O dono da liga não pode ser rejeitado."
+
+        redirect_to league_path(@league),
+          alert: t("league.errors.owner_cannot_reject")
+
         return
       end
 
       @membership.update!(status: :rejected)
-      redirect_to league_path(@league), notice: "Solicitação rejeitada com sucesso."
+
+      redirect_to league_path(@league),
+        notice: t("league.messages.rejected_success")
+
     else
-      redirect_to league_path(@league), alert: "Essa solicitação não pode ser rejeitada."
+
+      redirect_to league_path(@league),
+        alert: t("league.errors.cannot_reject")
+
     end
   end
 
   def remove
-    if owner_membership?(@membership)
-      redirect_to league_path(@league), alert: "O dono da liga não pode ser removido."
+
+    # ===== OWNER REMOVING MEMBER =====
+
+    if owner? && @membership.user != current_user
+
+      if owner_membership?(@membership)
+
+        redirect_to league_path(@league),
+          alert: t("league.errors.owner_cannot_remove")
+
+        return
+      end
+
+      @membership.destroy
+
+      redirect_to league_path(@league),
+        notice: t("league.messages.member_removed")
+
       return
     end
 
-    @membership.destroy
-    redirect_to league_path(@league), notice: "Participante removido com sucesso."
+    # ===== USER LEAVING LEAGUE =====
+
+    if @membership.user == current_user
+
+      if owner_membership?(@membership)
+
+        redirect_to league_path(@league),
+          alert: t("league.errors.owner_cannot_leave")
+
+        return
+      end
+
+      @membership.destroy
+
+      redirect_to leagues_path,
+        notice: t("league.messages.left_successfully")
+
+      return
+    end
+
+    redirect_to league_path(@league),
+      alert: t("league.errors.not_allowed")
   end
 
   private
@@ -43,10 +107,8 @@ class LeagueMembershipsController < ApplicationController
     @league = @membership.league
   end
 
-  def authorize_owner!
-    unless @league.owner == current_user
-      redirect_to league_path(@league), alert: "Apenas o dono da liga pode fazer isso."
-    end
+  def owner?
+    @league.owner == current_user
   end
 
   def owner_membership?(membership)

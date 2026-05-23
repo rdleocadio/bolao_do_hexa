@@ -31,10 +31,10 @@ en:
     open_menu: "Open menu"
     menu: "Menu"
     dashboard: "Dashboard"
-    predictions: "My Predictions"
+    predictions: "Predictions"
     leagues: "My leagues"
     discover_leagues: "Leagues"
-    world_cup_standings: "World Cup Standings"
+    world_cup_standings: "Standings"
     standings: "Standings"
     bracket: "Knockout Stage"
     rules: "Rules"
@@ -116,6 +116,9 @@ en:
       open: "Open"
 
   league:
+    leave: "Leave league"
+    leave_confirm: "Are you sure you want to leave this league?"
+    remove_member_confirm: "Do you want to remove this participant from the league?"
     profile: "League profile"
     your_position: "Your position:"
     code: "League code:"
@@ -127,6 +130,30 @@ en:
     membership:
       pending: "Your request is pending approval."
       rejected: "Your request was rejected."
+    messages:
+      approved_success: "Participant approved successfully."
+      rejected_success: "Request rejected successfully."
+      member_removed: "Participant removed successfully."
+      left_successfully: "You left the league successfully."
+      created_success: "League created successfully."
+      request_sent: "Join request sent successfully."
+      joined_successfully: "You joined the league successfully."
+      updated_success: "League updated successfully."
+      deleted_success: "League deleted successfully."
+      request_resent: "Your request has been resent."
+    errors:
+      owner_only: "Only the league owner can do this."
+      cannot_approve: "This request cannot be approved."
+      cannot_reject: "This request cannot be rejected."
+      owner_cannot_reject: "The league owner cannot be rejected."
+      owner_cannot_remove: "The league owner cannot be removed."
+      owner_cannot_leave: "The league owner cannot leave their own league."
+      not_allowed: "You do not have permission to do this."
+      not_found_by_code: "League not found with this code."
+      cannot_edit: "You do not have permission to edit this league."
+      already_member: "You are already part of this league."
+      request_already_pending: "Your request is already pending."
+      cannot_request_entry: "Could not request entry."
 
   league_edit:
     subtitle: "Update your league name and image."
@@ -152,7 +179,7 @@ en:
       button: "Join"
     search:
       title: "Search leagues"
-      description: "Search by name or code to filter the league list below."
+      description: "Find available public leagues."
       placeholder: "Search by name or code"
       button: "Search"
     list:
@@ -171,7 +198,13 @@ en:
       join: "Join"
       request_entry: "Request entry"
       participate: "Participate"
+      title: "Explore leagues"
+      description: "Search public leagues, join with a code or create your own league."
     empty: "No leagues found with the selected filters."
+    create:
+      title: "Create league"
+      description: "Create your own public or private league and invite your friends."
+      button: "Create league"
 
   matches:
     next_matches: "Upcoming matches"

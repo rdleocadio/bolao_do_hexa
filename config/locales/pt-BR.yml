@@ -116,6 +116,9 @@ pt-BR:
       open: "Aberta"
 
   league:
+    leave: "Sair da liga"
+    leave_confirm: "Tem certeza que deseja sair desta liga?"
+    remove_member_confirm: "Deseja remover este participante da liga?"
     profile: "Perfil da liga"
     your_position: "Sua posição:"
     code: "Código Liga:"
@@ -127,6 +130,30 @@ pt-BR:
     membership:
       pending: "Sua solicitação está pendente de aprovação."
       rejected: "Sua solicitação foi recusada."
+    messages:
+      approved_success: "Participante aprovado com sucesso."
+      rejected_success: "Solicitação rejeitada com sucesso."
+      member_removed: "Participante removido com sucesso."
+      left_successfully: "Você saiu da liga com sucesso."
+      created_success: "Liga criada com sucesso."
+      request_sent: "Solicitação de entrada enviada com sucesso."
+      joined_successfully: "Você entrou na liga com sucesso."
+      updated_success: "Liga atualizada com sucesso."
+      deleted_success: "Liga excluída com sucesso."
+      request_resent: "Sua solicitação foi reenviada."
+    errors:
+      owner_only: "Apenas o dono da liga pode fazer isso."
+      cannot_approve: "Essa solicitação não pode ser aprovada."
+      cannot_reject: "Essa solicitação não pode ser rejeitada."
+      owner_cannot_reject: "O dono da liga não pode ser rejeitado."
+      owner_cannot_remove: "O dono da liga não pode ser removido."
+      owner_cannot_leave: "O dono da liga não pode sair da própria liga."
+      not_allowed: "Você não tem permissão para fazer isso."
+      not_found_by_code: "Liga não encontrada com esse código."
+      cannot_edit: "Você não tem permissão para alterar esta liga."
+      already_member: "Você já participa desta liga."
+      request_already_pending: "Sua solicitação já está pendente."
+      cannot_request_entry: "Não foi possível solicitar entrada."
 
   league_edit:
     subtitle: "Atualize o nome e a imagem da sua liga."
@@ -152,7 +179,7 @@ pt-BR:
       button: "Entrar"
     search:
       title: "Pesquisar ligas"
-      description: "Busque por nome ou código para filtrar a lista de ligas abaixo."
+      description: "Encontre ligas públicas disponíveis."
       placeholder: "Buscar por nome ou código"
       button: "Buscar"
     list:
@@ -171,7 +198,13 @@ pt-BR:
       join: "Entrar"
       request_entry: "Solicitar entrada"
       participate: "Participar"
+      title: "Explorar ligas"
+      description: "Pesquise ligas públicas, entre com um código ou crie sua própria liga."
     empty: "Nenhuma liga encontrada com os filtros informados."
+    create:
+      title: "Criar liga"
+      description: "Monte sua própria liga privada ou pública e convide seus amigos."
+      button: "Criar liga"
 
   matches:
     next_matches: "Próximos jogos"

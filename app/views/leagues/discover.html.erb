@@ -1,40 +1,41 @@
 <section class="page-section leagues-discover-page">
-  <div class="app-card discover-page-card">
 
-    <div class="leagues-discover-page__cards">
-      <div class="app-card discover-block">
-        <h2 class="discover-block__title"><%= t("discover.join_with_code.title") %></h2>
+  <!-- ACTIONS CARD -->
+  <div class="app-card discover-actions-card">
 
-        <p class="discover-block__text">
-          <%= t("discover.join_with_code.description") %>
-        </p>
+    <div class="discover-actions-card__header">
 
-        <%= form_with url: join_by_code_leagues_path, method: :post, local: true, class: "discover-form" do %>
-          <div class="discover-form__row">
-            <%= text_field_tag :code,
-                  nil,
-                  class: "landing-form-input",
-                  placeholder: t("discover.join_with_code.placeholder") %>
+      <h1 class="discover-actions-card__title">
+        <%= t("discover.actions.title") %>
+      </h1>
 
-            <%= submit_tag t("discover.join_with_code.button"),
-                  class: "btn-primary-custom" %>
-          </div>
-        <% end %>
-      </div>
+      <p class="discover-actions-card__text">
+        <%= t("discover.actions.description") %>
+      </p>
 
-      <div class="app-card discover-block">
-        <h2 class="discover-block__title"><%= t("discover.search.title") %></h2>
+    </div>
 
-        <p class="discover-block__text">
-          <%= t("discover.search.description") %>
-        </p>
+    <div class="discover-actions-grid">
 
-        <%= form_with url: discover_leagues_path, method: :get, local: true, class: "discover-form" do %>
-          <div class="discover-form__row">
-            <%= text_field_tag :query,
-                  @query,
-                  class: "landing-form-input",
-                  placeholder: t("discover.search.placeholder") %>
+      <!-- SEARCH -->
+      <div class="discover-action-box">
+
+        <div class="discover-action-box__content">
+          <h2><%= t("discover.search.title") %></h2>
+          <p><%= t("discover.search.description") %></p>
+        </div>
+
+        <%= form_with url: discover_leagues_path,
+              method: :get,
+              local: true,
+              class: "discover-compact-form" do %>
+
+          <%= text_field_tag :query,
+                @query,
+                class: "landing-form-input",
+                placeholder: t("discover.search.placeholder") %>
+
+          <div class="discover-compact-form__actions">
 
             <%= submit_tag t("discover.search.button"),
                   class: "btn-primary-custom" %>
@@ -42,21 +43,83 @@
             <%= link_to t("filters.clear"),
                   discover_leagues_path,
                   class: "btn-secondary-custom" %>
+
           </div>
+
         <% end %>
       </div>
+
+      <!-- JOIN -->
+      <div class="discover-action-box">
+
+        <div class="discover-action-box__content">
+
+          <h2><%= t("discover.join_with_code.title") %></h2>
+
+          <p>
+            <%= t("discover.join_with_code.description") %>
+          </p>
+
+        </div>
+
+        <%= form_with url: join_by_code_leagues_path,
+              method: :post,
+              local: true,
+              class: "discover-compact-form" do %>
+
+          <%= text_field_tag :code,
+                nil,
+                class: "landing-form-input",
+                placeholder: t("discover.join_with_code.placeholder") %>
+
+          <%= submit_tag t("discover.join_with_code.button"),
+                class: "btn-secondary-custom w-100" %>
+
+        <% end %>
+      </div>
+
+      <!-- CREATE -->
+      <div class="discover-action-box discover-action-box--highlight">
+
+        <div class="discover-action-box__content">
+
+          <h2><%= t("discover.create.title") %></h2>
+
+          <p>
+            <%= t("discover.create.description") %>
+          </p>
+
+        </div>
+
+        <%= link_to t("discover.create.button"),
+              new_league_path,
+              class: "btn-primary-custom w-100" %>
+
+      </div>
+
     </div>
+
   </div>
 
+  <!-- LIST -->
   <div class="app-card discover-list-card">
+
     <div class="discover-list-card__header">
-      <p class="dashboard-section__eyebrow"><%= t("discover.list.title") %></p>
+
+      <p class="dashboard-section__eyebrow">
+        <%= t("discover.list.title") %>
+      </p>
+
     </div>
 
     <% if @leagues.any? %>
+
       <div class="table-responsive">
+
         <table class="dashboard-leagues-table discover-leagues-table">
+
           <thead>
+
             <tr>
               <th><%= t("discover.table.name") %></th>
               <th><%= t("discover.table.type") %></th>
@@ -64,96 +127,140 @@
               <th><%= t("discover.table.creator") %></th>
               <th><%= t("discover.table.action") %></th>
             </tr>
+
           </thead>
 
           <tbody>
+
             <% @leagues.each do |league| %>
+
               <% membership = league.league_memberships.find { |m| m.user_id == current_user.id } %>
+
               <% approved_count = league.league_memberships.count(&:approved?) %>
 
               <tr>
+
+                <!-- NAME -->
+
                 <td>
-                  <%= link_to league_path(league), class: "dashboard-league-link" do %>
+
+                  <div class="dashboard-league-link dashboard-league-link--static">
+
                     <span class="dashboard-league-avatar">
+
                       <% if league.image.attached? %>
+
                         <%= image_tag league.image, alt: league.name %>
+
                       <% else %>
+
                         <span class="dashboard-league-avatar-placeholder">
                           <%= league.name.first.upcase %>
                         </span>
+
                       <% end %>
+
                     </span>
 
                     <span><%= league.name %></span>
-                  <% end %>
+
+                  </div>
+
                 </td>
 
+                <!-- TYPE -->
+
                 <td>
+
                   <% if league.private? %>
+
                     <span class="badge bg-warning">
                       <%= t("leagues.status.private") %>
                     </span>
+
                   <% else %>
+
                     <span class="badge bg-success">
                       <%= t("leagues.status.open") %>
                     </span>
+
                   <% end %>
+
                 </td>
 
+                <!-- PARTICIPANTS -->
+
                 <td>
+
                   <span class="dashboard-position-badge">
                     <%= approved_count %>
                   </span>
+
                 </td>
+
+                <!-- CREATOR -->
 
                 <td>
                   <%= league.owner.name.presence || league.owner.email %>
                 </td>
 
+                <!-- ACTION -->
+
                 <td>
+
                   <div class="discover-action-cell">
-                    <% if membership.present? %>
 
-                      <% if membership.approved? %>
-                        <span class="discover-status discover-status--approved">
-                          <%= t("discover.status.already_joined") %>
-                        </span>
+                    <% if membership&.approved? %>
 
-                      <% elsif membership.pending? %>
-                        <span class="discover-status discover-status--pending">
-                          <%= t("discover.status.pending") %>
-                        </span>
+                      <span class="discover-status discover-status--approved">
+                        <%= t("discover.status.already_joined") %>
+                      </span>
 
-                      <% elsif membership.rejected? %>
-                        <%= button_to(
-                              league.private? ? t("discover.actions.request_again") : t("discover.actions.join"),
-                              join_league_path(league),
-                              method: :post,
-                              class: "btn-secondary-custom"
-                            ) %>
-                      <% end %>
+                    <% elsif membership&.pending? %>
+
+                      <span class="discover-status discover-status--pending">
+                        <%= t("discover.status.pending") %>
+                      </span>
+
+                    <% elsif league.private? %>
+
+                      <span class="discover-private-placeholder">
+                        -
+                      </span>
 
                     <% else %>
 
                       <%= button_to(
-                            league.private? ? t("discover.actions.request_entry") : t("discover.actions.participate"),
+                            t("discover.actions.participate"),
                             join_league_path(league),
                             method: :post,
                             class: "btn-primary-custom"
                           ) %>
 
                     <% end %>
+
                   </div>
+
                 </td>
+
               </tr>
+
             <% end %>
+
           </tbody>
+
         </table>
+
       </div>
+
     <% else %>
+
       <div class="dashboard-empty-state">
         <p><%= t("discover.empty") %></p>
       </div>
+
     <% end %>
+
   </div>
+
 </section>
