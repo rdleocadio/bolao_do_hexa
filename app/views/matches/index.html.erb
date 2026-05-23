@@ -188,37 +188,41 @@
 
               <div class="match-card__footer">
                 <% unless locked %>
+
                   <div class="match-card__actions">
+
                     <%= f.submit prediction.persisted? ? t("predictions.update") : t("predictions.save"),
                           class: "btn btn-primary" %>
+
+                    <% if prediction.persisted? %>
+                      <%= button_to t("predictions.clear"),
+                            prediction_path(prediction),
+                            method: :delete,
+                            params: {
+                              return_to: request.fullpath
+                            },
+                            form: {
+                              data: { turbo: false },
+                              class: "match-card__delete-form",
+                              onsubmit: "return confirm('#{t("predictions.confirm_clear")}');"
+                            },
+                            class: "btn btn-secondary" %>
+                    <% end %>
+
                   </div>
+
                 <% else %>
+
                   <span class="match-card__locked-message">
                     <%= t("predictions.closed_for_match") %>
                   </span>
+
                 <% end %>
               </div>
 
-            </div>
+              </div>
 
-          <% end %>
-
-          <% if prediction.persisted? && !locked %>
-            <div class="match-card__actions">
-              <%= button_to t("predictions.clear"),
-                    prediction_path(prediction),
-                    method: :delete,
-                    params: {
-                      return_to: request.fullpath
-                    },
-                    form: {
-                      data: { turbo: false },
-                      class: "match-card__delete-form",
-                      onsubmit: "return confirm('#{t("predictions.confirm_clear")}');"
-                    },
-                    class: "btn btn-secondary" %>
-            </div>
-          <% end %>
+              <% end %>
 
         </article>
       <% end %>

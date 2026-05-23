@@ -216,7 +216,6 @@
   flex-shrink: 0;
   background: #f8fafc;
   border: 1px solid rgba(15, 23, 42, 0.08);
-  box-shadow: none;
 }
 
 .match-card__flag img {
@@ -239,7 +238,6 @@
   font-size: 0.7rem;
   font-weight: 900;
   text-transform: uppercase;
-  box-shadow: none;
 }
 
 .match-card__input {
@@ -340,11 +338,21 @@
   justify-content: center;
   align-items: center;
   gap: 0.65rem;
+  width: 100%;
   flex-wrap: wrap;
 }
 
+.match-card__actions form {
+  margin: 0;
+}
+
 .match-card__actions .btn {
-  min-width: 125px;
+  min-width: 170px;
+  max-width: 220px;
+}
+
+.match-card__actions form .btn {
+  width: 100%;
 }
 
 .match-card__locked-message {
@@ -588,11 +596,17 @@
   }
 
   .match-card__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .match-card__actions .btn,
+  .match-card__actions form {
     width: 100%;
+    max-width: 100%;
   }
 
   .match-card__actions .btn {
-    width: 100%;
     min-width: 100%;
   }
 
