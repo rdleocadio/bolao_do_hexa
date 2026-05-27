@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  before_action :normalize_locale
   before_action :set_locale
   before_action :configure_permitted_parameters, if: :devise_controller?
 
@@ -11,8 +12,19 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def normalize_locale
+    return unless params[:locale] == "pt-br"
+
+    redirect_to url_for(locale: "pt-BR"), status: :moved_permanently
+  end
+
   def set_locale
-    I18n.locale = params[:locale].presence || I18n.default_locale
+    I18n.locale =
+      if params[:locale].present?
+        params[:locale].to_s.gsub("pt-br", "pt-BR")
+      else
+        I18n.default_locale
+      end
   end
 
   def default_url_options

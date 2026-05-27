@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  scope "(:locale)", locale: /pt-BR|en/ do
+  scope "(:locale)", locale: /pt-BR|pt-br|en/ do
     devise_for :users, controllers: {
       sessions: "users/sessions",
       registrations: "users/registrations"
