@@ -302,8 +302,11 @@ class LeaguesController < ApplicationController
   end
 
   def partial_score?(home_prediction, away_prediction, home_real, away_real)
-    home_prediction == home_real ||
-      away_prediction == away_real
+    winner_or_draw?(home_prediction, away_prediction, home_real, away_real) &&
+      (
+        home_prediction == home_real ||
+        away_prediction == away_real
+      )
   end
 
   def winner_or_draw?(home_prediction, away_prediction, home_real, away_real)
