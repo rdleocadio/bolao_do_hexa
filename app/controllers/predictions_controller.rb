@@ -24,6 +24,7 @@ class PredictionsController < ApplicationController
 
   def update
     match = @prediction.match
+    prediction_params = update_prediction_params
 
     if match.locked? || match.finished?
       redirect_to return_to_match_path(match),
@@ -31,7 +32,13 @@ class PredictionsController < ApplicationController
       return
     end
 
-    if @prediction.update(update_prediction_params)
+    if prediction_params[:predicted_home_score].blank? || prediction_params[:predicted_away_score].blank?
+      redirect_to return_to_match_path(match),
+                  alert: "Preencha os dois placares antes de atualizar o palpite."
+      return
+    end
+
+    if @prediction.update(prediction_params)
       redirect_to return_to_match_path(match),
                   notice: "Palpite atualizado com sucesso."
     else
