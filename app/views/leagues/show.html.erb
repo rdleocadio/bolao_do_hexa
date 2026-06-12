@@ -180,6 +180,7 @@ end %>
               <th><%= t("ranking.position") %></th>
               <th><%= t("ranking.participant") %></th>
               <th><%= t("ranking.points") %></th>
+              <th>Próximo palpite</th>
               <th><%= t("ranking.exact_score") %></th>
               <th><%= t("ranking.partial_score") %></th>
               <th><%= t("ranking.winner_draw") %></th>
@@ -242,6 +243,31 @@ end %>
                 </td>
 
                 <td><strong><%= entry[:points].to_i %></strong></td>
+
+                <td>
+                  <% prediction = @locked_predictions_by_user_id&.[](entry[:user].id) %>
+
+                  <% if @locked_match.present? && prediction.present? %>
+                    <div class="ranking-locked-prediction">
+                      <%= image_tag @locked_match.home_team_flag_url,
+                            alt: @locked_match.home_team_name,
+                            class: "ranking-locked-prediction__flag" %>
+
+                      <strong>
+                        <%= prediction.predicted_home_score %>
+                        x
+                        <%= prediction.predicted_away_score %>
+                      </strong>
+
+                      <%= image_tag @locked_match.away_team_flag_url,
+                            alt: @locked_match.away_team_name,
+                            class: "ranking-locked-prediction__flag" %>
+                    </div>
+                  <% else %>
+                    -
+                  <% end %>
+                </td>
+
                 <td><%= entry[:exact_scores].to_i %></td>
                 <td><%= entry[:partial_scores].to_i %></td>
                 <td><%= entry[:winners].to_i %></td>

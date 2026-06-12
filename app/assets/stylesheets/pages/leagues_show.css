@@ -161,6 +161,31 @@
   background: rgba(58, 58, 139, 0.03);
 }
 
+/* ===== LOCKED PREDICTION ===== */
+
+.ranking-locked-prediction {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.ranking-locked-prediction__flag {
+  width: 24px;
+  height: 16px;
+
+  object-fit: cover;
+
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.16);
+}
+
+.ranking-locked-prediction strong {
+  min-width: 34px;
+  text-align: center;
+}
+
 /* ===== USER INLINE ===== */
 
 .user-inline,
@@ -374,6 +399,21 @@
   .dashboard-leagues-table td {
     padding: 7px 6px;
     white-space: nowrap;
+  }
+
+  /* ===== LOCKED PREDICTION ===== */
+
+  .ranking-locked-prediction {
+    gap: 4px;
+  }
+
+  .ranking-locked-prediction__flag {
+    width: 20px;
+    height: 14px;
+  }
+
+  .ranking-locked-prediction strong {
+    min-width: 30px;
   }
 
   /* ===== PENDING ===== */

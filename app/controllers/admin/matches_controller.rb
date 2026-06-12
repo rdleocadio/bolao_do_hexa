@@ -62,7 +62,11 @@ module Admin
     end
 
     def reopen
-      @match.update!(locked_at: nil)
+      @match.update!(
+        locked_at: 30.minutes.from_now,
+        kickoff_at: 30.minutes.from_now
+      )
+
       redirect_to admin_matches_path(index_filters), notice: "Palpites reabertos para este jogo."
     end
 
