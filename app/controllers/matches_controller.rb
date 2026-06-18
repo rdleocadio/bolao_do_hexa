@@ -10,7 +10,11 @@ class MatchesController < ApplicationController
   private
 
   def filtered_matches
-    matches = Match.includes(:predictions).ordered
+    matches = Match
+      .includes(:home_team_record, :away_team_record)
+      .ordered
+
+    matches = matches.where(home_score: nil, away_score: nil)
 
     matches = matches.where(stage: params[:stage]) if params[:stage].present?
     matches = matches.where(group_code: params[:group]) if params[:group].present?
@@ -31,7 +35,8 @@ class MatchesController < ApplicationController
     case params[:prediction_status]
     when "with_prediction"
       matches = if matches.is_a?(Array)
-                  matches.select { |match| predicted_match_ids.map(&:match_id).include?(match.id) }
+                  predicted_ids = current_user.predictions.pluck(:match_id)
+                  matches.select { |match| predicted_ids.include?(match.id) }
                 else
                   matches.where(id: predicted_match_ids)
                 end

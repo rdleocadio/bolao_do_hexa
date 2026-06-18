@@ -23,10 +23,12 @@ class LeaguesController < ApplicationController
       .to_h
 
     @upcoming_matches_without_predictions = Match
-      .where("locked_at >= ?", Time.current)
+      .includes(:home_team_record, :away_team_record)
+      .where(home_score: nil, away_score: nil)
+      .where("locked_at IS NULL OR locked_at >= ?", Time.current)
       .where.not(id: current_user.predictions.select(:match_id))
-      .order(:locked_at)
-      .limit(5)
+      .order(:kickoff_at)
+      .limit(2)
   end
 
   def discover
