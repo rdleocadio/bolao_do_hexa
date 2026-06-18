@@ -7,27 +7,20 @@ class LeaguesController < ApplicationController
     @user = current_user
 
     @leagues = League.joins(:league_memberships)
-                     .where(league_memberships: {
-                       user_id: current_user.id,
-                       status: LeagueMembership.statuses[:approved]
-                     })
-                     .includes(:owner, :league_memberships)
-                     .distinct
+                      .where(league_memberships: {
+                        user_id: current_user.id,
+                        status: LeagueMembership.statuses[:approved]
+                      })
+                      .includes(:owner, image_attachment: :blob)
+                      .distinct
 
     @predictions = current_user.predictions.includes(:match)
     @total_points = @predictions.sum(&:points)
 
-    @league_positions = {}
-
-    @leagues.each do |league|
-      ranking = build_league_ranking(league)
-
-      position = ranking.find_index do |entry|
-        entry[:user].id == current_user.id
-      end
-
-      @league_positions[league.id] = position.present? ? position + 1 : "-"
-    end
+    @league_positions = LeagueRanking
+      .where(league_id: @leagues.select(:id), user_id: current_user.id)
+      .pluck(:league_id, :position)
+      .to_h
 
     @upcoming_matches_without_predictions = Match
       .where("locked_at >= ?", Time.current)

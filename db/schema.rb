@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_05_12_020049) do
+ActiveRecord::Schema[7.1].define(version: 2026_06_18_131750) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -68,6 +68,23 @@ ActiveRecord::Schema[7.1].define(version: 2026_05_12_020049) do
     t.datetime "updated_at", null: false
     t.index ["league_id"], name: "index_league_memberships_on_league_id"
     t.index ["user_id"], name: "index_league_memberships_on_user_id"
+  end
+
+  create_table "league_rankings", force: :cascade do |t|
+    t.bigint "league_id", null: false
+    t.bigint "user_id", null: false
+    t.integer "points", default: 0, null: false
+    t.integer "exact_scores", default: 0, null: false
+    t.integer "partial_scores", default: 0, null: false
+    t.integer "winners", default: 0, null: false
+    t.integer "misses", default: 0, null: false
+    t.integer "position", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["league_id", "position"], name: "index_league_rankings_on_league_id_and_position"
+    t.index ["league_id", "user_id"], name: "index_league_rankings_on_league_id_and_user_id", unique: true
+    t.index ["league_id"], name: "index_league_rankings_on_league_id"
+    t.index ["user_id"], name: "index_league_rankings_on_user_id"
   end
 
   create_table "leagues", force: :cascade do |t|
@@ -142,6 +159,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_05_12_020049) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "league_memberships", "leagues"
   add_foreign_key "league_memberships", "users"
+  add_foreign_key "league_rankings", "leagues"
+  add_foreign_key "league_rankings", "users"
   add_foreign_key "leagues", "users", column: "owner_id"
   add_foreign_key "matches", "teams", column: "away_team_id"
   add_foreign_key "matches", "teams", column: "home_team_id"

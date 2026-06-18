@@ -132,7 +132,7 @@
 
                 <td>
                   <span class="leagues-dashboard__position-badge">
-                    <%= t("rankings.ordinal", position: @league_positions[league.id]) %>
+                    <%= @league_positions[league.id].present? ? t("rankings.ordinal", position: @league_positions[league.id]) : "-" %>
                   </span>
                 </td>
 

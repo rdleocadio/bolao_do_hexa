@@ -66,4 +66,15 @@ Rails.application.configure do
 
   # Raise error quando callbacks inválidos
   config.action_controller.raise_on_missing_callback_actions = true
+
+  # config/environments/development.rb
+
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.alert = true
+    Bullet.bullet_logger = true
+    Bullet.console = true
+    Bullet.rails_logger = true
+    Bullet.add_footer = true
+  end
 end

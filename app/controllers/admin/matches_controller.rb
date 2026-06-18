@@ -31,6 +31,8 @@ module Admin
       sync_team_names_from_records
 
       if @match.save
+        refresh_league_rankings
+
         redirect_to admin_matches_path, notice: "Jogo atualizado com sucesso."
       else
         render :edit, status: :unprocessable_entity
@@ -137,6 +139,8 @@ module Admin
         end
       end
 
+      refresh_league_rankings
+
       redirect_to admin_matches_path, notice: "Jogos atualizados com sucesso."
     rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotFound
       redirect_to bulk_edit_admin_matches_path(
@@ -181,6 +185,12 @@ module Admin
         stage: params[:stage],
         group_code: params[:group_code]
       }.compact_blank
+    end
+
+    def refresh_league_rankings
+      League.find_each do |league|
+        Leagues::RankingUpdater.new(league).call
+      end
     end
   end
 end
