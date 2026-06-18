@@ -15,6 +15,7 @@ module Admin
     def create
       @match = Match.new(match_params)
       sync_team_names_from_records
+      assign_default_locked_at(@match)
 
       if @match.save
         redirect_to admin_matches_path, notice: "Jogo criado com sucesso."
@@ -29,6 +30,7 @@ module Admin
     def update
       @match.assign_attributes(match_params)
       sync_team_names_from_records
+      assign_default_locked_at(@match)
 
       if @match.save
         refresh_league_rankings
@@ -60,13 +62,16 @@ module Admin
 
     def lock_now
       @match.update!(locked_at: Time.current)
+
       redirect_to admin_matches_path(index_filters), notice: "Palpites travados para este jogo."
     end
 
     def reopen
+      new_kickoff_at = 30.minutes.from_now
+
       @match.update!(
-        locked_at: 30.minutes.from_now,
-        kickoff_at: 30.minutes.from_now
+        kickoff_at: new_kickoff_at,
+        locked_at: new_kickoff_at - 15.minutes
       )
 
       redirect_to admin_matches_path(index_filters), notice: "Palpites reabertos para este jogo."
@@ -88,12 +93,16 @@ module Admin
 
       Match.transaction do
         quantity.times do |index|
-          Match.create!(
+          match = Match.new(
             stage: stage,
             home_team: "A definir",
             away_team: "A definir",
             kickoff_at: kickoff_at + (interval_minutes * index).minutes
           )
+
+          assign_default_locked_at(match)
+
+          match.save!
         end
       end
 
@@ -134,6 +143,8 @@ module Admin
 
           match.home_team = match.home_team_record&.name || "A definir"
           match.away_team = match.away_team_record&.name || "A definir"
+
+          assign_default_locked_at(match)
 
           match.save!
         end
@@ -191,6 +202,13 @@ module Admin
       League.find_each do |league|
         Leagues::RankingUpdater.new(league).call
       end
+    end
+
+    def assign_default_locked_at(match)
+      return if match.locked_at.present?
+      return if match.kickoff_at.blank?
+
+      match.locked_at = match.kickoff_at - 15.minutes
     end
   end
 end
