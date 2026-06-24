@@ -127,6 +127,7 @@ en:
     request_entry: "Request entry"
     pending_requests: "Pending requests"
     no_pending_requests: "There are no pending requests at the moment."
+    share_whatsapp: "Share on WhatsApp"
     membership:
       pending: "Your request is pending approval."
       rejected: "Your request was rejected."

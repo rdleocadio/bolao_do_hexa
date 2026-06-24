@@ -18,6 +18,55 @@
   ]
 end %>
 
+<% share_lines = [] %>
+
+<% share_lines << "*#{@league.name.upcase}*" %>
+<% share_lines << "" %>
+<% share_lines << "*#{t("ranking.title").upcase}*" %>
+<% share_lines << "" %>
+
+<% sorted_ranking.each_with_index do |entry, index| %>
+  <% user_name = entry[:user].name.presence || entry[:user].email %>
+  <% predictions_text = [] %>
+
+  <% if @locked_matches.present? %>
+    <% @locked_matches.each do |locked_match| %>
+      <% prediction = @locked_predictions_by_user_and_match_id&.[]([entry[:user].id, locked_match.id]) %>
+
+      <% if prediction.present? %>
+        <% predictions_text << "#{locked_match.home_team_name} #{prediction.predicted_home_score} x #{prediction.predicted_away_score} #{locked_match.away_team_name}" %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%
+    position_label =
+      case index
+      when 0 then "1º"
+      when 1 then "2º"
+      when 2 then "3º"
+      else "#{index + 1}º"
+      end
+  %>
+
+  <% share_lines << "#{position_label} #{user_name} — #{entry[:points].to_i} pts" %>
+
+  <% if predictions_text.any? %>
+    <% predictions_text.each do |prediction_text| %>
+      <% share_lines << "↳ #{prediction_text}" %>
+    <% end %>
+  <% else %>
+    <% share_lines << "↳ ---- " %>
+  <% end %>
+
+  <% share_lines << "" %>
+<% end %>
+
+<% share_lines << "Acompanhe no Bolão Canarinho:" %>
+<% share_lines << league_url(@league, host: "www.bolaocanarinho.com", protocol: "https") %>
+
+<% whatsapp_share_url = "https://wa.me/?text=#{ERB::Util.url_encode(share_lines.join("\n"))}" %>
+
 <section class="page-section">
 
   <!-- HERO -->
@@ -135,6 +184,12 @@ end %>
             class: "btn-primary-custom" %>
 
       <% end %>
+
+      <%= link_to t("league.share_whatsapp"),
+          whatsapp_share_url,
+          target: "_blank",
+          rel: "noopener",
+          class: "btn-secondary-custom" %>
 
       <%= link_to t("leagues.title"),
           leagues_path,

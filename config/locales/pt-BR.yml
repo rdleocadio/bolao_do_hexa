@@ -127,6 +127,7 @@ pt-BR:
     request_entry: "Solicitar entrada"
     pending_requests: "Solicitações pendentes"
     no_pending_requests: "Nenhuma solicitação pendente no momento."
+    share_whatsapp: "Compartilhar no WhatsApp"
     membership:
       pending: "Sua solicitação está pendente de aprovação."
       rejected: "Sua solicitação foi recusada."
