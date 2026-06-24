@@ -264,6 +264,7 @@ pt-BR:
     position: "Pos"
     participant: "Participante"
     points: "Pontos"
+    next_prediction: "Próximo palpite"
     exact_score: "Resultado exato"
     partial_score: "Resultado parcial"
     winner_draw: "Vencedor/empate"

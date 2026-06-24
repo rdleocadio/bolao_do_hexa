@@ -264,6 +264,7 @@ en:
     position: "Pos"
     participant: "Participant"
     points: "Points"
+    next_prediction: "Next prediction"
     exact_score: "Exact score"
     partial_score: "Partial score"
     winner_draw: "Winner/draw"

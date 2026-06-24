@@ -403,17 +403,29 @@
 
   /* ===== LOCKED PREDICTION ===== */
 
-  .ranking-locked-prediction {
+  .ranking-locked-predictions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 4px;
   }
 
+  .ranking-locked-prediction {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 4px;
+    font-size: 0.7rem;
+  }
+
   .ranking-locked-prediction__flag {
-    width: 20px;
-    height: 14px;
+    width: 18px;
+    height: 12px;
   }
 
   .ranking-locked-prediction strong {
-    min-width: 30px;
+    min-width: 28px;
+    text-align: center;
   }
 
   /* ===== PENDING ===== */

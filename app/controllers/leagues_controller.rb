@@ -59,21 +59,32 @@ class LeaguesController < ApplicationController
 
     @ranking = build_league_ranking(@league)
 
-    @locked_match = Match
+    first_locked_match = Match
       .where(home_score: nil)
       .where(away_score: nil)
       .where("locked_at <= :now OR kickoff_at <= :now", now: Time.current)
       .ordered
       .first
 
-    @locked_predictions_by_user_id = {}
+    @locked_matches = Match.none
 
-    if @locked_match.present?
+    if first_locked_match.present?
+      @locked_matches = Match
+        .where(home_score: nil)
+        .where(away_score: nil)
+        .where(kickoff_at: first_locked_match.kickoff_at)
+        .where("locked_at <= :now OR kickoff_at <= :now", now: Time.current)
+        .ordered
+    end
+
+    @locked_predictions_by_user_and_match_id = {}
+
+    if @locked_matches.any?
       user_ids = @ranking.map { |entry| entry[:user].id }
 
-      @locked_predictions_by_user_id = Prediction
-        .where(match: @locked_match, user_id: user_ids)
-        .index_by(&:user_id)
+      @locked_predictions_by_user_and_match_id = Prediction
+        .where(user_id: user_ids, match_id: @locked_matches.select(:id))
+        .index_by { |prediction| [prediction.user_id, prediction.match_id] }
     end
 
     @current_membership = @league.league_memberships.find_by(user: current_user)
