@@ -40,6 +40,17 @@
     </div>
   </div>
 
+  <div class="leagues-dashboard__playoffs-alert-card">
+    <div class="leagues-dashboard__playoffs-alert-icon">
+      ⚠️
+    </div>
+
+    <div class="leagues-dashboard__playoffs-alert-content">
+      <h2><%= t("dashboard.playoffs_alert.title") %></h2>
+      <p><%= t("dashboard.playoffs_alert.description") %></p>
+    </div>
+  </div>
+
   <% if @upcoming_matches_without_predictions.present? && @upcoming_matches_without_predictions.any? %>
     <div class="leagues-dashboard__upcoming-card">
       <div class="leagues-dashboard__upcoming-header">

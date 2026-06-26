@@ -92,6 +92,9 @@ en:
     upcoming_without_predictions:
       title: "Upcoming matches without predictions"
       description: "You can submit predictions up to 15 minutes before each match starts."
+    playoffs_alert:
+      title: "Knockout stage attention"
+      description: "In knockout stage matches (playoffs), the result used for scoring will be the final result after the 90 minutes of regular time."
 
   leagues:
     title: "My leagues"

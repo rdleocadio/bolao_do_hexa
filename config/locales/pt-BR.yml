@@ -92,6 +92,9 @@ pt-BR:
     upcoming_without_predictions:
       title: "Próximos jogos sem palpites"
       description: "É possível palpitar até 15 minutos antes do início de cada partida."
+    playoffs_alert:
+      title: "Atenção aos jogos de mata-mata"
+      description: "Nas partidas de mata-mata (playoffs), o resultado computado para pontuação será o resultado final dos 90 minutos jogados no tempo regular."
 
   leagues:
     title: "Minhas ligas"
