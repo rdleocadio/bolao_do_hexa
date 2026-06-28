@@ -36,7 +36,7 @@
 
     <div class="bracket-match-card__scores">
       <span title="<%= t("predictions.user_prediction") %>">
-        <%= prediction&.home_score.present? ? prediction.home_score : "-" %>
+        <%= prediction&.predicted_home_score.present? ? prediction.predicted_home_score : "-" %>
       </span>
 
       <strong title="<%= t("matches.official_score") %>">
@@ -56,7 +56,7 @@
 
     <div class="bracket-match-card__scores">
       <span title="<%= t("predictions.user_prediction") %>">
-        <%= prediction&.away_score.present? ? prediction.away_score : "-" %>
+        <%= prediction&.predicted_away_score.present? ? prediction.predicted_away_score : "-" %>
       </span>
 
       <strong title="<%= t("matches.official_score") %>">
